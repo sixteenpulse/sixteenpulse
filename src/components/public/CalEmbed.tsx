@@ -6,9 +6,12 @@ export function CalEmbed({ profileUrl }: { profileUrl: string }) {
     const [isLoading, setIsLoading] = useState(true);
 
     return (
-        <div className="relative w-full overflow-hidden rounded-xl border border-stone-200 bg-white" style={{ minHeight: "650px" }}>
+        <div 
+            className="w-full rounded-xl border border-stone-200 bg-white overflow-hidden shadow-sm"
+            style={{ height: "800px", WebkitOverflowScrolling: "touch" }}
+        >
             {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-stone-50">
+                <div className="flex h-full w-full items-center justify-center bg-stone-50">
                     <div className="flex flex-col items-center gap-3">
                         <div className="w-8 h-8 border-4 border-stone-200 border-t-stone-900 rounded-full animate-spin"></div>
                         <p className="text-sm font-medium text-stone-500">Loading Calendar...</p>
@@ -18,9 +21,8 @@ export function CalEmbed({ profileUrl }: { profileUrl: string }) {
             
             <iframe
                 src={profileUrl}
-                width="100%"
-                height="100%"
-                className="absolute inset-0 w-full h-full border-none"
+                className="w-full h-full border-none"
+                style={{ display: isLoading ? 'none' : 'block' }}
                 onLoad={() => setIsLoading(false)}
                 allowFullScreen
             ></iframe>
