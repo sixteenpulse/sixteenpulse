@@ -68,34 +68,29 @@ async function BookingsTabs({ tenantId, q, statusFilter }: { tenantId: string, q
 
     const now = new Date();
 
-    // Use a single aggregate/group query for performance
-    const [statusCounts, cancelledCount] = await Promise.all([
-        prisma.booking.groupBy({
-            by: ["status"],
-            where: { tenant_id: tenantId, ...ef },
-            _count: { id: true }
-        }),
+    const [cancelledCount, countCompleted, countScheduled] = await Promise.all([
         prisma.booking.count({
             where: { tenant_id: tenantId, status: "CANCELLED", ...ef }
+        }),
+        prisma.booking.count({
+            where: {
+                tenant_id: tenantId,
+                ...ef,
+                OR: [
+                    { status: "COMPLETED" },
+                    { status: "SCHEDULED", end_time: { lt: now } }
+                ]
+            }
+        }),
+        prisma.booking.count({
+            where: {
+                tenant_id: tenantId,
+                status: "SCHEDULED",
+                end_time: { gte: now },
+                ...ef
+            }
         })
     ]);
-
-    let countScheduled = 0;
-    let countCompleted = 0;
-    
-    // We do a manual loop instead of complex db logic for speed
-    const allBookingsForCounts = await prisma.booking.findMany({
-        where: { tenant_id: tenantId, ...ef, status: { in: ["SCHEDULED", "COMPLETED"] } },
-        select: { status: true, end_time: true }
-    });
-
-    allBookingsForCounts.forEach(b => {
-        if (b.status === "COMPLETED" || (b.status === "SCHEDULED" && b.end_time < now)) {
-            countCompleted++;
-        } else if (b.status === "SCHEDULED" && b.end_time >= now) {
-            countScheduled++;
-        }
-    });
 
     const totalAll = countScheduled + countCompleted + cancelledCount;
 

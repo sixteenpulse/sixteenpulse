@@ -120,70 +120,72 @@ async function ClientsTable({ searchParams, tenantId, q }: { searchParams: any, 
     }
 
     return (
-        <div className="bg-white rounded-lg border border-[#e5e3d9] overflow-hidden">
-            <table className="w-full text-left text-sm border-collapse">
-                <thead>
-                    <tr className="bg-[#fcfcfb] border-b border-[#e5e3d9] text-stone-500">
-                        <th className="px-5 py-3 font-medium text-[13px]">Name</th>
-                        <th className="px-5 py-3 font-medium text-[13px] hidden md:table-cell">Email</th>
-                        <th className="px-5 py-3 font-medium text-[13px] hidden lg:table-cell">Phone</th>
-                        <th className="px-5 py-3 font-medium text-[13px]">Visits</th>
-                        <th className="px-5 py-3 font-medium text-[13px]">Revenue</th>
-                        <th className="px-5 py-3 font-medium text-[13px] hidden md:table-cell">Last Visit</th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y divide-[#e4ddd4]">
-                    {paginatedClients.length === 0 ? (
-                        <tr>
-                            <td colSpan={6} className="py-16 text-center text-stone-400 text-sm">
-                                {q ? `No clients matching "${q}"` : "No clients yet."}
-                            </td>
+        <div className="space-y-4">
+            <div className="w-full overflow-x-auto bg-white rounded-lg border border-[#e5e3d9] shadow-sm" style={{ WebkitOverflowScrolling: "touch" }}>
+                <table className="w-full min-w-[750px] text-left text-sm whitespace-nowrap border-collapse">
+                    <thead>
+                        <tr className="bg-[#fcfcfb] border-b border-[#e5e3d9] text-stone-500">
+                            <th className="px-5 py-3 font-medium text-[13px]">Name</th>
+                            <th className="px-5 py-3 font-medium text-[13px]">Email</th>
+                            <th className="px-5 py-3 font-medium text-[13px]">Phone</th>
+                            <th className="px-5 py-3 font-medium text-[13px]">Visits</th>
+                            <th className="px-5 py-3 font-medium text-[13px]">Revenue</th>
+                            <th className="px-5 py-3 font-medium text-[13px]">Last Visit</th>
                         </tr>
-                    ) : (
-                        paginatedClients.map((client, i) => {
-                            const lastVisit = client._max.start_time;
-                            const totalCount = client._count.id;
-                            const totalPaid = client._sum.amount;
-                            const details = clientDetails.get(client.attendee_email);
-                            const name = details?.name || client.attendee_email.split("@")[0];
-                            const phone = details?.phone;
+                    </thead>
+                    <tbody className="divide-y divide-[#e4ddd4]">
+                        {paginatedClients.length === 0 ? (
+                            <tr>
+                                <td colSpan={6} className="py-16 text-center text-stone-400 text-sm">
+                                    {q ? `No clients matching "${q}"` : "No clients yet."}
+                                </td>
+                            </tr>
+                        ) : (
+                            paginatedClients.map((client, i) => {
+                                const lastVisit = client._max.start_time;
+                                const totalCount = client._count.id;
+                                const totalPaid = client._sum.amount;
+                                const details = clientDetails.get(client.attendee_email);
+                                const name = details?.name || client.attendee_email.split("@")[0];
+                                const phone = details?.phone;
 
-                            return (
-                                <ClientRow key={i} href={`/clients/${encodeURIComponent(client.attendee_email)}`}>
-                                    <td className="px-5 py-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-full bg-[#f3f2ee] flex items-center justify-center text-xs font-semibold text-stone-700 uppercase shrink-0">
-                                                {name.charAt(0)}
+                                return (
+                                    <ClientRow key={i} href={`/clients/${encodeURIComponent(client.attendee_email)}`}>
+                                        <td className="px-5 py-4 whitespace-nowrap">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-[#f3f2ee] flex items-center justify-center text-xs font-semibold text-stone-700 uppercase shrink-0">
+                                                    {name.charAt(0)}
+                                                </div>
+                                                <div>
+                                                    <span className="font-medium text-stone-900 text-[13px]">{name}</span>
+                                                    {totalCount > 3 && <span className="text-amber-500 text-xs ml-1.5" title="Returning client">★</span>}
+                                                </div>
                                             </div>
-                                            <div>
-                                                <span className="font-medium text-stone-900 text-[13px]">{name}</span>
-                                                {totalCount > 3 && <span className="text-amber-500 text-xs ml-1.5" title="Returning client">★</span>}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="px-5 py-4 text-stone-600 text-[13px] hidden md:table-cell">{client.attendee_email}</td>
-                                    <td className="px-5 py-4 text-stone-600 text-[13px] hidden lg:table-cell">
-                                        {phone || <span className="text-stone-300">—</span>}
-                                    </td>
-                                    <td className="px-5 py-4">
-                                        <span className="font-medium text-stone-900 text-[13px]">{totalCount}</span>
-                                    </td>
-                                    <td className="px-5 py-4">
-                                        {totalPaid ? (
-                                            <span className="font-medium text-emerald-600 text-[13px]">${totalPaid.toFixed(2)}</span>
-                                        ) : (
-                                            <span className="text-stone-300">—</span>
-                                        )}
-                                    </td>
-                                    <td className="px-5 py-4 text-stone-400 text-[13px] hidden md:table-cell">
-                                        {lastVisit ? format(new Date(lastVisit), "MMM d, yyyy") : <span className="text-stone-300">—</span>}
-                                    </td>
-                                </ClientRow>
-                            );
-                        })
-                    )}
-                </tbody>
-            </table>
+                                        </td>
+                                        <td className="px-5 py-4 whitespace-nowrap text-stone-600 text-[13px]">{client.attendee_email}</td>
+                                        <td className="px-5 py-4 whitespace-nowrap text-stone-600 text-[13px]">
+                                            {phone || <span className="text-stone-300">—</span>}
+                                        </td>
+                                        <td className="px-5 py-4 whitespace-nowrap">
+                                            <span className="font-medium text-stone-900 text-[13px]">{totalCount}</span>
+                                        </td>
+                                        <td className="px-5 py-4 whitespace-nowrap">
+                                            {totalPaid ? (
+                                                <span className="font-medium text-emerald-600 text-[13px]">${totalPaid.toFixed(2)}</span>
+                                            ) : (
+                                                <span className="text-stone-300">—</span>
+                                            )}
+                                        </td>
+                                        <td className="px-5 py-4 whitespace-nowrap text-stone-400 text-[13px]">
+                                            {lastVisit ? format(new Date(lastVisit), "MMM d, yyyy") : <span className="text-stone-300">—</span>}
+                                        </td>
+                                    </ClientRow>
+                                );
+                            })
+                        )}
+                    </tbody>
+                </table>
+            </div>
             <Pagination total={totalClients} page={page} limit={limit} totalPages={totalPages} />
         </div>
     );

@@ -38,8 +38,8 @@ export default async function AudiencesPage() {
                 </div>
             </div>
 
-            <div className="bg-white rounded-xl border border-[#e5e3d9] overflow-hidden">
-                <table className="w-full text-left text-sm border-collapse">
+            <div className="w-full overflow-x-auto bg-white rounded-xl border border-[#e5e3d9] shadow-sm flex flex-col" style={{ WebkitOverflowScrolling: "touch" }}>
+                <table className="w-full min-w-[700px] text-left text-sm whitespace-nowrap border-collapse">
                     <thead>
                         <tr className="bg-[#fcfcfb] border-b border-[#e5e3d9] text-stone-500">
                             <th className="px-6 py-4 font-medium text-[13px]">Audience Name</th>
@@ -64,11 +64,11 @@ export default async function AudiencesPage() {
                                 const rules = aud.rules as any || {};
                                 return (
                                     <tr key={aud.id} className="hover:bg-cream transition-colors duration-150 cursor-pointer">
-                                        <td className="px-6 py-4">
+                                        <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="font-medium text-stone-900">{aud.name}</div>
                                             {aud.description && <div className="text-xs text-stone-500 mt-0.5">{aud.description}</div>}
                                         </td>
-                                        <td className="px-6 py-4 text-stone-600 text-xs">
+                                        <td className="px-6 py-4 text-stone-600 text-xs whitespace-nowrap">
                                             {Object.keys(rules).length > 0 ? (
                                                 <div className="flex flex-wrap gap-1">
                                                     {Object.entries(rules).map(([k, v]) => (
@@ -79,10 +79,10 @@ export default async function AudiencesPage() {
                                                 <span className="text-stone-400 italic">All Clients</span>
                                             )}
                                         </td>
-                                        <td className="px-6 py-4 text-stone-600">
+                                        <td className="px-6 py-4 text-stone-600 whitespace-nowrap">
                                             {aud._count.campaigns} campaigns
                                         </td>
-                                        <td className="px-6 py-4 text-stone-500 text-xs text-right sm:text-left">
+                                        <td className="px-6 py-4 text-stone-500 text-xs text-left whitespace-nowrap">
                                             {format(new Date(aud.updated_at), "MMM d, yyyy")}
                                         </td>
                                     </tr>
