@@ -2,10 +2,11 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect, notFound } from "next/navigation";
 import { format, differenceInMinutes } from "date-fns";
-import { Calendar, Clock, Mail, User, ArrowLeft, FileText } from "lucide-react";
+import { Calendar, Clock, Mail, User, ArrowLeft, FileText, DollarSign } from "lucide-react";
 import Link from "next/link";
 import { BookingDetailActions } from "@/components/bookings/BookingDetailActions";
 import { BookingLiveDetails } from "@/components/bookings/BookingLiveDetails";
+import { AmountCell } from "@/components/bookings/AmountCell";
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -120,6 +121,18 @@ export default async function BookingDetailPage({ params }: PageProps) {
                                     <p className="text-xs text-stone-400 flex items-center gap-1 mt-0.5">
                                         <Clock className="w-3 h-3" /> {duration} minutes
                                     </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label className="text-xs font-medium text-stone-400 mb-2.5 block">Custom Amount</label>
+                            <div className="flex items-center gap-3">
+                                <div className="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+                                    <DollarSign className="w-4 h-4 text-emerald-600" />
+                                </div>
+                                <div className="flex-1">
+                                    <AmountCell bookingId={booking.id} initialAmount={booking.amount} />
+                                    <p className="text-[11px] text-stone-400 mt-0.5 leading-tight">Click to set offline pricing manually.</p>
                                 </div>
                             </div>
                         </div>
