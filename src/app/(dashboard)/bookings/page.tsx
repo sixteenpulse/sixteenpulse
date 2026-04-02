@@ -196,8 +196,8 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
                         <tr className="bg-[#fcfcfb] border-b border-[#e5e3d9] text-stone-500">
                             <th className="px-5 py-3 font-medium text-[13px]">Date & Time</th>
                             <th className="px-5 py-3 font-medium text-[13px]">Client</th>
-                            <th className="px-5 py-3 font-medium text-[13px] hidden md:table-cell">Phone</th>
-                            <th className="px-5 py-3 font-medium text-[13px] hidden lg:table-cell">Service</th>
+                            <th className="px-5 py-3 font-medium text-[13px]">Phone</th>
+                            <th className="px-5 py-3 font-medium text-[13px]">Service</th>
                             <th className="px-5 py-3 font-medium text-[13px]">Amount</th>
                             <th className="px-5 py-3 font-medium text-[13px]">Status</th>
                             <th className="px-5 py-3 w-10"></th>
@@ -232,10 +232,10 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
                                                 <div className="text-xs text-stone-500 truncate mt-0.5 max-w-[180px] sm:max-w-[250px]">{b.attendee_email}</div>
                                             </Link>
                                         </td>
-                                        <td className="px-5 py-4 whitespace-nowrap text-stone-600 text-[13px] hidden md:table-cell">
+                                        <td className="px-5 py-4 whitespace-nowrap text-stone-600 text-[13px]">
                                             {phone || <span className="text-stone-300">—</span>}
                                         </td>
-                                        <td className="px-5 py-4 text-stone-600 text-[13px] hidden lg:table-cell">{b.event_type_name}</td>
+                                        <td className="px-5 py-4 text-stone-600 text-[13px] whitespace-nowrap">{b.event_type_name}</td>
                                         <td className="px-5 py-4 whitespace-nowrap border-l border-transparent">
                                             <AmountCell bookingId={b.id} initialAmount={b.amount} />
                                         </td>
