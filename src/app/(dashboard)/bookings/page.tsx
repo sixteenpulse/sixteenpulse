@@ -189,69 +189,71 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
     };
 
     return (
-        <div className="bg-white rounded-lg border border-[#e5e3d9] overflow-hidden">
-            <table className="w-full text-left text-sm">
-                <thead>
-                    <tr className="bg-[#fcfcfb] border-b border-[#e5e3d9] text-stone-500">
-                        <th className="px-5 py-3 font-medium text-[13px]">Date & Time</th>
-                        <th className="px-5 py-3 font-medium text-[13px]">Client</th>
-                        <th className="px-5 py-3 font-medium text-[13px] hidden md:table-cell">Phone</th>
-                        <th className="px-5 py-3 font-medium text-[13px] hidden lg:table-cell">Service</th>
-                        <th className="px-5 py-3 font-medium text-[13px]">Amount</th>
-                        <th className="px-5 py-3 font-medium text-[13px]">Status</th>
-                        <th className="px-5 py-3 w-10"></th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y divide-[#e4ddd4]">
-                    {bookings.length === 0 ? (
-                        <tr>
-                            <td colSpan={7} className="py-16 text-center text-stone-400 text-sm">
-                                {q ? `No results for "${q}"` : statusFilter ? `No ${statusFilter.toLowerCase()} bookings.` : "No bookings yet."}
-                            </td>
+        <div className="bg-white rounded-lg border border-[#e5e3d9] overflow-hidden shadow-sm">
+            <div className="overflow-x-auto">
+                <table className="w-full text-left text-sm whitespace-nowrap sm:whitespace-normal min-w-[700px]">
+                    <thead>
+                        <tr className="bg-[#fcfcfb] border-b border-[#e5e3d9] text-stone-500">
+                            <th className="px-5 py-3 font-medium text-[13px]">Date & Time</th>
+                            <th className="px-5 py-3 font-medium text-[13px]">Client</th>
+                            <th className="px-5 py-3 font-medium text-[13px] hidden md:table-cell">Phone</th>
+                            <th className="px-5 py-3 font-medium text-[13px] hidden lg:table-cell">Service</th>
+                            <th className="px-5 py-3 font-medium text-[13px]">Amount</th>
+                            <th className="px-5 py-3 font-medium text-[13px]">Status</th>
+                            <th className="px-5 py-3 w-10"></th>
                         </tr>
-                    ) : (
-                        bookings.map((b) => {
-                            const phone = extractPhone(b.metadata);
-                            let computedStatus = b.status;
-                            if (b.status === "SCHEDULED" && new Date(b.end_time) < new Date()) {
-                                computedStatus = "COMPLETED";
-                            }
+                    </thead>
+                    <tbody className="divide-y divide-[#e4ddd4]">
+                        {bookings.length === 0 ? (
+                            <tr>
+                                <td colSpan={7} className="py-16 text-center text-stone-400 text-sm">
+                                    {q ? `No results for "${q}"` : statusFilter ? `No ${statusFilter.toLowerCase()} bookings.` : "No bookings yet."}
+                                </td>
+                            </tr>
+                        ) : (
+                            bookings.map((b) => {
+                                const phone = extractPhone(b.metadata);
+                                let computedStatus = b.status;
+                                if (b.status === "SCHEDULED" && new Date(b.end_time) < new Date()) {
+                                    computedStatus = "COMPLETED";
+                                }
 
-                            return (
-                                <tr key={b.id} className="hover:bg-cream transition-colors duration-150 group">
-                                    <td className="px-5 py-4 whitespace-nowrap">
-                                        <Link href={`/bookings/${b.id}`}>
-                                            <div className="font-medium text-stone-900 text-[13px]">{format(new Date(b.start_time), "MMM d, yyyy")}</div>
-                                            <div className="text-xs text-stone-400 mt-0.5">{format(new Date(b.start_time), "h:mm a")} – {format(new Date(b.end_time), "h:mm a")}</div>
-                                        </Link>
-                                    </td>
-                                    <td className="px-5 py-4">
-                                        <Link href={`/bookings/${b.id}`}>
-                                            <div className="font-medium text-stone-900 text-[13px] group-hover:text-blue-600 transition-colors duration-150">{b.attendee_name}</div>
-                                            <div className="text-xs text-stone-500 truncate max-w-[180px] mt-0.5">{b.attendee_email}</div>
-                                        </Link>
-                                    </td>
-                                    <td className="px-5 py-4 whitespace-nowrap text-stone-600 text-[13px] hidden md:table-cell">
-                                        {phone || <span className="text-stone-300">—</span>}
-                                    </td>
-                                    <td className="px-5 py-4 text-stone-600 text-[13px] hidden lg:table-cell">{b.event_type_name}</td>
-                                    <td className="px-5 py-4 whitespace-nowrap">
-                                        <AmountCell bookingId={b.id} initialAmount={b.amount} />
-                                    </td>
-                                    <td className="px-5 py-4 whitespace-nowrap">{statusBadge(computedStatus)}</td>
-                                    <td className="px-5 py-4 text-right">
-                                        <BookingRowActions
-                                            bookingId={b.id}
-                                            status={computedStatus}
-                                            originalStatus={b.status}
-                                        />
-                                    </td>
-                                </tr>
-                            );
-                        })
-                    )}
-                </tbody>
-            </table>
+                                return (
+                                    <tr key={b.id} className="hover:bg-cream transition-colors duration-150 group">
+                                        <td className="px-5 py-4 whitespace-nowrap">
+                                            <Link href={`/bookings/${b.id}`}>
+                                                <div className="font-medium text-stone-900 text-[13px]">{format(new Date(b.start_time), "MMM d, yyyy")}</div>
+                                                <div className="text-xs text-stone-400 mt-0.5">{format(new Date(b.start_time), "h:mm a")} – {format(new Date(b.end_time), "h:mm a")}</div>
+                                            </Link>
+                                        </td>
+                                        <td className="px-5 py-4">
+                                            <Link href={`/bookings/${b.id}`}>
+                                                <div className="font-medium text-stone-900 text-[13px] group-hover:text-blue-600 transition-colors duration-150">{b.attendee_name}</div>
+                                                <div className="text-xs text-stone-500 truncate max-w-[180px] mt-0.5">{b.attendee_email}</div>
+                                            </Link>
+                                        </td>
+                                        <td className="px-5 py-4 whitespace-nowrap text-stone-600 text-[13px] hidden md:table-cell">
+                                            {phone || <span className="text-stone-300">—</span>}
+                                        </td>
+                                        <td className="px-5 py-4 text-stone-600 text-[13px] hidden lg:table-cell">{b.event_type_name}</td>
+                                        <td className="px-5 py-4 whitespace-nowrap">
+                                            <AmountCell bookingId={b.id} initialAmount={b.amount} />
+                                        </td>
+                                        <td className="px-5 py-4 whitespace-nowrap">{statusBadge(computedStatus)}</td>
+                                        <td className="px-5 py-4 text-right">
+                                            <BookingRowActions
+                                                bookingId={b.id}
+                                                status={computedStatus}
+                                                originalStatus={b.status}
+                                            />
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                        )}
+                    </tbody>
+                </table>
+            </div>
             <Pagination total={total} page={page} limit={limit} totalPages={totalPages} />
         </div>
     );
