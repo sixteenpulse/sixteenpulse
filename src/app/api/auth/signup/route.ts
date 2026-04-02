@@ -56,7 +56,8 @@ export async function POST(req: Request) {
             email: result.user.email,
             name: result.user.name,
             role: result.user.role,
-            tenant_id: result.tenant.id
+            tenant_id: result.tenant.id,
+            business_name: result.tenant.name
         };
         await session.save();
 

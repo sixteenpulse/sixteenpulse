@@ -7,19 +7,13 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { RealtimeSync } from "@/components/RealtimeSync";
 
-const getBusinessName = cache(async (tenantId: string) => {
-    const tenant = await prisma.tenant.findUnique({
-        where: { id: tenantId },
-        select: { name: true },
-    });
-    return tenant?.name || "My Business";
-});
+
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const session = await getSession();
     if (!session?.user) redirect("/login");
 
-    const businessName = await getBusinessName(session.user.tenant_id);
+    const businessName = session.user.business_name || "My Business";
 
     return (
         <div className="flex h-screen bg-cream">

@@ -15,18 +15,23 @@ export default async function TodayPage() {
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const todayEnd = addDays(todayStart, 1);
 
-    const filter = await getEventTypeFilter(tid);
-    const ef = filter ? { event_type_name: { in: filter } } : {};
+    // Fire database queries perfectly in parallel
+    const [filter, allTodayBookings] = await Promise.all([
+        getEventTypeFilter(tid),
+        prisma.booking.findMany({
+            where: {
+                tenant_id: tid,
+                start_time: { gte: todayStart, lt: todayEnd },
+                status: { in: ["SCHEDULED", "COMPLETED"] },
+            },
+            orderBy: { start_time: "asc" },
+        })
+    ]);
 
-    const todayBookings = await prisma.booking.findMany({
-        where: {
-            tenant_id: tid,
-            start_time: { gte: todayStart, lt: todayEnd },
-            status: { in: ["SCHEDULED", "COMPLETED"] },
-            ...ef,
-        },
-        orderBy: { start_time: "asc" },
-    });
+    // Apply the event type filter in-memory (very fast for a single day's bookings)
+    const todayBookings = filter 
+        ? allTodayBookings.filter(b => filter.includes(b.event_type_name))
+        : allTodayBookings;
 
     const upcoming = todayBookings.filter(b => new Date(b.start_time) >= now);
     const past = todayBookings.filter(b => new Date(b.start_time) < now);

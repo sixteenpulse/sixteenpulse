@@ -96,6 +96,7 @@ model Booking {
   reviewRequests    ReviewRequest[]
 
   @@unique([cal_connection_id, cal_booking_id])
+  @@index([tenant_id, start_time])
 }
 
 model Client {

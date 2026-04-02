@@ -7,6 +7,7 @@ export interface SessionData {
         email: string;
         role: "ADMIN" | "MEMBER";
         name: string;
+        business_name: string;
     };
 }
 
