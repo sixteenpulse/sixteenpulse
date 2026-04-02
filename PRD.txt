@@ -1,0 +1,419 @@
+Product Requirements Document (PRD)
+Product name: Cal Analytics Hub (working title)
+Owner: Bold Labs
+Version: 0.2
+Date: 21 Feb 2026
+
+1. Overview
+1.1 Problem statement
+Agencies and businesses rely on Cal.com for scheduling, but:
+
+owners often don’t want to log into Cal.com or learn its UI, and
+
+agencies want a central “client-facing” dashboard for bookings and analytics, without exposing Cal.com accounts or credentials.
+
+They need a separate SaaS where they can:
+
+see bookings in a clean interface,
+
+understand performance (conversion, event-type performance, cancellations),
+
+collaborate with team members,
+while Cal.com runs invisibly in the background.
+
+1.2 Product vision
+Build a multi-tenant, agency-focused SaaS that connects to Cal.com in the background (via API key or OAuth) and provides:
+
+a unified bookings dashboard, and
+
+actionable analytics,
+with zero need for clients to log into Cal.com directly.
+
+1.3 Goals and non‑goals
+Goals (v1)
+
+Onboard clients with a simple “Connect Cal.com” flow (API key or OAuth).
+
+Provide a bookings table with filters for time range, event type, status, and host.
+
+Provide basic analytics: bookings over time, bookings per event type, and status breakdown.
+
+Support multiple tenants (agencies), each with multiple client connections.
+
+Keep tenants securely isolated and tokens safely stored.
+
+Non‑goals (v1)
+
+Full Cal.com replacement (no full event-type builder, routing rules, etc.).
+
+Complex billing scenarios (simple subscription + usage tiers only).
+
+On-premise deployments.
+
+1.4 Target users
+Agency owners / operators managing multiple clients’ calendars.
+
+Business owners who want a simple view of bookings and performance instead of Cal.com’s full interface.
+
+Analysts / ops inside agencies who need reporting across time, event types, and status.
+
+2. Use cases
+Agency owner adds a new client
+
+Create client inside Cal Analytics Hub (as a “connection”).
+
+Connect client’s Cal.com account via API key or OAuth.
+
+Share a client login so they can view their data.
+
+Monitor bookings and performance per client.
+
+Client (business owner) checks today’s schedule
+
+Logs into Cal Analytics Hub (not Cal.com).
+
+Sees upcoming and recent bookings.
+
+Filters by event type (e.g., “15-min consult”) and status.
+
+Exports data to CSV for offline work.
+
+Agency analyst reviews campaign performance
+
+Filters bookings by date range and event type.
+
+Compares bookings over time (before/after a campaign).
+
+Checks cancellation rate and event-type performance.
+
+Agency operator manages multiple clients
+
+Quickly switches between tenants or client connections.
+
+Checks which clients have healthy pipelines (number of bookings) vs those dropping off.
+
+3. Product scope
+3.1 Modules (v1)
+Tenant & user management
+
+Tenants represent agencies (or single businesses).
+
+Each tenant has users with roles:
+
+ADMIN: manage connections, users, billing.
+
+MEMBER: view bookings and analytics only.
+
+Cal.com integration
+
+Two connection methods:
+
+API key input form (client pastes key).
+
+OAuth connect button (redirect to Cal.com, then back).
+
+Store access tokens (and refresh tokens if applicable) securely, linked to a CalConnection entity.
+
+For each CalConnection, track:
+
+cal_account_id
+
+status (connected, disconnected, error)
+
+last_synced_at
+
+Bookings sync service
+
+Background job that periodically:
+
+fetches new/updated bookings from Cal.com for each CalConnection,
+
+upserts into internal Booking table.
+
+Sync fields:
+
+booking_id (Cal)
+
+tenant_id, cal_connection_id
+
+event_type_id, event_type_name
+
+organizer (host)
+
+start_time, end_time, timezone
+
+status (scheduled, cancelled, rescheduled, completed/no-show if available)
+
+created_at, updated_at
+
+attendee_name, attendee_email
+
+optional metadata: source, utm_ fields (if available).
+
+Bookings UI (client portal)
+
+Table view:
+
+Columns: date/time, event type, attendee name, attendee email, host, status.
+
+Filters:
+
+date range (today, last 7 days, last 30 days, custom)
+
+event type
+
+status
+
+host
+
+Features:
+
+pagination
+
+search by attendee email
+
+export current filtered result to CSV.
+
+Booking detail side panel:
+
+full info (notes, location/link, created_at, status history if available).
+
+Analytics UI
+
+Time series chart:
+
+bookings per day/week over a selected period, filterable by event type and status.
+
+Event-type performance:
+
+table: event_type_name, total_bookings, cancellation_rate.
+
+Status breakdown:
+
+chart: count per status (scheduled, completed, cancelled, etc.) for selected period.
+
+Optional (if metadata exists):
+
+bookings per source/utm_source.
+
+Embed & branding (optional in v1 or v1.1)
+
+Provide per-tenant branding:
+
+logo, primary color.
+
+Allow tenant to store the relevant Cal.com booking links per client, for usage in:
+
+embed snippets they drop on client websites (even though the core of v1 is analytics, not booking flows).
+
+Billing & plans
+
+Basic subscription model:
+
+Plans by number of Cal connections, or max bookings per month.
+
+Stripe integration:
+
+customer creation
+
+subscription plans
+
+webhooks for events (subscription created, renewed, canceled).
+
+4. Functional requirements
+4.1 Tenant & user flows
+Sign up / login
+
+Email + password based auth (SSO later).
+
+Email verification (v1.1 optional).
+
+Tenant creation
+
+On first signup, user creates tenant with:
+
+name, logo (optional), subdomain or tenant slug.
+
+User roles
+
+ADMIN:
+
+invite/remove users,
+
+manage Cal connections,
+
+manage billing.
+
+MEMBER:
+
+view bookings and analytics.
+
+User invitation
+
+ADMIN can invite by email.
+
+Invited user gets link to set password and join tenant.
+
+4.2 Cal.com connection flows
+Add via API key
+
+Tenant ADMIN opens “Connections” page.
+
+Click “Add Cal.com via API key”.
+
+Paste API key.
+
+System validates by calling a small protected endpoint.
+
+On success, store CalConnection and mark “connected”.
+
+Add via OAuth
+
+Tenant ADMIN clicks “Connect Cal.com”.
+
+Redirect to Cal.com OAuth screen.
+
+After consent, redirect back with authorization code.
+
+Exchange code for tokens; store tokens and Cal account ID.
+
+Mark CalConnection as “connected”.
+
+Manage connections
+
+View all CalConnections:
+
+name, email (if available), connected status, last_synced_at.
+
+Actions:
+
+force sync now,
+
+disconnect / revoke.
+
+4.3 Bookings sync
+Scheduler
+
+Runs every X minutes (configurable, default 10–15).
+
+For each active CalConnection:
+
+fetch bookings updated since last_synced_at,
+
+handle pagination until all changes are synced.
+
+Upsert behavior
+
+If booking_id exists, update; else create.
+
+Maintain status and timestamps.
+
+Error handling
+
+On error (rate limit, auth failure, network):
+
+log error,
+
+mark last_sync_status as failed,
+
+retry with exponential backoff.
+
+Scalability
+
+Queue-based jobs (e.g., background worker) to handle many CalConnections concurrently.
+
+4.4 Bookings UI
+List view
+
+Default: last 7 days, sorted by start_time descending.
+
+Allows switching view to upcoming vs past bookings.
+
+Filters and search
+
+date range picker
+
+event type multi-select
+
+status multi-select
+
+host multi-select
+
+search by attendee email or name
+
+Export
+
+Export current filtered result set to CSV.
+
+Details
+
+Click row → side drawer with:
+
+all booking fields,
+
+copy link to meeting (if available),
+
+editing actions in v1 are not required (read-only).
+
+4.5 Analytics UI
+Bookings over time chart
+
+Options for daily/weekly aggregation.
+
+Filters: event type, status.
+
+Event-type performance table
+
+Columns:
+
+event type name
+
+total bookings
+
+cancellations
+
+cancellation rate (percentage)
+
+Status breakdown chart
+
+Donut or bar chart with count per status.
+
+Source/UTM view (if available later)
+
+table or chart: source, total bookings, cancellations.
+
+5. Non-functional requirements
+Multi-tenancy & security
+
+All entities scoped by tenant_id.
+
+RBAC at application layer.
+
+Tokens encrypted at rest.
+
+Performance
+
+Dashboard initial load < 2 seconds for tenants with up to ~10k bookings.
+
+Sync should not block UI usage.
+
+Reliability
+
+Sync jobs with retries and monitoring.
+
+Alert on repeated sync failures.
+
+Compliance
+
+Basic data protection practices: secure storage, logging, and ability to delete tenant data on request.
+
+6. Suggested tech stack (for Antigravity)
+Frontend: Next.js (React, TypeScript), Tailwind (or similar).
+
+Backend: Next.js API routes or a Node.js service (TypeScript).
+
+Database: PostgreSQL (Prisma ORM or equivalent), strict tenant scoping.
+
+Jobs: worker process + queue (e.g., BullMQ/Redis or equivalent abstraction).
+
+Auth: email/password, JWT or session-based.

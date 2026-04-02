@@ -1,0 +1,121 @@
+﻿Got API Key starting with: calid_f31f
+Bookings: {
+  "success": true,
+  "data": [
+    {
+      "id": 61200,
+      "title": "Service Booking between Bold Labs and Bold Labs",
+      "userPrimaryEmail": "goboldlabs@gmail.com",
+      "description": "Im not satisfies with them",
+      "customInputs": {},
+      "startTime": "2026-02-26T03:30:00.000Z",
+      "endTime": "2026-02-26T04:30:00.000Z",
+      "createdAt": "2026-02-25T12:32:40.362Z",
+      "updatedAt": "2026-02-25T12:32:41.499Z",
+      "metadata": {},
+      "uid": "7Gj5iMbfhGpTYx9TdGwPmb",
+      "recurringEventId": null,
+      "status": "ACCEPTED",
+      "paid": false,
+      "isRecorded": false,
+      "references": [
+        {
+          "id": 81896,
+          "type": "google_calendar",
+          "uid": "_6t3mkdb99lh6cq27e1a5iu1pahi4etqgdlh40gr1dgg4ih0",
+          "bookingId": 61200,
+          "meetingId": "_6t3mkdb99lh6cq27e1a5iu1pahi4etqgdlh40gr1dgg4ih0",
+          "meetingPassword": "",
+          "meetingUrl": "",
+          "deleted": null,
+          "externalCalendarId": "goboldlabs@gmail.com",
+          "credentialId": 15551,
+          "thirdPartyRecurringEventId": null,
+          "domainWideDelegationCredentialId": null,
+          "delegationCredentialId": null
+        }
+      ],
+      "payment": [],
+      "attendees": [
+        {
+          "id": 75819,
+          "email": "goboldlabs@gmail.com",
+          "name": "Bold Labs",
+          "timeZone": "Asia/Calcutta",
+          "bookingId": 61200,
+          "locale": "en",
+          "phoneNumber": "+918870341570",
+          "noShow": false
+        }
+      ],
+      "seatsReferences": [],
+      "assignmentReason": [],
+      "responses": {
+        "name": "Bold Labs",
+        "email": "goboldlabs@gmail.com",
+        "notes": "Im not satisfies with them",
+        "title": "Depression",
+        "guests": [],
+        "location": {
+          "value": "attendeeInPerson",
+          "optionValue": "640-2-2 Gr nagar 2nd cross street madurai "
+        },
+        "Desired-Outcome": "Feel good",
+        "attendeePhoneNumber": "+918870341570"
+      },
+      "location": "640-2-2 Gr nagar 2nd cross street madurai ",
+      "fromReschedule": null,
+      "rescheduled": null,
+      "routedFromRoutingFormReponse": null,
+      "eventType": {
+        "id": 40172,
+        "title": "Service Booking",
+        "slug": "service-booking",
+        "eventName": "",
+        "price": 0,
+        "currency": "usd",
+        "recurringEvent": null,
+        "metadata": {
+          "disableStandardEmails": {
+            "confirmation": {
+              "host": true,
+              "attendee": true
+            }
+          },
+          "apps": {
+            "giphy": {
+              "enabled": false,
+              "TRACKING_ID": null,
+              "thankYouPage": ""
+            }
+          }
+        },
+        "schedulingType": "",
+        "seatsShowAttendees": false,
+        "hosts": [],
+        "length": 60,
+        "customReplyToEmail": null,
+        "allowReschedulingPastBookings": false,
+        "hideOrganizerEmail": false,
+        "disableCancelling": false,
+        "disableRescheduling": false,
+        "eventTypeColor": null
+      },
+      "user": {
+        "name": "Bold Labs",
+        "email": "goboldlabs@gmail.com",
+        "id": 11175
+      },
+      "rescheduler": null
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "limit": 100,
+      "total": 1,
+      "totalPages": 1
+    }
+  },
+  "message": "User bookings retrieved"
+}

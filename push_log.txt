@@ -1,0 +1,87 @@
+﻿node.exe : Loaded Prisma config from 
+prisma.config.ts.
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" 
+"C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified 
+   : (Loaded Prisma c...isma.config.ts.:S  
+  tring) [], RemoteException
+    + FullyQualifiedErrorId : NativeComman 
+   dError
+ 
+
+Prisma config detected, skipping 
+environment variable loading.
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "postgres", schema "public" at "aws-1-ap-south-1.pooler.supabase.com:5432"
+Error: P1012
+
+error: Error validating field `client` in 
+model `ReviewRequest`: The relation field 
+`client` on model `ReviewRequest` is 
+missing an opposite relation field on the 
+model `Client`. Either run `prisma format` 
+or add it manually.
+  -->  prisma\schema.prisma:226
+   | 
+225 |   
+226 |   client      Client   
+@relation(fields: [client_id], references: 
+[id], onDelete: Cascade)
+227 |   booking     Booking? 
+@relation(fields: [booking_id], 
+references: [id], onDelete: SetNull)
+   | 
+error: Error validating field `booking` in 
+model `ReviewRequest`: The relation field 
+`booking` on model `ReviewRequest` is 
+missing an opposite relation field on the 
+model `Booking`. Either run `prisma 
+format` or add it manually.
+  -->  prisma\schema.prisma:227
+   | 
+226 |   client      Client   
+@relation(fields: [client_id], references: 
+[id], onDelete: Cascade)
+227 |   booking     Booking? 
+@relation(fields: [booking_id], 
+references: [id], onDelete: SetNull)
+228 | 
+   | 
+error: Error validating field `client` in 
+model `InternalFeedback`: The relation 
+field `client` on model `InternalFeedback` 
+is missing an opposite relation field on 
+the model `Client`. Either run `prisma 
+format` or add it manually.
+  -->  prisma\schema.prisma:243
+   | 
+242 |   
+243 |   client      Client   
+@relation(fields: [client_id], references: 
+[id], onDelete: Cascade)
+244 |   booking     Booking? 
+@relation(fields: [booking_id], 
+references: [id], onDelete: SetNull)
+   | 
+error: Error validating field `booking` in 
+model `InternalFeedback`: The relation 
+field `booking` on model 
+`InternalFeedback` is missing an opposite 
+relation field on the model `Booking`. 
+Either run `prisma format` or add it 
+manually.
+  -->  prisma\schema.prisma:244
+   | 
+243 |   client      Client   
+@relation(fields: [client_id], references: 
+[id], onDelete: Cascade)
+244 |   booking     Booking? 
+@relation(fields: [booking_id], 
+references: [id], onDelete: SetNull)
+245 | }
+   | 
+
+

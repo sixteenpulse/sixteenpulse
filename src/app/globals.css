@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #f0ede6;
+    --foreground: #1c1917;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+
+  /* ── Accent system (Dark slate/black #2d2c2a) ── */
+  .bg-accent {
+    background-color: #2d2c2a;
+  }
+
+  .text-accent {
+    color: #2d2c2a;
+  }
+
+  .border-accent {
+    border-color: #2d2c2a;
+  }
+
+  .bg-accent-light {
+    background-color: #f3f2ee;
+  }
+
+  .border-accent-border {
+    border-color: #d4d1c6;
+  }
+
+  .accent-accent {
+    accent-color: #2d2c2a;
+  }
+
+  .hover\:bg-accent:hover {
+    background-color: #2d2c2a;
+  }
+
+  .hover\:bg-accent-hover:hover {
+    background-color: #403e3b;
+  }
+
+  .hover\:text-accent:hover {
+    color: #403e3b;
+  }
+
+  .hover\:border-accent:hover {
+    border-color: #2d2c2a;
+  }
+
+  .hover\:border-accent-border:hover {
+    border-color: #b8b3a5;
+  }
+
+  .focus\:border-accent:focus {
+    border-color: #2d2c2a;
+  }
+
+  /* ── Warm cream system (Claude) ── */
+  .bg-cream {
+    background-color: #fcfcfb;
+  }
+
+  .bg-cream-dark {
+    background-color: #f3f2ee;
+  }
+
+  .bg-warm-white {
+    background-color: #ffffff;
+  }
+
+  .border-warm {
+    border-color: #e5e3d9;
+  }
+
+  .border-warm-dark {
+    border-color: #d4d1c6;
+  }
+
+  .hover\:bg-cream-dark:hover {
+    background-color: #ebe8e1;
+  }
+
+  .hover\:bg-cream:hover {
+    background-color: #fcfcfb;
+  }
+
+  /* ── Blue Accent (for specific items like progress bars) ── */
+  .bg-blue-accent {
+    background-color: #3b82f6;
+  }
+
+  .text-blue-accent {
+    color: #3b82f6;
+  }
+
+  /* ── Serif display font for page h1 titles ── */
+  .font-display {
+    font-family: var(--font-serif, 'Georgia', serif);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4cec6;
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8b2a8;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: #fde8e0;
+  color: #1c1917;
+}

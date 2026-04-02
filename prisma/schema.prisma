@@ -1,0 +1,249 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Tenant {
+  id                       String                 @id @default(cuid())
+  name                     String
+  slug                     String                 @unique
+  logo_url                 String?
+  created_at               DateTime               @default(now())
+  brand_name               String?
+  primary_color            String?
+  automate_review_requests Boolean                @default(false)
+  google_review_link       String?
+  review_delay_value       Int                    @default(24)
+  audiences                Audience[]
+  bookings                 Booking[]
+  calConnections           CalConnection[]
+  campaigns                Campaign[]
+  clients                  Client[]
+  reviewTemplate           ReviewRequestTemplate?
+  smtpConfig               SmtpConfig?
+  users                    User[]
+}
+
+model User {
+  id                 String             @id @default(cuid())
+  tenant_id          String
+  name               String
+  email              String             @unique
+  password_hash      String
+  role               Role               @default(MEMBER)
+  created_at         DateTime           @default(now())
+  tenant             Tenant             @relation(fields: [tenant_id], references: [id])
+  pushSubscriptions  PushSubscription[]
+}
+
+model PushSubscription {
+  id         String   @id @default(cuid())
+  user_id    String
+  endpoint   String
+  p256dh     String
+  auth       String
+  created_at DateTime @default(now())
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model CalConnection {
+  id             String           @id @default(cuid())
+  tenant_id      String
+  name           String
+  cal_account_id String
+  auth_type      AuthType
+  access_token   String
+  refresh_token  String?
+  status         ConnectionStatus @default(CONNECTED)
+  last_synced_at DateTime?
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+  metadata       Json?
+  bookings       Booking[]
+  tenant         Tenant           @relation(fields: [tenant_id], references: [id])
+
+  @@unique([tenant_id, cal_account_id])
+}
+
+model Booking {
+  id                String             @id @default(cuid())
+  tenant_id         String
+  cal_connection_id String
+  cal_booking_id    String
+  event_type_id     String
+  event_type_name   String
+  host_name         String
+  host_email        String
+  attendee_name     String
+  attendee_email    String
+  status            BookingStatus
+  start_time        DateTime
+  end_time          DateTime
+  created_at        DateTime
+  updated_at        DateTime
+  metadata          Json?
+  inserted_at       DateTime           @default(now())
+  updated_local_at  DateTime           @updatedAt
+  amount            Float?
+  cal_connection    CalConnection      @relation(fields: [cal_connection_id], references: [id])
+  tenant            Tenant             @relation(fields: [tenant_id], references: [id])
+  internalFeedbacks InternalFeedback[]
+  reviewRequests    ReviewRequest[]
+
+  @@unique([cal_connection_id, cal_booking_id])
+}
+
+model Client {
+  id                String             @id @default(cuid())
+  tenant_id         String
+  name              String
+  email             String
+  phone             String?
+  notes             String?
+  tags              String[]           @default([])
+  created_at        DateTime           @default(now())
+  updated_at        DateTime           @updatedAt
+  tenant            Tenant             @relation(fields: [tenant_id], references: [id])
+  clientNotes       ClientNote[]
+  internalFeedbacks InternalFeedback[]
+  reviewRequests    ReviewRequest?
+
+  @@unique([tenant_id, email])
+}
+
+model ClientNote {
+  id         String   @id @default(cuid())
+  client_id  String
+  content    String
+  created_by String
+  created_at DateTime @default(now())
+  client     Client   @relation(fields: [client_id], references: [id])
+}
+
+model Audience {
+  id          String     @id @default(cuid())
+  tenant_id   String
+  name        String
+  description String?
+  rules       Json
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+  tenant      Tenant     @relation(fields: [tenant_id], references: [id])
+  campaigns   Campaign[]
+}
+
+model Campaign {
+  id           String              @id @default(cuid())
+  tenant_id    String
+  name         String
+  subject      String
+  body_html    String
+  status       CampaignStatus      @default(DRAFT)
+  audience_id  String?
+  scheduled_at DateTime?
+  sent_at      DateTime?
+  created_at   DateTime            @default(now())
+  updated_at   DateTime            @updatedAt
+  audience     Audience?           @relation(fields: [audience_id], references: [id])
+  tenant       Tenant              @relation(fields: [tenant_id], references: [id])
+  recipients   CampaignRecipient[]
+}
+
+model CampaignRecipient {
+  id          String    @id @default(cuid())
+  campaign_id String
+  email       String
+  status      String    @default("PENDING")
+  opened_at   DateTime?
+  clicked_at  DateTime?
+  error       String?
+  sent_at     DateTime?
+  campaign    Campaign  @relation(fields: [campaign_id], references: [id], onDelete: Cascade)
+
+  @@unique([campaign_id, email])
+}
+
+model SmtpConfig {
+  id         String   @id @default(cuid())
+  tenant_id  String   @unique
+  host       String   @default("smtp.gmail.com")
+  port       Int      @default(587)
+  secure     Boolean  @default(false)
+  user       String
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  tenant     Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+}
+
+model ReviewRequestTemplate {
+  id         String   @id @default(cuid())
+  tenant_id  String   @unique
+  subject    String   @default("How was your experience today?")
+  body_html  String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  tenant     Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+}
+
+model ReviewRequest {
+  id         String   @id @default(cuid())
+  tenant_id  String
+  client_id  String   @unique
+  booking_id String?
+  status     String   @default("SENT")
+  sent_at    DateTime @default(now())
+  booking    Booking? @relation(fields: [booking_id], references: [id])
+  client     Client   @relation(fields: [client_id], references: [id], onDelete: Cascade)
+}
+
+model InternalFeedback {
+  id         String   @id @default(cuid())
+  tenant_id  String
+  client_id  String
+  booking_id String?
+  rating     Int
+  message    String?
+  resolved   Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  booking    Booking? @relation(fields: [booking_id], references: [id])
+  client     Client   @relation(fields: [client_id], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum AuthType {
+  API_KEY
+  OAUTH
+}
+
+enum ConnectionStatus {
+  CONNECTED
+  DISCONNECTED
+  ERROR
+}
+
+enum BookingStatus {
+  SCHEDULED
+  CANCELLED
+  COMPLETED
+  RESCHEDULED
+  OTHER
+}
+
+enum CampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  COMPLETED
+  CANCELLED
+}

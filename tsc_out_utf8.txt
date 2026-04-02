@@ -1,0 +1,7 @@
+﻿src/app/api/bookings/[id]/route.ts(120,38): error TS2341: Property 'request' is private and only accessible within class 'CalComClient'.
+src/app/api/cron/reviews/route.ts(3,10): error TS2305: Module '"@/lib/marketing-engine"' has no exported member 'sendEmail'.
+src/app/api/cron/reviews/route.ts(34,17): error TS2353: Object literal may only specify known properties, and 'client' does not exist in type 'BookingInclude<DefaultArgs>'.
+src/app/api/cron/reviews/route.ts(42,36): error TS2339: Property 'tenant' does not exist on type '{ id: string; created_at: Date; tenant_id: string; status: BookingStatus; metadata: JsonValue; updated_at: Date; cal_connection_id: string; cal_booking_id: string; ... 10 more ...; updated_local_at: Date; }'.
+src/app/api/cron/reviews/route.ts(43,36): error TS2339: Property 'client' does not exist on type '{ id: string; created_at: Date; tenant_id: string; status: BookingStatus; metadata: JsonValue; updated_at: Date; cal_connection_id: string; cal_booking_id: string; ... 10 more ...; updated_local_at: Date; }'.
+src/app/api/feedback/route.ts(24,27): error TS2353: Object literal may only specify known properties, and 'client_id' does not exist in type 'BookingSelect<DefaultArgs>'.
+src/app/api/feedback/route.ts(27,36): error TS2339: Property 'client_id' does not exist on type '{ id: string; created_at: Date; tenant_id: string; status: BookingStatus; metadata: JsonValue; updated_at: Date; cal_connection_id: string; cal_booking_id: string; ... 10 more ...; updated_local_at: Date; }'.
