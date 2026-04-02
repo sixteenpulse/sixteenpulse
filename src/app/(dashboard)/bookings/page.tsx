@@ -189,9 +189,9 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
     };
 
     return (
-        <div className="bg-white rounded-lg border border-[#e5e3d9] overflow-hidden shadow-sm flex flex-col w-full max-w-full">
-            <div className="overflow-x-auto w-full max-w-full" style={{ WebkitOverflowScrolling: "touch" }}>
-                <table className="w-full text-left text-sm whitespace-nowrap">
+        <div className="space-y-4">
+            <div className="w-full overflow-x-auto bg-white rounded-lg border border-[#e5e3d9] shadow-sm" style={{ WebkitOverflowScrolling: "touch" }}>
+                <table className="w-full min-w-[850px] text-left text-sm whitespace-nowrap">
                     <thead>
                         <tr className="bg-[#fcfcfb] border-b border-[#e5e3d9] text-stone-500">
                             <th className="px-5 py-3 font-medium text-[13px]">Date & Time</th>
@@ -220,26 +220,30 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
 
                                 return (
                                     <tr key={b.id} className="hover:bg-cream transition-colors duration-150 group">
-                                        <td className="px-5 py-4 whitespace-nowrap">
-                                            <Link href={`/bookings/${b.id}`}>
-                                                <div className="font-medium text-stone-900 text-[13px]">{format(new Date(b.start_time), "MMM d, yyyy")}</div>
+                                        <td className="px-5 py-4 whitespace-nowrap text-stone-900">
+                                            <Link href={`/bookings/${b.id}`} className="block">
+                                                <div className="font-medium text-[13px]">{format(new Date(b.start_time), "MMM d, yyyy")}</div>
                                                 <div className="text-xs text-stone-400 mt-0.5">{format(new Date(b.start_time), "h:mm a")} – {format(new Date(b.end_time), "h:mm a")}</div>
                                             </Link>
                                         </td>
-                                        <td className="px-5 py-4 min-w-[150px] whitespace-normal sm:whitespace-nowrap">
-                                            <Link href={`/bookings/${b.id}`}>
+                                        <td className="px-5 py-4 whitespace-nowrap">
+                                            <Link href={`/bookings/${b.id}`} className="block">
                                                 <div className="font-medium text-stone-900 text-[13px] group-hover:text-blue-600 transition-colors duration-150">{b.attendee_name}</div>
-                                                <div className="text-xs text-stone-500 truncate mt-0.5 max-w-[180px] sm:max-w-[250px]">{b.attendee_email}</div>
+                                                <div className="text-xs text-stone-500 mt-0.5">{b.attendee_email}</div>
                                             </Link>
                                         </td>
                                         <td className="px-5 py-4 whitespace-nowrap text-stone-600 text-[13px]">
                                             {phone || <span className="text-stone-300">—</span>}
                                         </td>
-                                        <td className="px-5 py-4 text-stone-600 text-[13px] whitespace-nowrap">{b.event_type_name}</td>
+                                        <td className="px-5 py-4 whitespace-nowrap text-stone-600 text-[13px]">
+                                            {b.event_type_name}
+                                        </td>
                                         <td className="px-5 py-4 whitespace-nowrap border-l border-transparent">
                                             <AmountCell bookingId={b.id} initialAmount={b.amount} />
                                         </td>
-                                        <td className="px-5 py-4 whitespace-nowrap">{statusBadge(computedStatus)}</td>
+                                        <td className="px-5 py-4 whitespace-nowrap">
+                                            {statusBadge(computedStatus)}
+                                        </td>
                                         <td className="px-5 py-4 text-right">
                                             <BookingRowActions
                                                 bookingId={b.id}
