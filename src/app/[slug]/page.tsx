@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { CalEmbed } from "@/components/public/CalEmbed";
 
 interface PageProps {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 }
 
 // These routes already exist in your app and should not be treated as tenant slugs
