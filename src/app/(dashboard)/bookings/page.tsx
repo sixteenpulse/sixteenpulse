@@ -189,9 +189,9 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
     };
 
     return (
-        <div className="bg-white rounded-lg border border-[#e5e3d9] overflow-hidden shadow-sm">
-            <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm whitespace-nowrap sm:whitespace-normal min-w-[700px]">
+        <div className="bg-white rounded-lg border border-[#e5e3d9] overflow-hidden shadow-sm flex flex-col w-full max-w-full">
+            <div className="overflow-x-auto w-full max-w-full" style={{ WebkitOverflowScrolling: "touch" }}>
+                <table className="w-full text-left text-sm whitespace-nowrap">
                     <thead>
                         <tr className="bg-[#fcfcfb] border-b border-[#e5e3d9] text-stone-500">
                             <th className="px-5 py-3 font-medium text-[13px]">Date & Time</th>
@@ -226,17 +226,17 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
                                                 <div className="text-xs text-stone-400 mt-0.5">{format(new Date(b.start_time), "h:mm a")} – {format(new Date(b.end_time), "h:mm a")}</div>
                                             </Link>
                                         </td>
-                                        <td className="px-5 py-4">
+                                        <td className="px-5 py-4 min-w-[150px] whitespace-normal sm:whitespace-nowrap">
                                             <Link href={`/bookings/${b.id}`}>
                                                 <div className="font-medium text-stone-900 text-[13px] group-hover:text-blue-600 transition-colors duration-150">{b.attendee_name}</div>
-                                                <div className="text-xs text-stone-500 truncate max-w-[180px] mt-0.5">{b.attendee_email}</div>
+                                                <div className="text-xs text-stone-500 truncate mt-0.5 max-w-[180px] sm:max-w-[250px]">{b.attendee_email}</div>
                                             </Link>
                                         </td>
                                         <td className="px-5 py-4 whitespace-nowrap text-stone-600 text-[13px] hidden md:table-cell">
                                             {phone || <span className="text-stone-300">—</span>}
                                         </td>
                                         <td className="px-5 py-4 text-stone-600 text-[13px] hidden lg:table-cell">{b.event_type_name}</td>
-                                        <td className="px-5 py-4 whitespace-nowrap">
+                                        <td className="px-5 py-4 whitespace-nowrap border-l border-transparent">
                                             <AmountCell bookingId={b.id} initialAmount={b.amount} />
                                         </td>
                                         <td className="px-5 py-4 whitespace-nowrap">{statusBadge(computedStatus)}</td>
