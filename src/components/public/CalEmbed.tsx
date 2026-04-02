@@ -7,8 +7,13 @@ export function CalEmbed({ profileUrl }: { profileUrl: string }) {
 
     return (
         <div 
-            className="w-full rounded-xl border border-stone-200 bg-white overflow-hidden shadow-sm"
-            style={{ height: "800px", WebkitOverflowScrolling: "touch" }}
+            className="w-full rounded-xl border border-stone-200 bg-white shadow-sm"
+            style={{ 
+                height: "100dvh", 
+                minHeight: "850px", 
+                WebkitOverflowScrolling: "touch",
+                overflowY: "auto"
+            }}
         >
             {isLoading && (
                 <div className="flex h-full w-full items-center justify-center bg-stone-50">
