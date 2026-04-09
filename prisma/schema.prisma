@@ -16,6 +16,7 @@ model Tenant {
   created_at               DateTime               @default(now())
   brand_name               String?
   primary_color            String?
+  currency                 String                 @default("USD")
   automate_review_requests Boolean                @default(false)
   google_review_link       String?
   review_delay_value       Int                    @default(24)

@@ -74,6 +74,12 @@ async function ClientsTable({ searchParams, tenantId, q }: { searchParams: any, 
     const filter = await getEventTypeFilter(tenantId);
     const ef = filter ? { event_type_name: { in: filter } } : {};
 
+    const tenant = await prisma.tenant.findUnique({
+        where: { id: tenantId },
+        select: { currency: true }
+    });
+    const currency = tenant?.currency || "USD";
+
     const clientAgg = await prisma.booking.groupBy({
         by: ["attendee_email"],
         where: {
@@ -171,7 +177,7 @@ async function ClientsTable({ searchParams, tenantId, q }: { searchParams: any, 
                                         </td>
                                         <td className="px-5 py-4 whitespace-nowrap">
                                             {totalPaid ? (
-                                                <span className="font-medium text-emerald-600 text-[13px]">${totalPaid.toFixed(2)}</span>
+                                                <span className="font-medium text-emerald-600 text-[13px]">{new Intl.NumberFormat("en-US", { style: "currency", currency }).format(totalPaid)}</span>
                                             ) : (
                                                 <span className="text-stone-300">—</span>
                                             )}

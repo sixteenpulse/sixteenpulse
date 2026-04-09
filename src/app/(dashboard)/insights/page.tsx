@@ -18,6 +18,12 @@ export default async function InsightsPage() {
     const filter = await getEventTypeFilter(tid);
     const ef = filter ? { event_type_name: { in: filter } } : {};
 
+    const tenant = await prisma.tenant.findUnique({
+        where: { id: tid },
+        select: { currency: true }
+    });
+    const currency = tenant?.currency || "USD";
+
     const [
         totalBookings,
         cancelledBookings,
@@ -129,7 +135,7 @@ export default async function InsightsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="bg-white rounded-lg border border-[#e5e3d9] p-5">
                     <p className="text-xs font-medium text-stone-400 mb-2">Total Revenue</p>
-                    <p className="text-2xl font-semibold text-stone-900">${grossRevenue.toFixed(2)}</p>
+                    <p className="text-2xl font-semibold text-stone-900">{new Intl.NumberFormat("en-US", { style: "currency", currency }).format(grossRevenue)}</p>
                     <p className="text-xs mt-2">
                         <span className={`font-medium ${revenueGrowthPositive ? "text-emerald-600" : "text-red-500"}`}>
                             {revenueGrowthPositive ? "+" : ""}{revenueGrowth}%

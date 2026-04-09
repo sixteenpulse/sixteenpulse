@@ -19,7 +19,8 @@ export default async function BookingDetailPage({ params }: PageProps) {
     const { id } = await params;
 
     const booking = await prisma.booking.findFirst({
-        where: { id, tenant_id: session.user.tenant_id }
+        where: { id, tenant_id: session.user.tenant_id },
+        include: { tenant: { select: { currency: true } } }
     });
 
     if (!booking) return notFound();
@@ -131,7 +132,7 @@ export default async function BookingDetailPage({ params }: PageProps) {
                                     <DollarSign className="w-4 h-4 text-emerald-600" />
                                 </div>
                                 <div className="flex-1">
-                                    <AmountCell bookingId={booking.id} initialAmount={booking.amount} />
+                                    <AmountCell bookingId={booking.id} initialAmount={booking.amount} currency={booking.tenant?.currency || "USD"} />
                                     <p className="text-[11px] text-stone-400 mt-0.5 leading-tight">Click to set offline pricing manually.</p>
                                 </div>
                             </div>

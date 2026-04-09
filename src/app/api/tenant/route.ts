@@ -40,6 +40,7 @@ export async function PUT(req: Request) {
         if (body.name !== undefined) dataToUpdate.name = body.name;
         if (body.slug !== undefined) dataToUpdate.slug = body.slug;
         if (body.logo_url !== undefined) dataToUpdate.logo_url = body.logo_url;
+        if (body.currency !== undefined) dataToUpdate.currency = body.currency;
 
         // Check for slug uniqueness if it's being updated
         if (dataToUpdate.slug) {

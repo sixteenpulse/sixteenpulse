@@ -5,9 +5,10 @@ import { useState } from "react";
 interface AmountCellProps {
     bookingId: string;
     initialAmount: number | null;
+    currency?: string;
 }
 
-export function AmountCell({ bookingId, initialAmount }: AmountCellProps) {
+export function AmountCell({ bookingId, initialAmount, currency = "USD" }: AmountCellProps) {
     const [amount, setAmount] = useState<string>(initialAmount != null ? initialAmount.toString() : "");
     const [editing, setEditing] = useState(false);
     const [saving, setSaving] = useState(false);
@@ -35,7 +36,9 @@ export function AmountCell({ bookingId, initialAmount }: AmountCellProps) {
     if (editing) {
         return (
             <div className="flex items-center gap-1" onClick={(e) => e.preventDefault()}>
-                <span className="text-sm text-stone-400">$</span>
+                <span className="text-sm text-stone-400">
+                    {new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(0).replace(/\d|\.|,/g, '').trim()}
+                </span>
                 <input
                     type="number"
                     step="0.01"
@@ -73,7 +76,9 @@ export function AmountCell({ bookingId, initialAmount }: AmountCellProps) {
             title="Click to edit amount"
         >
             {amount ? (
-                <span className="text-[13px] font-medium text-stone-900">${parseFloat(amount).toFixed(2)}</span>
+                <span className="text-[13px] font-medium text-stone-900">
+                    {new Intl.NumberFormat("en-US", { style: "currency", currency }).format(parseFloat(amount))}
+                </span>
             ) : (
                 <span className="text-xs border border-dashed border-warm text-stone-400 px-2.5 py-1 rounded-md hover:border-warm-dark transition-colors">+ add</span>
             )}

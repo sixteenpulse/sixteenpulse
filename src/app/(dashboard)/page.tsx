@@ -16,7 +16,7 @@ export default async function TodayPage() {
     const todayEnd = addDays(todayStart, 1);
 
     // Fire database queries perfectly in parallel
-    const [filter, allTodayBookings] = await Promise.all([
+    const [filter, allTodayBookings, tenant] = await Promise.all([
         getEventTypeFilter(tid),
         prisma.booking.findMany({
             where: {
@@ -25,13 +25,16 @@ export default async function TodayPage() {
                 status: { in: ["SCHEDULED", "COMPLETED"] },
             },
             orderBy: { start_time: "asc" },
-        })
+        }),
+        prisma.tenant.findUnique({ where: { id: tid }, select: { currency: true } })
     ]);
 
     // Apply the event type filter in-memory (very fast for a single day's bookings)
     const todayBookings = filter 
         ? allTodayBookings.filter(b => filter.includes(b.event_type_name))
         : allTodayBookings;
+
+    const currency = tenant?.currency || "USD";
 
     const upcoming = todayBookings.filter(b => new Date(b.start_time) >= now);
     const past = todayBookings.filter(b => new Date(b.start_time) < now);
@@ -88,7 +91,7 @@ export default async function TodayPage() {
                                     </div>
                                     <div className="flex items-center gap-3 shrink-0">
                                         {b.amount != null && (
-                                            <span className="text-sm font-medium text-stone-700">${b.amount.toFixed(2)}</span>
+                                            <span className="text-sm font-medium text-stone-700">{new Intl.NumberFormat("en-US", { style: "currency", currency }).format(b.amount)}</span>
                                         )}
                                         <span className={`text-[11px] font-medium px-2 py-0.5 rounded ${computedStatus === "COMPLETED"
                                             ? "bg-[#f3f2ee] text-stone-600 border border-[#e5e3d9]"

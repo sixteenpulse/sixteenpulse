@@ -21,13 +21,15 @@ export default async function ClientDetailPage({ params }: PageProps) {
             tenant_id: session.user.tenant_id,
             attendee_email: decodedEmail
         },
-        orderBy: { start_time: "desc" }
+        orderBy: { start_time: "desc" },
+        include: { tenant: { select: { currency: true } } }
     });
 
     if (bookings.length === 0) return notFound();
 
     const totalVisits = bookings.length;
     let totalRevenue = 0;
+    const currency = bookings[0].tenant?.currency || "USD";
 
     // Sum revenue safely handling nulls
     bookings.forEach(b => {
@@ -113,7 +115,7 @@ export default async function ClientDetailPage({ params }: PageProps) {
                     </div>
                     <div>
                         <p className="text-xs font-medium text-stone-400 mb-1">Total Revenue</p>
-                        <p className="text-xl font-medium text-emerald-600">${totalRevenue.toFixed(2)}</p>
+                        <p className="text-xl font-medium text-emerald-600">{new Intl.NumberFormat("en-US", { style: "currency", currency }).format(totalRevenue)}</p>
                     </div>
                     <div>
                         <p className="text-xs font-medium text-stone-400 mb-1">Last Visit</p>
@@ -148,7 +150,7 @@ export default async function ClientDetailPage({ params }: PageProps) {
                                 </div>
                                 <div className="text-right shrink-0">
                                     {b.amount != null ? (
-                                        <span className="font-medium text-stone-900 text-sm">${b.amount.toFixed(2)}</span>
+                                        <span className="font-medium text-stone-900 text-sm">{new Intl.NumberFormat("en-US", { style: "currency", currency }).format(b.amount)}</span>
                                     ) : (
                                         <span className="text-stone-300">—</span>
                                     )}

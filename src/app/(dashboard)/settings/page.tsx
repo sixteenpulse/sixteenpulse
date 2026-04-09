@@ -19,6 +19,7 @@ export default function SettingsPage() {
     const [loadingEventTypes, setLoadingEventTypes] = useState(true);
 
     const [businessName, setBusinessName] = useState("");
+    const [currency, setCurrency] = useState("USD");
     const [nameSaving, setNameSaving] = useState(false);
     const [nameSaved, setNameSaved] = useState(false);
 
@@ -44,6 +45,7 @@ export default function SettingsPage() {
             if (data.tenant) {
                 setConnections(data.tenant.calConnections || []);
                 setBusinessName(data.tenant.name || "");
+                setCurrency(data.tenant.currency || "USD");
                 const conn = data.tenant.calConnections?.[0];
                 if (conn?.metadata?.selectedEventTypes) {
                     setSelectedEventTypes(conn.metadata.selectedEventTypes);
@@ -61,7 +63,7 @@ export default function SettingsPage() {
             await fetch("/api/tenant", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name: businessName.trim() }),
+                body: JSON.stringify({ name: businessName.trim(), currency }),
             });
             setNameSaved(true);
             setTimeout(() => setNameSaved(false), 2000);
@@ -173,6 +175,22 @@ export default function SettingsPage() {
                                     placeholder="Enter your business name..."
                                     className="w-full max-w-md bg-white border border-[#e5e3d9] rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400 text-sm transition-colors duration-150"
                                 />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-stone-700 mb-1.5">Default Currency</label>
+                                <select
+                                    value={currency}
+                                    onChange={(e) => setCurrency(e.target.value)}
+                                    className="w-full max-w-md bg-white border border-[#e5e3d9] rounded-lg px-3 py-2 text-stone-900 focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400 text-sm transition-colors duration-150"
+                                >
+                                    <option value="USD">USD ($)</option>
+                                    <option value="INR">INR (₹)</option>
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                    <option value="AUD">AUD (A$)</option>
+                                    <option value="CAD">CAD (C$)</option>
+                                    <option value="SGD">SGD (S$)</option>
+                                </select>
                             </div>
                             <button
                                 onClick={handleSaveBusinessName}

@@ -154,7 +154,7 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
         where.status = statusFilter;
     }
 
-    const [bookings, total] = await Promise.all([
+    const [bookings, total, tenant] = await Promise.all([
         prisma.booking.findMany({
             where,
             orderBy: { start_time: "desc" },
@@ -162,6 +162,7 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
             take: limit,
         }),
         prisma.booking.count({ where }),
+        prisma.tenant.findUnique({ where: { id: tenantId }, select: { currency: true } }),
     ]);
 
     const totalPages = Math.ceil(total / limit);
@@ -234,7 +235,7 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
                                             {b.event_type_name}
                                         </td>
                                         <td className="px-5 py-4 whitespace-nowrap border-l border-transparent">
-                                            <AmountCell bookingId={b.id} initialAmount={b.amount} />
+                                            <AmountCell bookingId={b.id} initialAmount={b.amount} currency={tenant?.currency || "USD"} />
                                         </td>
                                         <td className="px-5 py-4 whitespace-nowrap">
                                             {statusBadge(computedStatus)}
