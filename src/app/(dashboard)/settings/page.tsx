@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Save, CheckCircle2, Key, RefreshCw, X, Plus, Loader2, Filter } from "lucide-react";
+import { useRouter } from "next/navigation";
 import SmtpSettings from "@/components/settings/SmtpSettings";
 import PwaSettings from "@/components/settings/PwaSettings";
 import SecuritySettings from "@/components/settings/SecuritySettings";
@@ -14,6 +15,7 @@ export default function SettingsPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [connections, setConnections] = useState<any[]>([]);
     const [syncingConnectionId, setSyncingConnectionId] = useState<string | null>(null);
+    const router = useRouter();
 
     const [eventTypes, setEventTypes] = useState<any[]>([]);
     const [loadingEventTypes, setLoadingEventTypes] = useState(true);
@@ -66,6 +68,7 @@ export default function SettingsPage() {
                 body: JSON.stringify({ name: businessName.trim(), currency }),
             });
             setNameSaved(true);
+            router.refresh(); // Refresh server components to retrieve updated session business_name
             setTimeout(() => setNameSaved(false), 2000);
         } catch {
             alert("Failed to save business name.");

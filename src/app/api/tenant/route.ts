@@ -55,6 +55,11 @@ export async function PUT(req: Request) {
             data: dataToUpdate
         });
 
+        if (dataToUpdate.name && session.user.business_name !== dataToUpdate.name) {
+            session.user.business_name = dataToUpdate.name;
+            await session.save();
+        }
+
         return NextResponse.json({ success: true, tenant });
     } catch (err) {
         console.error("Error updating tenant details:", err);

@@ -3,14 +3,14 @@
 import { useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
-const SYNC_INTERVAL_MS = 2 * 60 * 1000; // 2 minutes
+const SYNC_INTERVAL_MS = 30 * 1000; // 30 seconds
 
 /**
  * Background sync component:
  * - Syncs immediately on mount (first page load)
- * - Then every 2 minutes
+ * - Syncs immediately when window regains focus
+ * - Then every 30 seconds while open
  * - After each sync, refreshes the page data via router.refresh()
- *   (this is a soft refresh — no full page reload, just re-fetches server components)
  */
 export function RealtimeSync() {
     const router = useRouter();
@@ -19,7 +19,9 @@ export function RealtimeSync() {
     const connectionIdRef = useRef<string | null>(null);
 
     const triggerSync = useCallback(async () => {
-        if (isSyncingRef.current) return;
+        // Prevent rapid overlapping syncs -- wait at least 5 seconds between syncs 
+        if (isSyncingRef.current || (Date.now() - lastSyncRef.current < 5000)) return;
+        
         isSyncingRef.current = true;
         try {
             // Get connection ID (cache it after first fetch)
@@ -39,22 +41,35 @@ export function RealtimeSync() {
             });
 
             lastSyncRef.current = Date.now();
-            // Soft refresh — re-fetches server components without full page reload
             router.refresh();
         } catch { }
         finally { isSyncingRef.current = false; }
     }, [router]);
 
     useEffect(() => {
-        // Sync immediately on mount (first dashboard load)
+        // Sync immediately on mount
         triggerSync();
 
-        // Then sync every 2 minutes
+        // Sync on interval
         const timer = setInterval(() => {
             triggerSync();
         }, SYNC_INTERVAL_MS);
 
-        return () => clearInterval(timer);
+        // Sync when user focuses the tab again
+        const handleFocus = () => {
+            if (document.visibilityState === 'visible') {
+                triggerSync();
+            }
+        };
+
+        document.addEventListener("visibilitychange", handleFocus);
+        window.addEventListener("focus", handleFocus);
+
+        return () => {
+            clearInterval(timer);
+            document.removeEventListener("visibilitychange", handleFocus);
+            window.removeEventListener("focus", handleFocus);
+        };
     }, [triggerSync]);
 
     return null;
