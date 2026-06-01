@@ -11,6 +11,7 @@ export default function PwaSettings() {
     const [tgBotToken, setTgBotToken] = useState("");
     const [isTgSaving, setIsTgSaving] = useState(false);
     const [tgSaved, setTgSaved] = useState(false);
+    const [isTestingTg, setIsTestingTg] = useState(false);
 
     useEffect(() => {
         // Fetch User's Telegram settings
@@ -124,6 +125,22 @@ export default function PwaSettings() {
         setIsTgSaving(false);
     };
 
+    const handleTestTelegram = async () => {
+        setIsTestingTg(true);
+        try {
+            const res = await fetch("/api/user/test-telegram", { method: "POST" });
+            const data = await res.json();
+            if (!res.ok) {
+                alert(`Error: ${data.error}`);
+            } else {
+                alert("Test message sent successfully! Check your Telegram.");
+            }
+        } catch {
+            alert("Failed to send test message.");
+        }
+        setIsTestingTg(false);
+    };
+
     return (
         <div className="space-y-8 max-w-2xl">
             <div>
@@ -214,7 +231,14 @@ export default function PwaSettings() {
                             </div>
                         </div>
 
-                        <div className="pt-2 flex justify-end">
+                        <div className="pt-2 flex justify-end gap-3">
+                            <button 
+                                onClick={handleTestTelegram}
+                                disabled={isTestingTg || !tgChatId || !tgBotToken}
+                                className="px-4 py-2 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 text-sm transition-colors duration-150 shadow-sm disabled:opacity-50 flex items-center gap-2"
+                            >
+                                {isTestingTg ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</> : "Send Test Message"}
+                            </button>
                             <button 
                                 onClick={handleSaveTelegram}
                                 disabled={isTgSaving}
