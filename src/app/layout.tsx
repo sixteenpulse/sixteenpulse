@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
 import { PwaProvider } from "@/components/providers/PwaProvider";
+import { TopLoader } from "@/components/providers/TopLoader";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <PwaProvider />
+        <TopLoader />
         {children}
       </body>
     </html>
