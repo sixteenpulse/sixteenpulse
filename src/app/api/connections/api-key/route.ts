@@ -89,11 +89,11 @@ export async function POST(req: Request) {
                 : null;
 
             if (appUrl) {
-                const webhookUrl = `${appUrl}/api/webhooks/cal`;
+                const webhookUrl = `${appUrl}/api/webhooks/cal?connId=${connection.id}`;
                 // Check if webhook already registered
                 const existingHooks = await client.getWebhooks();
                 const alreadyRegistered = existingHooks.some(
-                    (h: any) => h.subscriberUrl === webhookUrl || h.url === webhookUrl
+                    (h: any) => h.subscriberUrl === webhookUrl || h.url === webhookUrl || h.subscriberUrl.includes(`${appUrl}/api/webhooks/cal`)
                 );
 
                 if (!alreadyRegistered) {

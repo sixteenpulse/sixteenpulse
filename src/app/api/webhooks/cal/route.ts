@@ -27,17 +27,29 @@ export async function POST(req: Request) {
             return NextResponse.json({ received: true });
         }
 
+        const urlObj = new URL(req.url);
+        const connId = urlObj.searchParams.get("connId");
         const calUserId = payload.userId?.toString();
         
         let connection = null;
         
-        if (calUserId) {
+        // 1. Try to find by explicit connection ID in the webhook URL (New method)
+        if (connId) {
+            connection = await prisma.calConnection.findUnique({
+                where: { id: connId },
+                include: { tenant: true }
+            });
+        }
+        
+        // 2. Fallback to userId matching (Standard Cal.com)
+        if (!connection && calUserId) {
             connection = await prisma.calConnection.findFirst({
                 where: { cal_account_id: calUserId, status: "CONNECTED" },
                 include: { tenant: true }
             });
         }
 
+        // 3. Absolute fallback (Legacy)
         if (!connection) {
             connection = await prisma.calConnection.findFirst({
                 where: { status: "CONNECTED" },
