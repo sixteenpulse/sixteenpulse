@@ -25,6 +25,11 @@ export default function SettingsPage() {
     const [nameSaving, setNameSaving] = useState(false);
     const [nameSaved, setNameSaved] = useState(false);
 
+    const [userName, setUserName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [userSaving, setUserSaving] = useState(false);
+    const [userSaved, setUserSaved] = useState(false);
+
     const [selectedEventTypes, setSelectedEventTypes] = useState<string[]>([]);
     const [filterSaving, setFilterSaving] = useState(false);
     const [filterSaved, setFilterSaved] = useState(false);
@@ -40,21 +45,31 @@ export default function SettingsPage() {
         setLoadingEventTypes(false);
     };
 
-    const fetchTenantData = useCallback(async () => {
+    const fetchData = useCallback(async () => {
         try {
-            const res = await fetch("/api/tenant");
-            const data = await res.json();
-            if (data.tenant) {
-                setConnections(data.tenant.calConnections || []);
-                setBusinessName(data.tenant.name || "");
-                setCurrency(data.tenant.currency || "USD");
-                const conn = data.tenant.calConnections?.[0];
+            const [tenantRes, userRes] = await Promise.all([
+                fetch("/api/tenant"),
+                fetch("/api/user")
+            ]);
+
+            const tenantData = await tenantRes.json();
+            if (tenantData.tenant) {
+                setConnections(tenantData.tenant.calConnections || []);
+                setBusinessName(tenantData.tenant.name || "");
+                setCurrency(tenantData.tenant.currency || "USD");
+                const conn = tenantData.tenant.calConnections?.[0];
                 if (conn?.metadata?.selectedEventTypes) {
                     setSelectedEventTypes(conn.metadata.selectedEventTypes);
                 }
             }
+
+            const userData = await userRes.json();
+            if (userData.user) {
+                setUserName(userData.user.name || "");
+                setUserEmail(userData.user.email || "");
+            }
         } catch (err) {
-            console.error("Error fetching tenant data", err);
+            console.error("Error fetching data", err);
         }
     }, []);
 
@@ -68,7 +83,7 @@ export default function SettingsPage() {
                 body: JSON.stringify({ name: businessName.trim(), currency }),
             });
             setNameSaved(true);
-            router.refresh(); // Refresh server components to retrieve updated session business_name
+            router.refresh(); 
             setTimeout(() => setNameSaved(false), 2000);
         } catch {
             alert("Failed to save business name.");
@@ -76,10 +91,28 @@ export default function SettingsPage() {
         setNameSaving(false);
     };
 
+    const handleSaveUserName = async () => {
+        if (!userName.trim()) return;
+        setUserSaving(true);
+        try {
+            await fetch("/api/user", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: userName.trim() }),
+            });
+            setUserSaved(true);
+            router.refresh(); 
+            setTimeout(() => setUserSaved(false), 2000);
+        } catch {
+            alert("Failed to save user name.");
+        }
+        setUserSaving(false);
+    };
+
     useEffect(() => {
-        fetchTenantData();
+        fetchData();
         fetchEventTypes();
-    }, [fetchTenantData]);
+    }, [fetchData]);
 
     useEffect(() => {
         if (eventTypes.length > 0 && selectedEventTypes.length === 0) {
@@ -124,7 +157,7 @@ export default function SettingsPage() {
             if (!res.ok) alert(data.error || "Failed to sync bookings");
             else {
                 alert(data.message || "Synced successfully!");
-                fetchTenantData();
+                fetchData();
             }
         } catch {
             alert("Network error during sync.");
@@ -148,7 +181,7 @@ export default function SettingsPage() {
                 alert("Connection saved successfully!");
                 setIsAddModalOpen(false);
                 setApiKey("");
-                fetchTenantData();
+                fetchData();
             }
         } catch {
             alert("Network error. Could not connect to the service.");
@@ -163,10 +196,50 @@ export default function SettingsPage() {
     const renderTabContent = () => {
         if (activeTab === "General") {
             return (
-                <div className="space-y-8 max-w-2xl">
-                    <div>
-                        <h2 className="text-base font-semibold text-stone-900 mb-1">Business Profile</h2>
-                        <p className="text-sm text-stone-500 mb-6">Manage your business identity. This name appears in the sidebar for your team and on external widgets.</p>
+                <div className="space-y-6 max-w-2xl">
+                    
+                    {/* User Profile Card */}
+                    <div className="bg-white rounded-xl border border-[#e5e3d9] p-6 shadow-sm">
+                        <h2 className="text-base font-semibold text-stone-900 mb-1">Your Profile</h2>
+                        <p className="text-sm text-stone-500 mb-6">Manage your personal account details.</p>
+
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-stone-700 mb-1.5">Full Name</label>
+                                <input
+                                    type="text"
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                    placeholder="Enter your name..."
+                                    className="w-full max-w-md bg-white border border-[#e5e3d9] rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400 text-sm transition-colors duration-150"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-stone-700 mb-1.5">Email Address</label>
+                                <input
+                                    type="email"
+                                    value={userEmail}
+                                    disabled
+                                    className="w-full max-w-md bg-[#fcfcfb] border border-[#e5e3d9] rounded-lg px-3 py-2 text-stone-500 text-sm cursor-not-allowed"
+                                />
+                                <p className="text-xs text-stone-400 mt-1.5">Email address cannot be changed here.</p>
+                            </div>
+                            <div className="pt-2">
+                                <button
+                                    onClick={handleSaveUserName}
+                                    disabled={userSaving || !userName.trim()}
+                                    className="px-4 py-2 text-sm font-medium bg-stone-900 text-white rounded-lg hover:bg-stone-800 disabled:opacity-50 flex items-center gap-2 transition-colors duration-150"
+                                >
+                                    {userSaving ? <><RefreshCw className="w-3.5 h-3.5 animate-spin" /> Saving...</> : userSaved ? <><CheckCircle2 className="w-3.5 h-3.5" /> Saved</> : "Update Profile"}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Business Profile Card */}
+                    <div className="bg-white rounded-xl border border-[#e5e3d9] p-6 shadow-sm">
+                        <h2 className="text-base font-semibold text-stone-900 mb-1">Business Identity</h2>
+                        <p className="text-sm text-stone-500 mb-6">This name appears in the sidebar for your team and on external widgets.</p>
 
                         <div className="space-y-4">
                             <div>
@@ -195,15 +268,18 @@ export default function SettingsPage() {
                                     <option value="SGD">SGD (S$)</option>
                                 </select>
                             </div>
-                            <button
-                                onClick={handleSaveBusinessName}
-                                disabled={nameSaving || !businessName.trim()}
-                                className="px-4 py-2 text-sm font-medium bg-white border border-[#e5e3d9] text-stone-700 rounded-lg hover:bg-[#f3f2ee] disabled:opacity-50 flex items-center gap-2 transition-colors duration-150"
-                            >
-                                {nameSaving ? <><RefreshCw className="w-3.5 h-3.5 animate-spin" /> Saving...</> : nameSaved ? <><CheckCircle2 className="w-3.5 h-3.5" /> Saved</> : "Save details"}
-                            </button>
+                            <div className="pt-2">
+                                <button
+                                    onClick={handleSaveBusinessName}
+                                    disabled={nameSaving || !businessName.trim()}
+                                    className="px-4 py-2 text-sm font-medium bg-white border border-[#e5e3d9] text-stone-700 rounded-lg hover:bg-[#f3f2ee] disabled:opacity-50 flex items-center gap-2 transition-colors duration-150"
+                                >
+                                    {nameSaving ? <><RefreshCw className="w-3.5 h-3.5 animate-spin" /> Saving...</> : nameSaved ? <><CheckCircle2 className="w-3.5 h-3.5" /> Saved</> : "Save details"}
+                                </button>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             );
         }
