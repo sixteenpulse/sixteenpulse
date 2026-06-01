@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Save, CheckCircle2, Key, RefreshCw, X, Plus, Loader2, Filter } from "lucide-react";
 import { useRouter } from "next/navigation";
-import SmtpSettings from "@/components/settings/SmtpSettings";
+import { useRouter } from "next/navigation";
 import PwaSettings from "@/components/settings/PwaSettings";
 import SecuritySettings from "@/components/settings/SecuritySettings";
 
@@ -191,7 +191,7 @@ export default function SettingsPage() {
     };
 
     const [activeTab, setActiveTab] = useState("General");
-    const tabs = ["General", "Data Filter", "Integrations", "Email Delivery", "App & Notifications", "Security"];
+    const tabs = ["General", "Integrations", "Notifications", "Security"];
 
     const renderTabContent = () => {
         if (activeTab === "General") {
@@ -284,10 +284,55 @@ export default function SettingsPage() {
             );
         }
 
-        if (activeTab === "Data Filter") {
+        if (activeTab === "Integrations") {
             return (
                 <div className="space-y-8 max-w-2xl">
-                    <div>
+                    <div className="flex items-start justify-between">
+                        <div>
+                            <h2 className="text-base font-semibold text-stone-900 mb-1">Calendar Connections</h2>
+                            <p className="text-sm text-stone-500">Manage API keys and connected scheduling accounts.</p>
+                        </div>
+                        <button
+                            onClick={() => setIsAddModalOpen(true)}
+                            className="px-3 py-1.5 text-sm font-medium bg-white border border-[#e5e3d9] text-stone-700 rounded-lg flex items-center gap-1.5 hover:bg-[#f3f2ee] transition-colors duration-150"
+                        >
+                            <Plus className="w-3.5 h-3.5" /> Add Connection
+                        </button>
+                    </div>
+
+                    <div className="mt-6 border-t border-[#e5e3d9] divide-y divide-[#e5e3d9]">
+                        {connections.length === 0 ? (
+                            <div className="py-8 text-stone-500 text-sm">
+                                No integrations configured yet.
+                            </div>
+                        ) : (
+                            connections.map((conn) => (
+                                <div key={conn.id} className="flex flex-col sm:flex-row sm:items-center justify-between py-5 gap-4">
+                                    <div>
+                                        <p className="font-medium text-stone-900 text-sm flex items-center gap-2">
+                                            {conn.name}
+                                            <span className={`text-[10px] font-semibold tracking-wide uppercase px-1.5 py-0.5 rounded border ${conn.status === "CONNECTED" ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-red-50 text-red-700 border-red-200"}`}>
+                                                {conn.status}
+                                            </span>
+                                        </p>
+                                        <p className="text-[13px] text-stone-500 mt-1">
+                                            {conn.last_synced_at ? `Last synced ${new Date(conn.last_synced_at).toLocaleString()}` : "Never synced"}
+                                        </p>
+                                    </div>
+                                    <button
+                                        onClick={() => handleSyncConnection(conn.id)}
+                                        disabled={syncingConnectionId === conn.id}
+                                        className="self-start sm:self-auto flex items-center gap-1.5 text-xs font-medium text-stone-600 bg-[#f3f2ee] px-3 py-1.5 rounded-md hover:bg-[#e5e3d9] disabled:opacity-50 transition-colors duration-150"
+                                    >
+                                        <RefreshCw className={`w-3.5 h-3.5 ${syncingConnectionId === conn.id ? "animate-spin" : ""}`} />
+                                        {syncingConnectionId === conn.id ? "Syncing..." : "Sync manually"}
+                                    </button>
+                                </div>
+                            ))
+                        )}
+                    </div>
+
+                    <div className="pt-8">
                         <h2 className="text-base font-semibold text-stone-900 mb-1">Incoming Data Filter</h2>
                         <p className="text-sm text-stone-500 mb-6">Select which event types should appear in your dashboard metrics and bookings list.</p>
 
@@ -350,66 +395,7 @@ export default function SettingsPage() {
             );
         }
 
-        if (activeTab === "Integrations") {
-            return (
-                <div className="space-y-8 max-w-2xl">
-                    <div className="flex items-start justify-between">
-                        <div>
-                            <h2 className="text-base font-semibold text-stone-900 mb-1">Calendar Connections</h2>
-                            <p className="text-sm text-stone-500">Manage API keys and connected scheduling accounts.</p>
-                        </div>
-                        <button
-                            onClick={() => setIsAddModalOpen(true)}
-                            className="px-3 py-1.5 text-sm font-medium bg-white border border-[#e5e3d9] text-stone-700 rounded-lg flex items-center gap-1.5 hover:bg-[#f3f2ee] transition-colors duration-150"
-                        >
-                            <Plus className="w-3.5 h-3.5" /> Add Connection
-                        </button>
-                    </div>
-
-                    <div className="mt-6 border-t border-[#e5e3d9] divide-y divide-[#e5e3d9]">
-                        {connections.length === 0 ? (
-                            <div className="py-8 text-stone-500 text-sm">
-                                No integrations configured yet.
-                            </div>
-                        ) : (
-                            connections.map((conn) => (
-                                <div key={conn.id} className="flex flex-col sm:flex-row sm:items-center justify-between py-5 gap-4">
-                                    <div>
-                                        <p className="font-medium text-stone-900 text-sm flex items-center gap-2">
-                                            {conn.name}
-                                            <span className={`text-[10px] font-semibold tracking-wide uppercase px-1.5 py-0.5 rounded border ${conn.status === "CONNECTED" ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-red-50 text-red-700 border-red-200"}`}>
-                                                {conn.status}
-                                            </span>
-                                        </p>
-                                        <p className="text-[13px] text-stone-500 mt-1">
-                                            {conn.last_synced_at ? `Last synced ${new Date(conn.last_synced_at).toLocaleString()}` : "Never synced"}
-                                        </p>
-                                    </div>
-                                    <button
-                                        onClick={() => handleSyncConnection(conn.id)}
-                                        disabled={syncingConnectionId === conn.id}
-                                        className="self-start sm:self-auto flex items-center gap-1.5 text-xs font-medium text-stone-600 bg-[#f3f2ee] px-3 py-1.5 rounded-md hover:bg-[#e5e3d9] disabled:opacity-50 transition-colors duration-150"
-                                    >
-                                        <RefreshCw className={`w-3.5 h-3.5 ${syncingConnectionId === conn.id ? "animate-spin" : ""}`} />
-                                        {syncingConnectionId === conn.id ? "Syncing..." : "Sync manually"}
-                                    </button>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                </div>
-            );
-        }
-
-        if (activeTab === "Email Delivery") {
-            return (
-                <div className="w-full">
-                    <SmtpSettings />
-                </div>
-            );
-        }
-
-        if (activeTab === "App & Notifications") {
+        if (activeTab === "Notifications") {
             return <PwaSettings />;
         }
         if (activeTab === "Security") {
