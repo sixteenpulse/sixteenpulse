@@ -41,6 +41,7 @@ export async function PUT(req: Request) {
         if (body.slug !== undefined) dataToUpdate.slug = body.slug;
         if (body.logo_url !== undefined) dataToUpdate.logo_url = body.logo_url;
         if (body.currency !== undefined) dataToUpdate.currency = body.currency;
+        if (body.telegram_bot_token !== undefined) dataToUpdate.telegram_bot_token = body.telegram_bot_token;
 
         // Check for slug uniqueness if it's being updated
         if (dataToUpdate.slug) {

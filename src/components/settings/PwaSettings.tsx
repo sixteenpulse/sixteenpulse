@@ -8,6 +8,7 @@ export default function PwaSettings() {
     
     // Telegram States
     const [tgChatId, setTgChatId] = useState("");
+    const [tgBotToken, setTgBotToken] = useState("");
     const [isTgSaving, setIsTgSaving] = useState(false);
     const [tgSaved, setTgSaved] = useState(false);
 
@@ -22,8 +23,15 @@ export default function PwaSettings() {
                         setTgChatId(data.user.telegram_chat_id || "");
                     }
                 }
+                const resTenant = await fetch("/api/tenant");
+                if (resTenant.ok) {
+                    const dataT = await resTenant.json();
+                    if (dataT.tenant) {
+                        setTgBotToken(dataT.tenant.telegram_bot_token || "");
+                    }
+                }
             } catch (err) {
-                console.error("Failed to load user settings");
+                console.error("Failed to load settings");
             }
         };
         fetchUserSettings();
@@ -101,9 +109,12 @@ export default function PwaSettings() {
             await fetch("/api/user", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    telegram_chat_id: tgChatId 
-                })
+                body: JSON.stringify({ telegram_chat_id: tgChatId })
+            });
+            await fetch("/api/tenant", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ telegram_bot_token: tgBotToken })
             });
             setTgSaved(true);
             setTimeout(() => setTgSaved(false), 2000);
@@ -166,23 +177,41 @@ export default function PwaSettings() {
                         </div>
                         
                         <div className="bg-[#faf9f8] p-4 rounded-lg border border-[#e5e3d9] text-[13px] text-stone-600 space-y-2">
-                            <p><strong>Setup Instructions:</strong></p>
+                            <p><strong>Step 1: Workspace Bot Token (One-time setup)</strong></p>
+                            <ol className="list-decimal pl-4 space-y-1 mb-3">
+                                <li>Message <strong>@BotFather</strong> on Telegram and send <code>/newbot</code>.</li>
+                                <li>Follow the prompts to name your bot.</li>
+                                <li>Paste the <strong>HTTP API Token</strong> below.</li>
+                            </ol>
+                            
+                            <p><strong>Step 2: Personal Chat ID</strong></p>
                             <ol className="list-decimal pl-4 space-y-1">
-                                <li>Open Telegram and search for the bot: <strong>@getmyid_bot</strong></li>
-                                <li>Click <strong>Start</strong> to message the bot.</li>
-                                <li>The bot will reply with your <strong>Your user ID</strong>. Paste that number below.</li>
+                                <li>Search for <strong>@getmyid_bot</strong> on Telegram.</li>
+                                <li>Click <strong>Start</strong>. Paste <strong>Your user ID</strong> below.</li>
                             </ol>
                         </div>
 
-                        <div className="max-w-sm">
-                            <label className="block text-sm font-medium text-stone-700 mb-1.5">Telegram Chat ID</label>
-                            <input
-                                type="text"
-                                value={tgChatId}
-                                onChange={(e) => setTgChatId(e.target.value)}
-                                placeholder="e.g. 123456789"
-                                className="w-full bg-white border border-[#e5e3d9] rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400 text-sm font-mono"
-                            />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-stone-700 mb-1.5">Workspace Bot Token</label>
+                                <input
+                                    type="text"
+                                    value={tgBotToken}
+                                    onChange={(e) => setTgBotToken(e.target.value)}
+                                    placeholder="123456789:ABCdefGHIjklmNOPqrstu"
+                                    className="w-full bg-white border border-[#e5e3d9] rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400 text-sm font-mono"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-stone-700 mb-1.5">Your Chat ID</label>
+                                <input
+                                    type="text"
+                                    value={tgChatId}
+                                    onChange={(e) => setTgChatId(e.target.value)}
+                                    placeholder="e.g. 123456789"
+                                    className="w-full bg-white border border-[#e5e3d9] rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400 text-sm font-mono"
+                                />
+                            </div>
                         </div>
 
                         <div className="pt-2 flex justify-end">

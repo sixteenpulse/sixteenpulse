@@ -20,6 +20,7 @@ model Tenant {
   automate_review_requests Boolean                @default(false)
   google_review_link       String?
   review_delay_value       Int                    @default(24)
+  telegram_bot_token       String?
   audiences                Audience[]
   bookings                 Booking[]
   calConnections           CalConnection[]

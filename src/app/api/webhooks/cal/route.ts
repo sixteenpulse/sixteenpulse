@@ -29,6 +29,7 @@ export async function POST(req: Request) {
 
         const connection = await prisma.calConnection.findFirst({
             where: { status: "CONNECTED" },
+            include: { tenant: true }
         });
 
         if (!connection) {
@@ -164,7 +165,7 @@ export async function POST(req: Request) {
 
             // --- Telegram Notifications ---
             try {
-                const tgToken = process.env.TELEGRAM_BOT_TOKEN;
+                const tgToken = connection.tenant?.telegram_bot_token;
                 if (tgToken) {
                     const tenantUsers = await prisma.user.findMany({
                         where: { 
