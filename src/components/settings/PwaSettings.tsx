@@ -12,6 +12,7 @@ export default function PwaSettings() {
     const [isTgSaving, setIsTgSaving] = useState(false);
     const [tgSaved, setTgSaved] = useState(false);
     const [isTestingTg, setIsTestingTg] = useState(false);
+    const [isTestingTgBooking, setIsTestingTgBooking] = useState(false);
 
     useEffect(() => {
         // Fetch User's Telegram settings
@@ -141,6 +142,22 @@ export default function PwaSettings() {
         setIsTestingTg(false);
     };
 
+    const handleTestTelegramBooking = async () => {
+        setIsTestingTgBooking(true);
+        try {
+            const res = await fetch("/api/user/test-telegram-booking", { method: "POST" });
+            const data = await res.json();
+            if (!res.ok) {
+                alert(`Error: ${data.error}`);
+            } else {
+                alert(`Test booking for ${data.attendee} sent successfully! Check your Telegram.`);
+            }
+        } catch {
+            alert("Failed to send test booking message.");
+        }
+        setIsTestingTgBooking(false);
+    };
+
     return (
         <div className="space-y-8 max-w-2xl">
             <div>
@@ -231,13 +248,20 @@ export default function PwaSettings() {
                             </div>
                         </div>
 
-                        <div className="pt-2 flex justify-end gap-3">
+                        <div className="pt-2 flex justify-end gap-3 flex-wrap">
+                            <button 
+                                onClick={handleTestTelegramBooking}
+                                disabled={isTestingTgBooking || !tgChatId || !tgBotToken}
+                                className="px-4 py-2 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 text-sm transition-colors duration-150 shadow-sm disabled:opacity-50 flex items-center gap-2"
+                            >
+                                {isTestingTgBooking ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</> : "Test with Latest Booking"}
+                            </button>
                             <button 
                                 onClick={handleTestTelegram}
                                 disabled={isTestingTg || !tgChatId || !tgBotToken}
                                 className="px-4 py-2 rounded-lg bg-stone-100 text-stone-700 font-medium hover:bg-stone-200 text-sm transition-colors duration-150 shadow-sm disabled:opacity-50 flex items-center gap-2"
                             >
-                                {isTestingTg ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</> : "Send Test Message"}
+                                {isTestingTg ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</> : "Send Ping"}
                             </button>
                             <button 
                                 onClick={handleSaveTelegram}
