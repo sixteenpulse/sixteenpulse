@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MapPin, Phone, MessageSquare, Tag, DollarSign, Users, Loader2, FileText, ClipboardList } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 interface BookingLiveDetailsProps {
     bookingId: string;
@@ -167,127 +167,84 @@ export function BookingLiveDetails({ bookingId }: BookingLiveDetailsProps) {
     const hasDetails = displayFields.length > 0 || guests.length > 0 || eventType || description;
     if (!hasDetails) return null;
 
-    const iconConfig = {
-        location: { bg: "bg-blue-50", color: "text-blue-500", Icon: MapPin },
-        phone: { bg: "bg-emerald-50", color: "text-emerald-500", Icon: Phone },
-        response: { bg: "bg-accent-light", color: "text-accent", Icon: MessageSquare },
-    };
-
     return (
         <div className="border-t border-[#e4ddd4]">
-            <div className="px-6 pt-5 pb-3">
-                <h3 className="text-xs font-medium text-stone-400 flex items-center gap-2">
-                    <ClipboardList className="w-3.5 h-3.5" />
-                    Booking Form Responses
+            <div className="px-6 pt-5 pb-3 bg-[#faf9f8] border-b border-[#e4ddd4]">
+                <h3 className="text-sm font-semibold text-stone-800">
+                    Booking Details
                 </h3>
             </div>
 
-            {displayFields.map((field) => {
-                const { bg, color, Icon } = iconConfig[field.icon];
-                return (
-                    <div key={field.key} className="px-6 py-4 flex items-start gap-3 border-b border-[#e4ddd4]">
-                        <div className={`w-8 h-8 rounded-lg ${bg} flex items-center justify-center shrink-0 mt-0.5`}>
-                            <Icon className={`w-3.5 h-3.5 ${color}`} />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                            <p className="text-xs font-medium text-stone-400 mb-1">{field.label}</p>
-                            <p className="text-sm font-medium text-stone-900 whitespace-pre-wrap break-words">{field.value}</p>
-                        </div>
+            <div className="divide-y divide-[#e4ddd4]">
+                {displayFields.map((field) => (
+                    <div key={field.key} className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">{field.label}</p>
+                        <p className="text-[13px] font-medium text-stone-900 whitespace-pre-wrap break-words flex-1 leading-relaxed">{field.value}</p>
                     </div>
-                );
-            })}
+                ))}
 
-            {guests.length > 0 && (
-                <div className="px-6 py-4 flex items-start gap-3 border-b border-[#e4ddd4]">
-                    <div className="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center shrink-0 mt-0.5">
-                        <Users className="w-3.5 h-3.5 text-purple-500" />
-                    </div>
-                    <div>
-                        <p className="text-xs font-medium text-stone-400 mb-1">{fieldLabels["guests"] || "Additional Guests"}</p>
-                        <div className="space-y-1">
+                {guests.length > 0 && (
+                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">{fieldLabels["guests"] || "Additional Guests"}</p>
+                        <div className="space-y-1.5 flex-1">
                             {guests.map((guest: string, i: number) => (
-                                <p key={i} className="text-sm font-medium text-stone-900">{guest}</p>
+                                <p key={i} className="text-[13px] font-medium text-stone-900 leading-relaxed">{guest}</p>
                             ))}
                         </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {description && !displayFields.some(f => f.value === description) && (
-                <div className="px-6 py-4 flex items-start gap-3 border-b border-[#e4ddd4]">
-                    <div className="w-8 h-8 rounded-lg bg-cream-dark flex items-center justify-center shrink-0 mt-0.5">
-                        <FileText className="w-3.5 h-3.5 text-stone-500" />
+                {description && !displayFields.some(f => f.value === description) && (
+                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Description</p>
+                        <p className="text-[13px] font-medium text-stone-900 whitespace-pre-wrap break-words flex-1 leading-relaxed">{description}</p>
                     </div>
-                    <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium text-stone-400 mb-1">Description</p>
-                        <p className="text-sm font-medium text-stone-900 whitespace-pre-wrap break-words">{description}</p>
-                    </div>
-                </div>
-            )}
+                )}
 
-            {attendees.length > 0 && attendees.some((a: any) => a.timeZone || a.locale) && (
-                <div className="px-6 py-4 flex items-start gap-3 border-b border-[#e4ddd4]">
-                    <div className="w-8 h-8 rounded-lg bg-cream-dark flex items-center justify-center shrink-0 mt-0.5">
-                        <Users className="w-3.5 h-3.5 text-stone-500" />
+                {attendees.length > 0 && attendees.some((a: any) => a.timeZone || a.locale) && (
+                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Attendee Details</p>
+                        <div className="flex-1 space-y-1">
+                            {attendees.map((att: any, i: number) => (
+                                <div key={i} className="text-[13px] leading-relaxed">
+                                    {att.timeZone && <p className="text-stone-500">Timezone: <span className="font-medium text-stone-900">{att.timeZone}</span></p>}
+                                    {att.locale && <p className="text-stone-500">Language: <span className="font-medium text-stone-900">{att.locale}</span></p>}
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                    <div className="flex-1">
-                        <p className="text-xs font-medium text-stone-400 mb-2">Attendee Details</p>
-                        {attendees.map((att: any, i: number) => (
-                            <div key={i} className="text-sm space-y-0.5">
-                                {att.timeZone && <p className="text-stone-400">Timezone: <span className="font-medium text-stone-900">{att.timeZone}</span></p>}
-                                {att.locale && <p className="text-stone-400">Language: <span className="font-medium text-stone-900">{att.locale}</span></p>}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
+                )}
 
-            {eventType && (
-                <div className="px-6 py-4 flex items-start gap-3 border-b border-[#e4ddd4]">
-                    <div className="w-8 h-8 rounded-lg bg-cream-dark flex items-center justify-center shrink-0 mt-0.5">
-                        <Tag className="w-3.5 h-3.5 text-stone-500" />
-                    </div>
-                    <div className="flex-1">
-                        <p className="text-xs font-medium text-stone-400 mb-2">Event Type</p>
-                        <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                {eventType && (
+                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Event Type</p>
+                        <div className="flex-1 flex flex-col gap-1.5 text-[13px]">
                             {eventType.title && (
-                                <div className="col-span-2">
-                                    <span className="text-stone-400">Name:</span>{" "}
-                                    <span className="font-medium text-stone-900">{eventType.title}</span>
-                                </div>
+                                <p className="text-stone-500">Name: <span className="font-medium text-stone-900">{eventType.title}</span></p>
                             )}
-                            <div>
-                                <span className="text-stone-400">Duration:</span>{" "}
-                                <span className="font-medium text-stone-900">{eventType.length} min</span>
-                            </div>
+                            <p className="text-stone-500">Duration: <span className="font-medium text-stone-900">{eventType.length} min</span></p>
                             {eventType.price > 0 && (
-                                <div>
-                                    <span className="text-stone-400">Price:</span>{" "}
-                                    <span className="font-medium text-stone-900">
-                                        {(eventType.price / 100).toFixed(2)} {eventType.currency?.toUpperCase()}
-                                    </span>
-                                </div>
+                                <p className="text-stone-500">Price: <span className="font-medium text-stone-900">
+                                    {(eventType.price / 100).toFixed(2)} {eventType.currency?.toUpperCase()}
+                                </span></p>
                             )}
                         </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {paid !== undefined && (
-                <div className="px-6 py-4 flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-cream-dark flex items-center justify-center shrink-0 mt-0.5">
-                        <DollarSign className="w-3.5 h-3.5 text-stone-500" />
+                {paid !== undefined && (
+                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Payment Status</p>
+                        <div className="flex-1">
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium uppercase tracking-wide ${
+                                paid ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-stone-100 text-stone-600 border border-stone-200"
+                            }`}>
+                                {paid ? "Paid" : "Unpaid"}
+                            </span>
+                        </div>
                     </div>
-                    <div>
-                        <p className="text-xs font-medium text-stone-400 mb-1">Payment</p>
-                        <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium ${
-                            paid ? "bg-emerald-50 text-emerald-600" : "bg-cream-dark text-stone-500"
-                        }`}>
-                            {paid ? "Paid" : "Free / Not Paid"}
-                        </span>
-                    </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 }
