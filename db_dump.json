@@ -1,0 +1,2542 @@
+{
+  "Tenant": [
+    {
+      "id": "cmlz1ohzi0000k1tgj9qphvys",
+      "name": "Smith Marketing",
+      "slug": "smith-marketing-6v35",
+      "logo_url": null,
+      "created_at": "2026-02-23T10:39:37.996Z",
+      "brand_name": null,
+      "primary_color": null,
+      "currency": "USD",
+      "automate_review_requests": false,
+      "google_review_link": null,
+      "review_delay_value": 24
+    },
+    {
+      "id": "cmmeppbxx017uk1hotpwbhjxx",
+      "name": "Gobold Business",
+      "slug": "gobold-business-x4xo",
+      "logo_url": null,
+      "created_at": "2026-03-06T09:48:40.245Z",
+      "brand_name": null,
+      "primary_color": null,
+      "currency": "USD",
+      "automate_review_requests": false,
+      "google_review_link": null,
+      "review_delay_value": 24
+    },
+    {
+      "id": "cmnhm1bjh005cl504obq3waq4",
+      "name": "Something Studio",
+      "slug": "something-studio-dch8",
+      "logo_url": null,
+      "created_at": "2026-04-02T15:09:01.997Z",
+      "brand_name": null,
+      "primary_color": null,
+      "currency": "USD",
+      "automate_review_requests": false,
+      "google_review_link": null,
+      "review_delay_value": 24
+    },
+    {
+      "id": "cmm0844jd0000k1hsmywylwqr",
+      "name": "Inkomics",
+      "slug": "bold-labs-1lf2",
+      "logo_url": null,
+      "created_at": "2026-02-24T06:27:30.936Z",
+      "brand_name": null,
+      "primary_color": null,
+      "currency": "INR",
+      "automate_review_requests": true,
+      "google_review_link": "https://share.google/O1iL4e8t8t4SKgbRk",
+      "review_delay_value": 0
+    },
+    {
+      "id": "cmp72w4390000l10465m8zogk",
+      "name": "180 Tattoo Studio",
+      "slug": "180-tattoo-studio-4qrh",
+      "logo_url": null,
+      "created_at": "2026-05-15T15:34:49.269Z",
+      "brand_name": null,
+      "primary_color": null,
+      "currency": "USD",
+      "automate_review_requests": false,
+      "google_review_link": null,
+      "review_delay_value": 24
+    }
+  ],
+  "User": [
+    {
+      "id": "cmlz1oi4o0002k1tg8xz37sg8",
+      "tenant_id": "cmlz1ohzi0000k1tgj9qphvys",
+      "name": "Jordan Smith",
+      "email": "jordan.smith@example.com",
+      "password_hash": "$2b$10$PgI7WCzVPrlWMSbqHf2ah.eMwvotPJq5iYk/SkJ6MKIYaRvc1sVWy",
+      "role": "ADMIN",
+      "created_at": "2026-02-23T10:39:38.183Z"
+    },
+    {
+      "id": "cmmeppc2n017wk1hohi1gnzph",
+      "tenant_id": "cmmeppbxx017uk1hotpwbhjxx",
+      "name": "GoboldGobold Labs",
+      "email": "goboldlabs@gmail.com",
+      "password_hash": "$2b$10$F5ulv2P9oPCadtoGl0xnwuUmAKsCdM.wKrqORKQoPxnOjBW2sgGZq",
+      "role": "ADMIN",
+      "created_at": "2026-03-06T09:48:40.416Z"
+    },
+    {
+      "id": "cmnhm1bvj005el5048ww51cx6",
+      "tenant_id": "cmnhm1bjh005cl504obq3waq4",
+      "name": "Bhuvanesh K",
+      "email": "bhuvaneshbhuvanesh21@gmail.com",
+      "password_hash": "$2b$10$5Cfl.JaJA9nCouTF5tbNb.puwECPtSUIicokNj.wf5bT.XpANRoGS",
+      "role": "ADMIN",
+      "created_at": "2026-04-02T15:09:02.431Z"
+    },
+    {
+      "id": "cmm0844mk0002k1hsjouhbd27",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "name": "Bhuvanesh K",
+      "email": "bhuvanesh@gradientx.in",
+      "password_hash": "$2b$10$O4AbKD6HVJVBPWZJKaV0Veakieb3OZwFlzj766j9B6IJkKpTOem7y",
+      "role": "ADMIN",
+      "created_at": "2026-02-24T06:27:31.051Z"
+    },
+    {
+      "id": "cmp72w4h40002l104tgofpngq",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "name": "Aishwariya Thiyagarajan",
+      "email": "180tattooaishuthiyagu@gmail.com",
+      "password_hash": "$2b$10$YGcGSleyYwmrrJnewrLjSO8pVapznlTThqvLlp0HKfATWXEkvoj4C",
+      "role": "ADMIN",
+      "created_at": "2026-05-15T15:34:49.769Z"
+    }
+  ],
+  "PushSubscription": [],
+  "CalConnection": [
+    {
+      "id": "cmm0esfql0001k1f41je7npba",
+      "tenant_id": "cmlz1ohzi0000k1tgj9qphvys",
+      "name": "Booking System Calendar",
+      "cal_account_id": "calid_usr_cmlz1ohz",
+      "auth_type": "API_KEY",
+      "access_token": "encrypted_calid_f31fd67e7c5cb48aa508f52b5b2d5f94",
+      "refresh_token": null,
+      "status": "CONNECTED",
+      "last_synced_at": "2026-02-25T12:52:36.335Z",
+      "created_at": "2026-02-24T09:34:22.879Z",
+      "updated_at": "2026-03-28T07:52:24.512Z",
+      "metadata": null
+    },
+    {
+      "id": "cmm1lwwx50001k15sd1shz4tc",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "name": "Booking System Calendar",
+      "cal_account_id": "calid_usr_cmm0844j",
+      "auth_type": "API_KEY",
+      "access_token": "2LqV45d6ZSbqpLeNo9ccdQ==:UPxTx/+FqdmUQYhJlNTbbw==:0tuev5u3f+KYlhKwxIPjCNERBpgBDZv6+vS1z9qa5Pq33M+OFZk=",
+      "refresh_token": null,
+      "status": "CONNECTED",
+      "last_synced_at": "2026-04-22T06:44:02.464Z",
+      "created_at": "2026-02-25T05:41:35.270Z",
+      "updated_at": "2026-04-22T06:44:02.465Z",
+      "metadata": {
+        "fieldLabelsMap": {
+          "52243": {
+            "name": "Your Name",
+            "email": "Email Address",
+            "notes": "Additional Notes",
+            "title": "What is this meeting about?",
+            "guests": "Additional Guests",
+            "location": "Location",
+            "rescheduleReason": "Reason for Rescheduling",
+            "attendeePhoneNumber": "Phone Number",
+            "Why-you-need-training--": "Why you need training ?"
+          }
+        },
+        "labelsLastFetched": 1772788590632,
+        "selectedEventTypes": [
+          "Cab Booking",
+          "Something Artist"
+        ]
+      }
+    },
+    {
+      "id": "cmnhm35xf000hks04teena3gb",
+      "tenant_id": "cmnhm1bjh005cl504obq3waq4",
+      "name": "Form API Connection's Calendar",
+      "cal_account_id": "calid_usr_cmnhm1bj",
+      "auth_type": "API_KEY",
+      "access_token": "4Wbxj5r87fl2u5oDqTlz3g==:bfwr5e2Dd2acFZDznlxC9Q==:AmpXsAuDk5qXwipJ0AiD/fHeZYiyox1KuntWsbeyyZO28Qv+zHQ=",
+      "refresh_token": null,
+      "status": "CONNECTED",
+      "last_synced_at": "2026-04-05T17:26:48.128Z",
+      "created_at": "2026-04-02T15:10:27.820Z",
+      "updated_at": "2026-04-05T17:26:48.129Z",
+      "metadata": {
+        "selectedEventTypes": [
+          "Something Artist"
+        ]
+      }
+    },
+    {
+      "id": "cmp72yrfd0004l104ocjg1tfk",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "name": "Form API Connection's Calendar",
+      "cal_account_id": "calid_usr_cmp72w43",
+      "auth_type": "API_KEY",
+      "access_token": "gxKNJ2qH0znxCbYOKmnVxQ==:dI+X4Xep9zLLoYTlpbH/Kg==:wzQxYx+yG2dKetgObIm36BrQ6sPhymsXuEiFV7JuN/P2bZS4l6U=",
+      "refresh_token": null,
+      "status": "CONNECTED",
+      "last_synced_at": "2026-05-19T18:53:29.588Z",
+      "created_at": "2026-05-15T15:36:52.618Z",
+      "updated_at": "2026-05-19T18:53:29.589Z",
+      "metadata": null
+    }
+  ],
+  "Booking": [
+    {
+      "id": "cmm0euqh60003k1f451ogfy6t",
+      "tenant_id": "cmlz1ohzi0000k1tgj9qphvys",
+      "cal_connection_id": "cmm0esfql0001k1f41je7npba",
+      "cal_booking_id": "v8o3QVsWWXk8sPRViMaDz5",
+      "event_type_id": "unknown",
+      "event_type_name": "Service Booking",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "SCHEDULED",
+      "start_time": "2026-02-24T08:45:00.000Z",
+      "end_time": "2026-02-24T09:45:00.000Z",
+      "created_at": "2026-02-24T06:43:21.884Z",
+      "updated_at": "2026-02-24T06:43:23.848Z",
+      "metadata": null,
+      "inserted_at": "2026-02-24T09:36:09.302Z",
+      "updated_local_at": "2026-02-24T09:36:09.302Z",
+      "amount": null
+    },
+    {
+      "id": "cmm1vz9h2001vk15slh6zncq4",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "61161",
+      "event_type_id": "40172",
+      "event_type_name": "Service Booking between Bold Labs and Bold Labs",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-26T04:30:00.000Z",
+      "end_time": "2026-02-26T05:30:00.000Z",
+      "created_at": "2026-02-25T10:21:37.036Z",
+      "updated_at": "2026-02-25T12:31:26.155Z",
+      "metadata": {
+        "uid": "2tauL75vG69uBVe2bAZzMx",
+        "paid": false,
+        "location": "640-2-2 Gr nagar, moondurmavadi madurai - 625007",
+        "attendees": [
+          {
+            "id": 75778,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61161,
+            "phoneNumber": null
+          }
+        ],
+        "eventType": {
+          "price": 0,
+          "currency": "usd"
+        },
+        "numericId": "61161",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "notes": "Yes but it didnt work well",
+          "title": "Depression",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "640-2-2 Gr nagar, moondurmavadi madurai - 625007"
+          },
+          "Desired-Outcome": "I dont know exactly i want get relived from it "
+        },
+        "description": "Yes but it didnt work well",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-02-25T10:23:21.015Z",
+      "updated_local_at": "2026-04-22T06:43:54.922Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x8000yl1049gr55upr",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96699",
+      "event_type_id": "79692",
+      "event_type_name": "Tattoo With Thiyagarajan",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-15T15:30:00.000Z",
+      "end_time": "2026-05-15T16:30:00.000Z",
+      "created_at": "2026-05-15T12:30:47.314Z",
+      "updated_at": "2026-05-15T12:35:53.758Z",
+      "metadata": {
+        "uid": "kzgBZKdq9FFCwS8KT5hKtv",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 125995,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96699,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79692,
+          "slug": "tattoo-with-thiyagarajan",
+          "price": 0,
+          "title": "Tattoo With Thiyagarajan",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96699",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Thats It",
+          "guests": [],
+          "location": {
+            "value": "inPerson",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "Where-on-your-body-and-what-size--inches": "Leg",
+          "What-is-your-maximum-budget-for-this-piece": "500 rupees",
+          "Describe-your-idea-or-provide-a-reference-link": "Leaf "
+        },
+        "description": "Thats It",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x10008l104tml0xhmt",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96777",
+      "event_type_id": "79698",
+      "event_type_name": "Tattoo With Aishwariya",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T14:30:00.000Z",
+      "end_time": "2026-05-16T15:30:00.000Z",
+      "created_at": "2026-05-15T14:54:03.249Z",
+      "updated_at": "2026-05-15T15:00:48.590Z",
+      "metadata": {
+        "uid": "kwrBjkCcAjy2CcMswaPcvQ",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126084,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96777,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79698,
+          "slug": "tattoo-with-aishwariya",
+          "price": 0,
+          "title": "Tattoo With Aishwariya",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96777",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "budget": "200",
+          "design": "fine line",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "locations": "hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmnhmj1ce006sl504m00ckojy",
+      "tenant_id": "cmnhm1bjh005cl504obq3waq4",
+      "cal_connection_id": "cmnhm35xf000hks04teena3gb",
+      "cal_booking_id": "71263",
+      "event_type_id": "68727",
+      "event_type_name": "Something Artist",
+      "host_name": "Bhuvanesh",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "SCHEDULED",
+      "start_time": "2026-04-03T04:30:00.000Z",
+      "end_time": "2026-04-03T06:30:00.000Z",
+      "created_at": "2026-04-02T15:21:27.768Z",
+      "updated_at": "2026-04-02T15:21:28.979Z",
+      "metadata": {
+        "uid": "pgnwogL2cjp4B2GnuDJzBz",
+        "paid": false,
+        "location": "640-2-2 Gr nagar 2nd cross street, moondrumavadi madurai - 625007",
+        "attendees": [
+          {
+            "id": 87498,
+            "name": "Bhuvanesh",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 71263,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 68727,
+          "slug": "something-artist",
+          "price": 0,
+          "title": "Something Artist",
+          "length": 120,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "71263",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "inPerson",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "What-is-the-design-idea": [
+            {
+              "url": "https://cal.id/api/bookings/attachments?key=prod%2F2026%2F04%2F02%2Fattachments%2Fba60d9cb-b810-4f58-8ef2-e70328b224e6-Krishnan_toy.jpeg",
+              "name": "Krishnan toy.jpeg",
+              "size": 185306,
+              "type": "image/jpeg"
+            }
+          ],
+          "Where-on-your-body-will-this-tattoo-go": "Right side neck",
+          "Do-you-have-any-allergies-or-skin-conditions": "Nothing"
+        },
+        "description": "",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-04-02T15:22:47.948Z",
+      "updated_local_at": "2026-04-03T04:50:41.040Z",
+      "amount": null
+    },
+    {
+      "id": "cmm21b2mn005rk15su0uaj6bn",
+      "tenant_id": "cmlz1ohzi0000k1tgj9qphvys",
+      "cal_connection_id": "cmm0esfql0001k1f41je7npba",
+      "cal_booking_id": "61200",
+      "event_type_id": "40172",
+      "event_type_name": "Service Booking",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "SCHEDULED",
+      "start_time": "2026-02-26T03:30:00.000Z",
+      "end_time": "2026-02-26T04:30:00.000Z",
+      "created_at": "2026-02-25T12:32:40.362Z",
+      "updated_at": "2026-02-25T12:32:41.499Z",
+      "metadata": {
+        "uid": "7Gj5iMbfhGpTYx9TdGwPmb",
+        "paid": false,
+        "location": "640-2-2 Gr nagar 2nd cross street madurai ",
+        "attendees": [
+          {
+            "id": 75819,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61200,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 40172,
+          "slug": "service-booking",
+          "price": 0,
+          "title": "Service Booking",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "61200",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "notes": "Im not satisfies with them",
+          "title": "Depression",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "640-2-2 Gr nagar 2nd cross street madurai "
+          },
+          "Desired-Outcome": "Feel good",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Im not satisfies with them"
+      },
+      "inserted_at": "2026-02-25T12:52:30.096Z",
+      "updated_local_at": "2026-02-25T12:52:30.096Z",
+      "amount": null
+    },
+    {
+      "id": "cmm21b3ci005tk15soxmapog5",
+      "tenant_id": "cmlz1ohzi0000k1tgj9qphvys",
+      "cal_connection_id": "cmm0esfql0001k1f41je7npba",
+      "cal_booking_id": "61161",
+      "event_type_id": "40172",
+      "event_type_name": "Service Booking",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-26T04:30:00.000Z",
+      "end_time": "2026-02-26T05:30:00.000Z",
+      "created_at": "2026-02-25T10:21:37.036Z",
+      "updated_at": "2026-02-25T12:31:26.155Z",
+      "metadata": {
+        "uid": "2tauL75vG69uBVe2bAZzMx",
+        "paid": false,
+        "location": "640-2-2 Gr nagar, moondurmavadi madurai - 625007",
+        "attendees": [
+          {
+            "id": 75778,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61161,
+            "phoneNumber": null
+          }
+        ],
+        "eventType": {
+          "id": 40172,
+          "slug": "service-booking",
+          "price": 0,
+          "title": "Service Booking",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "61161",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "notes": "Yes but it didnt work well",
+          "title": "Depression",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "640-2-2 Gr nagar, moondurmavadi madurai - 625007"
+          },
+          "Desired-Outcome": "I dont know exactly i want get relived from it "
+        },
+        "description": "Yes but it didnt work well"
+      },
+      "inserted_at": "2026-02-25T12:52:31.026Z",
+      "updated_local_at": "2026-02-25T12:52:31.026Z",
+      "amount": null
+    },
+    {
+      "id": "cmm21b44n005vk15sv0ern5ui",
+      "tenant_id": "cmlz1ohzi0000k1tgj9qphvys",
+      "cal_connection_id": "cmm0esfql0001k1f41je7npba",
+      "cal_booking_id": "61082",
+      "event_type_id": "40172",
+      "event_type_name": "Service Booking",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-25T07:45:00.000Z",
+      "end_time": "2026-02-25T08:45:00.000Z",
+      "created_at": "2026-02-25T05:42:31.080Z",
+      "updated_at": "2026-02-25T06:25:02.160Z",
+      "metadata": {
+        "uid": "oskfAmCTYz3PnGu1Wy1Xkv",
+        "paid": false,
+        "location": "gr nagar madurai ",
+        "attendees": [
+          {
+            "id": 75687,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61082,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 40172,
+          "slug": "service-booking",
+          "price": 0,
+          "title": "Service Booking",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "61082",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "gr nagar madurai "
+          },
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": ""
+      },
+      "inserted_at": "2026-02-25T12:52:32.039Z",
+      "updated_local_at": "2026-02-25T12:52:32.039Z",
+      "amount": null
+    },
+    {
+      "id": "cmm21b4uh005xk15smmt9is8u",
+      "tenant_id": "cmlz1ohzi0000k1tgj9qphvys",
+      "cal_connection_id": "cmm0esfql0001k1f41je7npba",
+      "cal_booking_id": "60327",
+      "event_type_id": "40172",
+      "event_type_name": "Service Booking",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-24T03:30:00.000Z",
+      "end_time": "2026-02-24T04:30:00.000Z",
+      "created_at": "2026-02-21T18:56:32.693Z",
+      "updated_at": "2026-02-21T19:01:45.061Z",
+      "metadata": {
+        "uid": "o1t62jf2xyHhDzjwR3tJNt",
+        "paid": false,
+        "location": "Gr nagar 2nd cross street, moondrumavadi, opposite to andavar kari kadai madurai - 625007",
+        "attendees": [
+          {
+            "id": 74837,
+            "name": "Bhuvanesh",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 60327,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 40172,
+          "slug": "service-booking",
+          "price": 0,
+          "title": "Service Booking",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "60327",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "Gr nagar 2nd cross street, moondrumavadi, opposite to andavar kari kadai madurai - 625007"
+          },
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": ""
+      },
+      "inserted_at": "2026-02-25T12:52:32.969Z",
+      "updated_local_at": "2026-02-25T12:52:32.969Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x00006l104109j4eg3",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96779",
+      "event_type_id": "79698",
+      "event_type_name": "Tattoo With Aishwariya",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T15:30:00.000Z",
+      "end_time": "2026-05-16T16:30:00.000Z",
+      "created_at": "2026-05-15T14:57:20.419Z",
+      "updated_at": "2026-05-15T15:00:52.645Z",
+      "metadata": {
+        "uid": "2KunhXu22AhQSEfpc2Lgny",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126086,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96779,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79698,
+          "slug": "tattoo-with-aishwariya",
+          "price": 0,
+          "title": "Tattoo With Aishwariya",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96779",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "budget": "200",
+          "design": "fine line",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "locations": "hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmm22d7zm0083k15sho6t846r",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "61218",
+      "event_type_id": "40172",
+      "event_type_name": "Service Booking",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "SCHEDULED",
+      "start_time": "2026-02-26T03:30:00.000Z",
+      "end_time": "2026-02-26T04:30:00.000Z",
+      "created_at": "2026-02-25T13:20:54.440Z",
+      "updated_at": "2026-02-25T13:20:55.677Z",
+      "metadata": {
+        "uid": "jvN3HHMamohmzNuCXB4468",
+        "paid": false,
+        "location": "Gr nagar madurai",
+        "attendees": [
+          {
+            "id": 75840,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61218,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 40172,
+          "slug": "service-booking",
+          "price": 0,
+          "title": "Service Booking",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "61218",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "notes": "not satisfied",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "Gr nagar madurai"
+          },
+          "Desired-Outcome": "Feel okay",
+          "attendeePhoneNumber": "+918870341570",
+          "Reason-for-Seeking-Therapy": "Depression"
+        },
+        "description": "not satisfied",
+        "bookingFieldLabels": {
+          "name": "Your Name",
+          "email": "Email Address",
+          "notes": "Have you been in therapy before? If so, what worked or didn't work for you?",
+          "title": "Reason for Seeking Therapy",
+          "guests": "Additional Guests",
+          "location": "Complete Adress with Door Number",
+          "How-are-you-": "How are you ",
+          "Desired-Outcome": "Desired Outcome",
+          "rescheduleReason": "Want to Reshedule, Why ?",
+          "attendeePhoneNumber": "Phone Number",
+          "Reason-for-Seeking-Therapy": "Reason for Seeking Therapy"
+        }
+      },
+      "inserted_at": "2026-02-25T13:22:09.461Z",
+      "updated_local_at": "2026-02-26T05:22:11.631Z",
+      "amount": null
+    },
+    {
+      "id": "cmm55r413004pk1swvr6ipad0",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "61849",
+      "event_type_id": "52243",
+      "event_type_name": "Cab Booking",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "SCHEDULED",
+      "start_time": "2026-03-02T03:30:00.000Z",
+      "end_time": "2026-03-02T03:45:00.000Z",
+      "created_at": "2026-02-27T17:20:03.466Z",
+      "updated_at": "2026-02-27T17:20:04.643Z",
+      "metadata": {
+        "uid": "bHg3Pe6MEpLdanbkMYNe3P",
+        "paid": false,
+        "location": "640-2-2 Gr nagar 2nd cross street, moondrumavadi madurai - 625007",
+        "attendees": [
+          {
+            "id": 76563,
+            "name": "Bhuvanesh",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61849,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 52243,
+          "slug": "cab-booking",
+          "price": 0,
+          "title": "Cab Booking",
+          "length": 15,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "61849",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "inPerson",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "Why-you-need-training--": "Absolute to learn to drive you dumbass!"
+        },
+        "description": "",
+        "bookingFieldLabels": {
+          "name": "Your Name",
+          "email": "Email Address",
+          "notes": "Additional Notes",
+          "title": "What is this meeting about?",
+          "guests": "Additional Guests",
+          "location": "Location",
+          "rescheduleReason": "Reason for Rescheduling",
+          "attendeePhoneNumber": "Phone Number",
+          "Why-you-need-training--": "Why you need training ?"
+        }
+      },
+      "inserted_at": "2026-02-27T17:20:15.399Z",
+      "updated_local_at": "2026-03-06T09:16:33.902Z",
+      "amount": 350
+    },
+    {
+      "id": "cmmenc9u100etk1hoaau0cm42",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "local_1772786551751",
+      "event_type_id": "52243",
+      "event_type_name": "Booking",
+      "host_name": "Bhuvanesh K",
+      "host_email": "bhuvanesh@gradientx.in",
+      "attendee_name": "Tommy",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "SCHEDULED",
+      "start_time": "2026-03-06T08:43:00.000Z",
+      "end_time": "2026-03-06T08:45:00.000Z",
+      "created_at": "2026-03-06T08:42:31.751Z",
+      "updated_at": "2026-03-06T08:42:31.751Z",
+      "metadata": {
+        "bookingFieldLabels": {
+          "name": "Your Name",
+          "email": "Email Address",
+          "notes": "Additional Notes",
+          "title": "What is this meeting about?",
+          "guests": "Additional Guests",
+          "location": "Location",
+          "rescheduleReason": "Reason for Rescheduling",
+          "attendeePhoneNumber": "Phone Number",
+          "Why-you-need-training--": "Why you need training ?"
+        }
+      },
+      "inserted_at": "2026-03-06T08:42:31.753Z",
+      "updated_local_at": "2026-03-06T09:16:34.346Z",
+      "amount": null
+    },
+    {
+      "id": "cmmbmer9f002dk1ks918vsuv2",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "62676",
+      "event_type_id": "52243",
+      "event_type_name": "Cab Booking between Bold Labs and Bhuvanesh",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-03-04T08:00:00.000Z",
+      "end_time": "2026-03-04T08:15:00.000Z",
+      "created_at": "2026-03-04T05:52:22.904Z",
+      "updated_at": "2026-03-06T07:58:47.798Z",
+      "metadata": {
+        "uid": "du9qWX4ffgNZ7uVBitC452",
+        "paid": false,
+        "location": "640-2-2 Gr nagar 2nd cross street, moondrumavadi madurai - 625007",
+        "attendees": [
+          {
+            "id": 77527,
+            "name": "Bhuvanesh",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 62676,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "price": 0,
+          "currency": "usd"
+        },
+        "numericId": "62676",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "inPerson",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "Why-you-need-training--": "To improve "
+        },
+        "description": "",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-03-04T05:53:09.507Z",
+      "updated_local_at": "2026-04-22T06:43:54.922Z",
+      "amount": null
+    },
+    {
+      "id": "cmnhm3ofp000jks049ckcn8eb",
+      "tenant_id": "cmnhm1bjh005cl504obq3waq4",
+      "cal_connection_id": "cmnhm35xf000hks04teena3gb",
+      "cal_booking_id": "62676",
+      "event_type_id": "unknown",
+      "event_type_name": "Cab Booking between Bold Labs and Bhuvanesh",
+      "host_name": "Bhuvanesh",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-03-04T08:00:00.000Z",
+      "end_time": "2026-03-04T08:15:00.000Z",
+      "created_at": "2026-03-04T05:52:22.904Z",
+      "updated_at": "2026-03-06T07:58:47.798Z",
+      "metadata": {
+        "uid": "du9qWX4ffgNZ7uVBitC452",
+        "paid": false,
+        "location": "640-2-2 Gr nagar 2nd cross street, moondrumavadi madurai - 625007",
+        "attendees": [
+          {
+            "id": 77527,
+            "name": "Bhuvanesh",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 62676,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "price": 0,
+          "currency": "usd"
+        },
+        "numericId": "62676",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "inPerson",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "Why-you-need-training--": "To improve "
+        },
+        "description": "",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-04-02T15:10:51.586Z",
+      "updated_local_at": "2026-04-05T17:26:40.653Z",
+      "amount": null
+    },
+    {
+      "id": "cmm1vcwwp0007k15s4f2vcmr8",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "61082",
+      "event_type_id": "40172",
+      "event_type_name": "Service Booking between Bold Labs and Bold Labs",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-25T07:45:00.000Z",
+      "end_time": "2026-02-25T08:45:00.000Z",
+      "created_at": "2026-02-25T05:42:31.080Z",
+      "updated_at": "2026-02-25T06:25:02.160Z",
+      "metadata": {
+        "uid": "oskfAmCTYz3PnGu1Wy1Xkv",
+        "paid": false,
+        "location": "gr nagar madurai ",
+        "attendees": [
+          {
+            "id": 75687,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61082,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "price": 0,
+          "currency": "usd"
+        },
+        "numericId": "61082",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "gr nagar madurai "
+          },
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-02-25T10:05:55.241Z",
+      "updated_local_at": "2026-04-22T06:43:54.922Z",
+      "amount": null
+    },
+    {
+      "id": "cmnhm3ofq000nks04zw9tnivs",
+      "tenant_id": "cmnhm1bjh005cl504obq3waq4",
+      "cal_connection_id": "cmnhm35xf000hks04teena3gb",
+      "cal_booking_id": "61200",
+      "event_type_id": "unknown",
+      "event_type_name": "Service Booking between Bold Labs and Bold Labs",
+      "host_name": "Bhuvanesh",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-26T03:30:00.000Z",
+      "end_time": "2026-02-26T04:30:00.000Z",
+      "created_at": "2026-02-25T12:32:40.362Z",
+      "updated_at": "2026-02-25T13:11:07.948Z",
+      "metadata": {
+        "uid": "7Gj5iMbfhGpTYx9TdGwPmb",
+        "paid": false,
+        "location": "640-2-2 Gr nagar 2nd cross street madurai ",
+        "attendees": [
+          {
+            "id": 75819,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61200,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "price": 0,
+          "currency": "usd"
+        },
+        "numericId": "61200",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "notes": "Im not satisfies with them",
+          "title": "Depression",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "640-2-2 Gr nagar 2nd cross street madurai "
+          },
+          "Desired-Outcome": "Feel good",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Im not satisfies with them",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-04-02T15:10:51.586Z",
+      "updated_local_at": "2026-04-05T17:26:40.653Z",
+      "amount": null
+    },
+    {
+      "id": "cmnhm3ofr000pks048e9rnvf4",
+      "tenant_id": "cmnhm1bjh005cl504obq3waq4",
+      "cal_connection_id": "cmnhm35xf000hks04teena3gb",
+      "cal_booking_id": "61082",
+      "event_type_id": "unknown",
+      "event_type_name": "Service Booking between Bold Labs and Bold Labs",
+      "host_name": "Bhuvanesh",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-25T07:45:00.000Z",
+      "end_time": "2026-02-25T08:45:00.000Z",
+      "created_at": "2026-02-25T05:42:31.080Z",
+      "updated_at": "2026-02-25T06:25:02.160Z",
+      "metadata": {
+        "uid": "oskfAmCTYz3PnGu1Wy1Xkv",
+        "paid": false,
+        "location": "gr nagar madurai ",
+        "attendees": [
+          {
+            "id": 75687,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61082,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "price": 0,
+          "currency": "usd"
+        },
+        "numericId": "61082",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "gr nagar madurai "
+          },
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-04-02T15:10:51.586Z",
+      "updated_local_at": "2026-04-05T17:26:40.653Z",
+      "amount": null
+    },
+    {
+      "id": "cmm27tgte00d1k15s42xqhu2o",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "61249",
+      "event_type_id": "40172",
+      "event_type_name": "Service Booking",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-26T04:30:00.000Z",
+      "end_time": "2026-02-26T05:30:00.000Z",
+      "created_at": "2026-02-25T15:52:34.357Z",
+      "updated_at": "2026-02-25T15:52:35.645Z",
+      "metadata": {
+        "uid": "st9isB57UzneLZ2WKz3x7H",
+        "paid": false,
+        "noShow": true,
+        "location": "gr nagar madurai",
+        "attendees": [
+          {
+            "id": 75882,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61249,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 40172,
+          "slug": "service-booking",
+          "price": 0,
+          "title": "Service Booking",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "61249",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "notes": "Im hating it",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "gr nagar madurai"
+          },
+          "How-are-you-": "Fine BTW :)",
+          "Desired-Outcome": "Feel confident",
+          "attendeePhoneNumber": "+918870341570",
+          "Reason-for-Seeking-Therapy": "Depression"
+        },
+        "description": "Im hating it",
+        "bookingFieldLabels": {
+          "name": "Your Name",
+          "email": "Email Address",
+          "notes": "Have you been in therapy before? If so, what worked or didn't work for you?",
+          "title": "Reason for Seeking Therapy",
+          "guests": "Additional Guests",
+          "location": "Complete Adress with Door Number",
+          "How-are-you-": "How are you ",
+          "Desired-Outcome": "Desired Outcome",
+          "rescheduleReason": "Want to Reshedule, Why ?",
+          "attendeePhoneNumber": "Phone Number",
+          "Reason-for-Seeking-Therapy": "Reason for Seeking Therapy"
+        }
+      },
+      "inserted_at": "2026-02-25T15:54:45.986Z",
+      "updated_local_at": "2026-02-27T17:14:34.130Z",
+      "amount": 230
+    },
+    {
+      "id": "cmnhm3ofr000rks04tatp5ys2",
+      "tenant_id": "cmnhm1bjh005cl504obq3waq4",
+      "cal_connection_id": "cmnhm35xf000hks04teena3gb",
+      "cal_booking_id": "60327",
+      "event_type_id": "unknown",
+      "event_type_name": "Service Booking between Bold Labs and Bhuvanesh",
+      "host_name": "Bhuvanesh",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-24T03:30:00.000Z",
+      "end_time": "2026-02-24T04:30:00.000Z",
+      "created_at": "2026-02-21T18:56:32.693Z",
+      "updated_at": "2026-02-21T19:01:45.061Z",
+      "metadata": {
+        "uid": "o1t62jf2xyHhDzjwR3tJNt",
+        "paid": false,
+        "location": "Gr nagar 2nd cross street, moondrumavadi, opposite to andavar kari kadai madurai - 625007",
+        "attendees": [
+          {
+            "id": 74837,
+            "name": "Bhuvanesh",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 60327,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "price": 0,
+          "currency": "usd"
+        },
+        "numericId": "60327",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "Gr nagar 2nd cross street, moondrumavadi, opposite to andavar kari kadai madurai - 625007"
+          },
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-04-02T15:10:51.586Z",
+      "updated_local_at": "2026-04-05T17:26:40.653Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x2000cl104gltkp40i",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96772",
+      "event_type_id": "79698",
+      "event_type_name": "Tattoo With Aishwariya",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T12:30:00.000Z",
+      "end_time": "2026-05-16T13:30:00.000Z",
+      "created_at": "2026-05-15T14:44:57.749Z",
+      "updated_at": "2026-05-15T15:00:39.598Z",
+      "metadata": {
+        "uid": "7tYyS28k6a97eWJzpaGfHM",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126079,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96772,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79698,
+          "slug": "tattoo-with-aishwariya",
+          "price": 0,
+          "title": "Tattoo With Aishwariya",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96772",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "tattoo-budget": "300 rs",
+          "tattoo-design": "Fine line",
+          "tattoo-location": "Hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x3000el104ld6yrdj8",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96771",
+      "event_type_id": "79692",
+      "event_type_name": "Tattoo With Thiyagarajan",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T11:30:00.000Z",
+      "end_time": "2026-05-16T12:30:00.000Z",
+      "created_at": "2026-05-15T14:41:58.705Z",
+      "updated_at": "2026-05-15T15:00:35.690Z",
+      "metadata": {
+        "uid": "p68tax5FMfCn99EDmZWeT8",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126076,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96771,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79692,
+          "slug": "tattoo-with-thiyagarajan",
+          "price": 0,
+          "title": "Tattoo With Thiyagarajan",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96771",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "budget": "200",
+          "design": "fine line",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "locations": "hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmnhmj1uk007al504euoalxy4",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "71263",
+      "event_type_id": "68727",
+      "event_type_name": "Something Artist",
+      "host_name": "Bhuvanesh",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "SCHEDULED",
+      "start_time": "2026-04-03T04:30:00.000Z",
+      "end_time": "2026-04-03T06:30:00.000Z",
+      "created_at": "2026-04-02T15:21:27.768Z",
+      "updated_at": "2026-04-02T15:21:28.979Z",
+      "metadata": {
+        "uid": "pgnwogL2cjp4B2GnuDJzBz",
+        "paid": false,
+        "location": "640-2-2 Gr nagar 2nd cross street, moondrumavadi madurai - 625007",
+        "attendees": [
+          {
+            "id": 87498,
+            "name": "Bhuvanesh",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 71263,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 68727,
+          "slug": "something-artist",
+          "price": 0,
+          "title": "Something Artist",
+          "length": 120,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "71263",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "inPerson",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "What-is-the-design-idea": [
+            {
+              "url": "https://cal.id/api/bookings/attachments?key=prod%2F2026%2F04%2F02%2Fattachments%2Fba60d9cb-b810-4f58-8ef2-e70328b224e6-Krishnan_toy.jpeg",
+              "name": "Krishnan toy.jpeg",
+              "size": 185306,
+              "type": "image/jpeg"
+            }
+          ],
+          "Where-on-your-body-will-this-tattoo-go": "Right side neck",
+          "Do-you-have-any-allergies-or-skin-conditions": "Nothing"
+        },
+        "description": "",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-04-02T15:22:48.815Z",
+      "updated_local_at": "2026-04-10T15:34:21.118Z",
+      "amount": 550
+    },
+    {
+      "id": "cmp72z0x1000al104fvi1wxrw",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96774",
+      "event_type_id": "79698",
+      "event_type_name": "Tattoo With Aishwariya",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T13:30:00.000Z",
+      "end_time": "2026-05-16T14:30:00.000Z",
+      "created_at": "2026-05-15T14:48:33.275Z",
+      "updated_at": "2026-05-15T15:00:44.467Z",
+      "metadata": {
+        "uid": "dsfsekJUZ2P5hbRxawJYL2",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126081,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96774,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79698,
+          "slug": "tattoo-with-aishwariya",
+          "price": 0,
+          "title": "Tattoo With Aishwariya",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96774",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "tattoo-budget": "300 rs",
+          "tattoo-design": "Fine line",
+          "tattoo-location": "Hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmm1vcydb0009k15su7l1dmqy",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "60327",
+      "event_type_id": "40172",
+      "event_type_name": "Service Booking between Bold Labs and Bhuvanesh",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-24T03:30:00.000Z",
+      "end_time": "2026-02-24T04:30:00.000Z",
+      "created_at": "2026-02-21T18:56:32.693Z",
+      "updated_at": "2026-02-21T19:01:45.061Z",
+      "metadata": {
+        "uid": "o1t62jf2xyHhDzjwR3tJNt",
+        "paid": false,
+        "location": "Gr nagar 2nd cross street, moondrumavadi, opposite to andavar kari kadai madurai - 625007",
+        "attendees": [
+          {
+            "id": 74837,
+            "name": "Bhuvanesh",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 60327,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "price": 0,
+          "currency": "usd"
+        },
+        "numericId": "60327",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "goboldlabs@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "Gr nagar 2nd cross street, moondrumavadi, opposite to andavar kari kadai madurai - 625007"
+          },
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-02-25T10:06:00.190Z",
+      "updated_local_at": "2026-04-22T06:43:54.922Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x3000gl104r3aktzfg",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96768",
+      "event_type_id": "79692",
+      "event_type_name": "Tattoo With Thiyagarajan",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T10:30:00.000Z",
+      "end_time": "2026-05-16T11:30:00.000Z",
+      "created_at": "2026-05-15T14:34:43.463Z",
+      "updated_at": "2026-05-15T15:00:29.875Z",
+      "metadata": {
+        "uid": "x1s5D6FpKNMnr1SmDM73jK",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126072,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96768,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79692,
+          "slug": "tattoo-with-thiyagarajan",
+          "price": 0,
+          "title": "Tattoo With Thiyagarajan",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96768",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "budget": "200",
+          "design": "fine line",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "locations": "hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmnhm3ofq000lks04wm2rreu5",
+      "tenant_id": "cmnhm1bjh005cl504obq3waq4",
+      "cal_connection_id": "cmnhm35xf000hks04teena3gb",
+      "cal_booking_id": "61161",
+      "event_type_id": "unknown",
+      "event_type_name": "Service Booking between Bold Labs and Bold Labs",
+      "host_name": "Bhuvanesh",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-26T04:30:00.000Z",
+      "end_time": "2026-02-26T05:30:00.000Z",
+      "created_at": "2026-02-25T10:21:37.036Z",
+      "updated_at": "2026-02-25T12:31:26.155Z",
+      "metadata": {
+        "uid": "2tauL75vG69uBVe2bAZzMx",
+        "paid": false,
+        "location": "640-2-2 Gr nagar, moondurmavadi madurai - 625007",
+        "attendees": [
+          {
+            "id": 75778,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61161,
+            "phoneNumber": null
+          }
+        ],
+        "eventType": {
+          "price": 0,
+          "currency": "usd"
+        },
+        "numericId": "61161",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "notes": "Yes but it didnt work well",
+          "title": "Depression",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "640-2-2 Gr nagar, moondurmavadi madurai - 625007"
+          },
+          "Desired-Outcome": "I dont know exactly i want get relived from it "
+        },
+        "description": "Yes but it didnt work well",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-04-02T15:10:51.586Z",
+      "updated_local_at": "2026-04-05T17:26:40.653Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x8000wl1048v7zjh5e",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96746",
+      "event_type_id": "79692",
+      "event_type_name": "Tattoo With Thiyagarajan",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T03:30:00.000Z",
+      "end_time": "2026-05-16T04:30:00.000Z",
+      "created_at": "2026-05-15T13:48:53.516Z",
+      "updated_at": "2026-05-15T14:59:51.365Z",
+      "metadata": {
+        "uid": "8MF74MzB3XsGmzwHZ51BYG",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126046,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96746,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79692,
+          "slug": "tattoo-with-thiyagarajan",
+          "price": 0,
+          "title": "Tattoo With Thiyagarajan",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96746",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "tattoo-budget": "300 rs",
+          "tattoo-design": "Fine line",
+          "tattoo-location": "Hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x4000il104rovkfm27",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96767",
+      "event_type_id": "79692",
+      "event_type_name": "Tattoo With Thiyagarajan",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T09:30:00.000Z",
+      "end_time": "2026-05-16T10:30:00.000Z",
+      "created_at": "2026-05-15T14:32:01.998Z",
+      "updated_at": "2026-05-15T15:00:25.138Z",
+      "metadata": {
+        "uid": "7zVg9ZC13i27TBX7uZqnfJ",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126071,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96767,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79692,
+          "slug": "tattoo-with-thiyagarajan",
+          "price": 0,
+          "title": "Tattoo With Thiyagarajan",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96767",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "budget": "200",
+          "design": "fine line",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "locations": "hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmm20wb5q004zk15sm2b5dxc1",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "61200",
+      "event_type_id": "40172",
+      "event_type_name": "Service Booking between Bold Labs and Bold Labs",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bold Labs",
+      "attendee_email": "goboldlabs@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-02-26T03:30:00.000Z",
+      "end_time": "2026-02-26T04:30:00.000Z",
+      "created_at": "2026-02-25T12:32:40.362Z",
+      "updated_at": "2026-02-25T13:11:07.948Z",
+      "metadata": {
+        "uid": "7Gj5iMbfhGpTYx9TdGwPmb",
+        "paid": false,
+        "location": "640-2-2 Gr nagar 2nd cross street madurai ",
+        "attendees": [
+          {
+            "id": 75819,
+            "name": "Bold Labs",
+            "email": "goboldlabs@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 61200,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "price": 0,
+          "currency": "usd"
+        },
+        "numericId": "61200",
+        "responses": {
+          "name": "Bold Labs",
+          "email": "goboldlabs@gmail.com",
+          "notes": "Im not satisfies with them",
+          "title": "Depression",
+          "guests": [],
+          "location": {
+            "value": "attendeeInPerson",
+            "optionValue": "640-2-2 Gr nagar 2nd cross street madurai "
+          },
+          "Desired-Outcome": "Feel good",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Im not satisfies with them",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-02-25T12:41:01.310Z",
+      "updated_local_at": "2026-04-22T06:43:54.922Z",
+      "amount": 240
+    },
+    {
+      "id": "cmp72z0x5000ml104jdlgckzz",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96754",
+      "event_type_id": "79692",
+      "event_type_name": "Tattoo With Thiyagarajan",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T07:30:00.000Z",
+      "end_time": "2026-05-16T08:30:00.000Z",
+      "created_at": "2026-05-15T14:00:29.476Z",
+      "updated_at": "2026-05-15T15:00:14.253Z",
+      "metadata": {
+        "uid": "5Pe3CFw9nJ6dLEf9vvQXfr",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126057,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96754,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79692,
+          "slug": "tattoo-with-thiyagarajan",
+          "price": 0,
+          "title": "Tattoo With Thiyagarajan",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96754",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "tattoo-budget": "300 rs",
+          "tattoo-design": "Fine line",
+          "tattoo-location": "Hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x90010l104jsxd393k",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96722",
+      "event_type_id": "79698",
+      "event_type_name": "Tattoo With Aishwariya",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-15T15:00:00.000Z",
+      "end_time": "2026-05-15T16:00:00.000Z",
+      "created_at": "2026-05-15T12:57:53.393Z",
+      "updated_at": "2026-05-15T12:59:48.570Z",
+      "metadata": {
+        "uid": "9EWqJfZpfuuDQFv8Muj2y9",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126022,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96722,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79698,
+          "slug": "tattoo-with-aishwariya",
+          "price": 0,
+          "title": "Tattoo With Aishwariya",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96722",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "Where-on-your-body-and-what-size--inches": "Hand",
+          "What-is-your-maximum-budget-for-this-piece": "200",
+          "Describe-your-idea-or-provide-a-reference-link": "Fine line"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x7000ul104b36p3uiv",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96725",
+      "event_type_id": "79698",
+      "event_type_name": "Tattoo With Aishwariya",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T04:30:00.000Z",
+      "end_time": "2026-05-16T05:30:00.000Z",
+      "created_at": "2026-05-15T13:01:01.915Z",
+      "updated_at": "2026-05-15T14:59:56.084Z",
+      "metadata": {
+        "uid": "ebbbm22Y3ZFc42TR5XKy7U",
+        "paid": false,
+        "location": "First floor, New No: 11, Old No: 6, Gopathi Narayanaswami Chetty Road , Near Anna Flyover, Teynampet, Chennai, Tamilnadu – 600006.",
+        "attendees": [
+          {
+            "id": 126025,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96725,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79698,
+          "slug": "tattoo-with-aishwariya",
+          "price": 0,
+          "title": "Tattoo With Aishwariya",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96725",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "guests": [],
+          "location": {
+            "value": "First floor, New No: 11, Old No: 6, Gopathi Narayanaswami Chetty Road , Near Anna Flyover, Teynampet, Chennai, Tamilnadu – 600006.",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "Where-on-your-body-and-what-size--inches": "Hand",
+          "What-is-your-maximum-budget-for-this-piece": "300",
+          "Describe-your-idea-or-provide-a-reference-link": "fine line"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x6000ol104o8e0825r",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96748",
+      "event_type_id": "79692",
+      "event_type_name": "Tattoo With Thiyagarajan",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T06:30:00.000Z",
+      "end_time": "2026-05-16T07:30:00.000Z",
+      "created_at": "2026-05-15T13:52:29.856Z",
+      "updated_at": "2026-05-15T15:00:09.773Z",
+      "metadata": {
+        "uid": "cJtTtV5RYEaFtKeY2nEbxn",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126048,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96748,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79692,
+          "slug": "tattoo-with-thiyagarajan",
+          "price": 0,
+          "title": "Tattoo With Thiyagarajan",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96748",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "nothing",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "tattoo-budget": "300 rs",
+          "tattoo-design": "Fine line",
+          "tattoo-location": "Hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x6000ql104jqyebqsc",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96690",
+      "event_type_id": "79692",
+      "event_type_name": "Tattoo With Thiyagarajan",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T05:30:00.000Z",
+      "end_time": "2026-05-16T06:30:00.000Z",
+      "created_at": "2026-05-15T12:12:26.213Z",
+      "updated_at": "2026-05-15T12:35:59.813Z",
+      "metadata": {
+        "uid": "66h4ML5FKA1Vf2KipFfu87",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 125986,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96690,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79692,
+          "slug": "tattoo-with-thiyagarajan",
+          "price": 0,
+          "title": "Tattoo With Thiyagarajan",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96690",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "guests": [],
+          "location": {
+            "value": "inPerson",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "Where-on-your-body-and-what-size--inches": "Hand",
+          "What-is-your-maximum-budget-for-this-piece": "500 rupees",
+          "Describe-your-idea-or-provide-a-reference-link": "Leaf art"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x7000sl104ofvxj8au",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96740",
+      "event_type_id": "79692",
+      "event_type_name": "Tattoo With Thiyagarajan",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T05:30:00.000Z",
+      "end_time": "2026-05-16T06:30:00.000Z",
+      "created_at": "2026-05-15T13:31:27.958Z",
+      "updated_at": "2026-05-15T15:00:04.022Z",
+      "metadata": {
+        "uid": "jno2ToZnyHVYzmigikZ8Sz",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126040,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96740,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79692,
+          "slug": "tattoo-with-thiyagarajan",
+          "price": 0,
+          "title": "Tattoo With Thiyagarajan",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96740",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "guests": [],
+          "location": {
+            "value": "inPerson",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "Where-on-your-body-and-what-size--inches": "Hand",
+          "What-is-your-maximum-budget-for-this-piece": "300",
+          "Describe-your-idea-or-provide-a-reference-link": "Fine line"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    },
+    {
+      "id": "cmmemcryw006tk1ho3wag8lne",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "cal_connection_id": "cmm1lwwx50001k15sd1shz4tc",
+      "cal_booking_id": "63297",
+      "event_type_id": "52243",
+      "event_type_name": "Cab Booking",
+      "host_name": "Bold Labs",
+      "host_email": "goboldlabs@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "SCHEDULED",
+      "start_time": "2026-03-06T10:15:00.000Z",
+      "end_time": "2026-03-06T10:17:00.000Z",
+      "created_at": "2026-03-06T08:13:57.021Z",
+      "updated_at": "2026-03-06T08:13:58.258Z",
+      "metadata": {
+        "uid": "8iqPY6e1Bo27NY55otYTQV",
+        "paid": false,
+        "location": "640-2-2 Gr nagar 2nd cross street, moondrumavadi madurai - 625007",
+        "attendees": [
+          {
+            "id": 78199,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 63297,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 52243,
+          "slug": "cab-booking",
+          "price": 0,
+          "title": "Cab Booking",
+          "length": 2,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "63297",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "guests": [],
+          "location": {
+            "value": "inPerson",
+            "optionValue": ""
+          },
+          "attendeePhoneNumber": "+918870341570",
+          "Why-you-need-training--": "To improve you dumb ass"
+        },
+        "description": "",
+        "bookingFieldLabels": {
+          "name": "Your Name",
+          "email": "Email Address",
+          "notes": "Additional Notes",
+          "title": "What is this meeting about?",
+          "guests": "Additional Guests",
+          "location": "Location",
+          "rescheduleReason": "Reason for Rescheduling",
+          "attendeePhoneNumber": "Phone Number",
+          "Why-you-need-training--": "Why you need training ?"
+        }
+      },
+      "inserted_at": "2026-03-06T08:14:55.640Z",
+      "updated_local_at": "2026-03-06T09:46:07.704Z",
+      "amount": null
+    },
+    {
+      "id": "cmp72z0x4000kl104fq87u0of",
+      "tenant_id": "cmp72w4390000l10465m8zogk",
+      "cal_connection_id": "cmp72yrfd0004l104ocjg1tfk",
+      "cal_booking_id": "96763",
+      "event_type_id": "79692",
+      "event_type_name": "Tattoo With Thiyagarajan",
+      "host_name": "Tattoo Studio",
+      "host_email": "180tattooaishuthiyagu@gmail.com",
+      "attendee_name": "Bhuvanesh",
+      "attendee_email": "bhuvaneshbhuvanesh21@gmail.com",
+      "status": "CANCELLED",
+      "start_time": "2026-05-16T08:30:00.000Z",
+      "end_time": "2026-05-16T09:30:00.000Z",
+      "created_at": "2026-05-15T14:26:39.344Z",
+      "updated_at": "2026-05-15T15:00:20.766Z",
+      "metadata": {
+        "uid": "p7We9aMXNUYEYsntxUmXse",
+        "paid": false,
+        "location": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+        "attendees": [
+          {
+            "id": 126066,
+            "name": "Bhuvanesh",
+            "email": "bhuvaneshbhuvanesh21@gmail.com",
+            "locale": "en",
+            "noShow": false,
+            "timeZone": "Asia/Calcutta",
+            "bookingId": 96763,
+            "phoneNumber": "+918870341570"
+          }
+        ],
+        "eventType": {
+          "id": 79692,
+          "slug": "tattoo-with-thiyagarajan",
+          "price": 0,
+          "title": "Tattoo With Thiyagarajan",
+          "length": 60,
+          "currency": "usd",
+          "schedulingType": ""
+        },
+        "numericId": "96763",
+        "responses": {
+          "name": "Bhuvanesh",
+          "email": "bhuvaneshbhuvanesh21@gmail.com",
+          "notes": "Nothing",
+          "budget": "200",
+          "design": "fine line",
+          "guests": [],
+          "location": {
+            "value": "No 114/128, Eldams Rd market, opposite Chennai, Teynampet, Chennai, Tamil Nadu 600018",
+            "optionValue": ""
+          },
+          "locations": "hand",
+          "attendeePhoneNumber": "+918870341570"
+        },
+        "description": "Nothing",
+        "bookingFieldLabels": {}
+      },
+      "inserted_at": "2026-05-15T15:37:04.710Z",
+      "updated_local_at": "2026-05-19T18:53:15.342Z",
+      "amount": null
+    }
+  ],
+  "Client": [],
+  "ClientNote": [],
+  "Audience": [
+    {
+      "id": "cmm5vlnfm002pk1x4lbb8tn80",
+      "tenant_id": "cmlz1ohzi0000k1tgj9qphvys",
+      "name": "All Clients",
+      "description": "Automatically includes every client in your database",
+      "rules": {},
+      "created_at": "2026-02-28T05:23:50.626Z",
+      "updated_at": "2026-02-28T05:23:50.626Z"
+    },
+    {
+      "id": "cmm5vlw6r002rk1x4z6pf4s6n",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "name": "All Clients",
+      "description": "Automatically includes every client in your database",
+      "rules": {},
+      "created_at": "2026-02-28T05:24:01.971Z",
+      "updated_at": "2026-02-28T05:24:01.971Z"
+    }
+  ],
+  "Campaign": [
+    {
+      "id": "cmm5w8eyh000hk1dsaldkys3v",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "name": "Bhuvanesh",
+      "subject": "Im Back with new offer",
+      "body_html": "HI guys\n<br>\nHiw are you guys",
+      "status": "COMPLETED",
+      "audience_id": "cmm5vlw6r002rk1x4z6pf4s6n",
+      "scheduled_at": null,
+      "sent_at": "2026-02-28T05:41:38.775Z",
+      "created_at": "2026-02-28T05:41:32.634Z",
+      "updated_at": "2026-02-28T05:41:38.775Z"
+    }
+  ],
+  "CampaignRecipient": [],
+  "SmtpConfig": [
+    {
+      "id": "cmmem7bun005vk1ho09r67g40",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "host": "smtp.gmail.com",
+      "port": 587,
+      "secure": false,
+      "user": "goboldlabs@gmail.com",
+      "password": "bmqCzDT1f3D0FoMyR7KGfg==:/t+ZSBH75Z0EKHuLW3hYBA==:wU3rJjwU3ZR+XwOpCEv5+hnC2Q==",
+      "created_at": "2026-03-06T08:10:41.471Z",
+      "updated_at": "2026-03-06T08:10:41.471Z"
+    }
+  ],
+  "ReviewRequestTemplate": [
+    {
+      "id": "cmmelz0bi0041k1hogtchpu85",
+      "tenant_id": "cmm0844jd0000k1hsmywylwqr",
+      "subject": "Review Request ",
+      "body_html": "Hi {{client.name}},\n<br><br>\nThanks for choosing us among other therpaists \nwe are glad that we have put more than what we can do, It will pleasure if yopu leave us a review which helps us to move better with your sugggestions.",
+      "created_at": "2026-03-06T08:04:13.278Z",
+      "updated_at": "2026-03-06T08:04:13.278Z"
+    }
+  ],
+  "ReviewRequest": [],
+  "InternalFeedback": []
+}
