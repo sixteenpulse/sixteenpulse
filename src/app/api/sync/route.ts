@@ -24,10 +24,19 @@ export async function POST(req: Request) {
     const apiKey = decrypt(connection.access_token);
     const client = new CalComClient(apiKey);
 
+    // Delta sync: If we have successfully synced in the past 7 days, only sync bookings starting 7 days ago
+    const lastSynced = connection.last_synced_at;
+    const isDelta = !!(lastSynced && (Date.now() - lastSynced.getTime() < 7 * 24 * 60 * 60 * 1000));
+    const dateFrom = isDelta
+      ? new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+      : undefined;
+
+    console.log(`[Sync] connectionId=${connectionId} isDelta=${isDelta} dateFrom=${dateFrom}`);
+
     // Fetch bookings (fast) — this is the critical path
     const [activeBookings, cancelledBookings] = await Promise.all([
-      client.getBookings(),
-      client.getBookings({ status: "cancelled" }),
+      client.getBookings(dateFrom ? { dateFrom } : undefined),
+      client.getBookings(dateFrom ? { status: "cancelled", dateFrom } : { status: "cancelled" }),
     ]);
     const bookings = [...activeBookings, ...cancelledBookings];
 
@@ -83,8 +92,10 @@ export async function POST(req: Request) {
 
         // Check for changes
         const existing = existingMap.get(bookingId);
+        let bookingChanged = false;
         if (!existing) {
             hasChanges = true; // New booking
+            bookingChanged = true;
 
             // Only notify for future/current bookings (not old historical ones)
             const bookingEnd = b.endTime ? new Date(b.endTime) : null;
@@ -101,6 +112,7 @@ export async function POST(req: Request) {
             const oldDate = existing.updated_at.getTime();
             if (existing.status !== status || newDate > oldDate) {
                 hasChanges = true; // Status or updatedAt changed
+                bookingChanged = true;
             }
         }
 
@@ -108,7 +120,8 @@ export async function POST(req: Request) {
         const bookingFieldLabels = fieldLabelsMap[etId] || {};
 
         // Migrate old UID-based records to numeric ID
-        if (uid && uid !== bookingId) {
+        // Only run the migration if the old UID record actually exists in our DB
+        if (uid && uid !== bookingId && existingMap.has(uid)) {
           transactionOps.push(
             prisma.booking.deleteMany({
               where: {
@@ -117,6 +130,7 @@ export async function POST(req: Request) {
               }
             })
           );
+          bookingChanged = true; // Force upsert if UID is migrated
         }
 
         const metadata = {
@@ -144,47 +158,49 @@ export async function POST(req: Request) {
           ? b.eventType.price / 100
           : undefined;
 
-        transactionOps.push(
-          prisma.booking.upsert({
-            where: {
-              cal_connection_id_cal_booking_id: {
+        if (bookingChanged) {
+          transactionOps.push(
+            prisma.booking.upsert({
+              where: {
+                cal_connection_id_cal_booking_id: {
+                  cal_connection_id: connection.id,
+                  cal_booking_id: bookingId
+                }
+              },
+              update: {
+                status: status as any,
+                event_type_name: b.eventType?.title || b.title || undefined,
+                attendee_name: b.responses?.name || b.attendees?.[0]?.name || undefined,
+                attendee_email: b.responses?.email || b.attendees?.[0]?.email || undefined,
+                start_time: b.startTime ? new Date(b.startTime) : undefined,
+                end_time: b.endTime ? new Date(b.endTime) : undefined,
+                updated_at: b.updatedAt ? new Date(b.updatedAt) : new Date(),
+                metadata,
+                // Only set amount if Cal.id confirms payment — preserves manually entered amounts
+                ...(paidAmount !== undefined ? { amount: paidAmount } : {}),
+              },
+              create: {
+                tenant_id: connection.tenant_id,
                 cal_connection_id: connection.id,
-                cal_booking_id: bookingId
+                cal_booking_id: bookingId,
+                event_type_id: etId || "unknown",
+                event_type_name: b.eventType?.title || b.title || "Meeting",
+                host_name: b.user?.name || b.userPrimaryEmail || "Host",
+                host_email: b.user?.email || b.userPrimaryEmail || "",
+                attendee_name: b.responses?.name || b.attendees?.[0]?.name || "Attendee",
+                attendee_email: b.responses?.email || b.attendees?.[0]?.email || "",
+                status: status as any,
+                start_time: b.startTime ? new Date(b.startTime) : new Date(),
+                end_time: b.endTime ? new Date(b.endTime) : new Date(),
+                created_at: b.createdAt ? new Date(b.createdAt) : new Date(),
+                updated_at: b.updatedAt ? new Date(b.updatedAt) : new Date(),
+                metadata,
+                ...(paidAmount !== undefined ? { amount: paidAmount } : {}),
               }
-            },
-            update: {
-              status: status as any,
-              event_type_name: b.eventType?.title || b.title || undefined,
-              attendee_name: b.responses?.name || b.attendees?.[0]?.name || undefined,
-              attendee_email: b.responses?.email || b.attendees?.[0]?.email || undefined,
-              start_time: b.startTime ? new Date(b.startTime) : undefined,
-              end_time: b.endTime ? new Date(b.endTime) : undefined,
-              updated_at: b.updatedAt ? new Date(b.updatedAt) : new Date(),
-              metadata,
-              // Only set amount if Cal.id confirms payment — preserves manually entered amounts
-              ...(paidAmount !== undefined ? { amount: paidAmount } : {}),
-            },
-            create: {
-              tenant_id: connection.tenant_id,
-              cal_connection_id: connection.id,
-              cal_booking_id: bookingId,
-              event_type_id: etId || "unknown",
-              event_type_name: b.eventType?.title || b.title || "Meeting",
-              host_name: b.user?.name || b.userPrimaryEmail || "Host",
-              host_email: b.user?.email || b.userPrimaryEmail || "",
-              attendee_name: b.responses?.name || b.attendees?.[0]?.name || "Attendee",
-              attendee_email: b.responses?.email || b.attendees?.[0]?.email || "",
-              status: status as any,
-              start_time: b.startTime ? new Date(b.startTime) : new Date(),
-              end_time: b.endTime ? new Date(b.endTime) : new Date(),
-              created_at: b.createdAt ? new Date(b.createdAt) : new Date(),
-              updated_at: b.updatedAt ? new Date(b.updatedAt) : new Date(),
-              metadata,
-              ...(paidAmount !== undefined ? { amount: paidAmount } : {}),
-            }
-          })
-        );
-        totalSynced++;
+            })
+          );
+          totalSynced++;
+        }
       }
 
       // Execute batch query for these 50 bookings

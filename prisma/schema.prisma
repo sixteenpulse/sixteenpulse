@@ -100,6 +100,9 @@ model Booking {
 
   @@unique([cal_connection_id, cal_booking_id])
   @@index([tenant_id, start_time])
+  @@index([tenant_id, status, start_time])
+  @@index([tenant_id, end_time, start_time])
+  @@index([tenant_id, attendee_email, start_time])
 }
 
 model Client {
@@ -139,6 +142,8 @@ model Audience {
   updated_at  DateTime   @updatedAt
   tenant      Tenant     @relation(fields: [tenant_id], references: [id])
   campaigns   Campaign[]
+
+  @@index([tenant_id])
 }
 
 model Campaign {
@@ -156,6 +161,8 @@ model Campaign {
   audience     Audience?           @relation(fields: [audience_id], references: [id])
   tenant       Tenant              @relation(fields: [tenant_id], references: [id])
   recipients   CampaignRecipient[]
+
+  @@index([tenant_id])
 }
 
 model CampaignRecipient {
@@ -204,6 +211,8 @@ model ReviewRequest {
   sent_at    DateTime @default(now())
   booking    Booking? @relation(fields: [booking_id], references: [id])
   client     Client   @relation(fields: [client_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
 }
 
 model InternalFeedback {
@@ -218,6 +227,8 @@ model InternalFeedback {
   updated_at DateTime @updatedAt
   booking    Booking? @relation(fields: [booking_id], references: [id])
   client     Client   @relation(fields: [client_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
 }
 
 enum Role {
