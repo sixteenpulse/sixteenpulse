@@ -205,24 +205,28 @@ export async function POST(req: Request) {
                         const eventDate = payload.startTime ? new Date(payload.startTime).toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : "TBD";
                         const eventName = payload.title || payload.eventType?.title || "a Meeting";
                         
-                        let message = `📅 *NEW BOOKING RECEIVED!*\n\n`;
-                        message += `👤 *Client:* ${attendeeName}\n`;
-                        if (attendeeEmail) message += `✉️ *Email:* ${attendeeEmail}\n`;
-                        message += `🏷️ *Service:* ${eventName}\n`;
-                        message += `⏰ *Date:* ${eventDate}\n`;
+                        let message = `📅 <b>NEW BOOKING RECEIVED!</b>\n\n`;
+                        message += `👤 <b>Client:</b> ${attendeeName}\n`;
+                        if (attendeeEmail) message += `✉️ <b>Email:</b> ${attendeeEmail}\n`;
+                        message += `🏷️ <b>Service:</b> ${eventName}\n`;
+                        message += `⏰ <b>Date:</b> ${eventDate}\n`;
 
                         // We just created the booking, but we need its ID.
                         // We can fetch it or just link to the main bookings page if we don't have the ID handy.
                         // Actually, we just ran prisma.booking.create, so let's link to the bookings dashboard.
                         const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://app.sixteenpulse.com";
-                        message += `\n🔗 [View in Dashboard](${appUrl}/bookings)`;
+                        message += `\n🔗 <a href="${appUrl}/bookings">View in Dashboard</a>`;
 
                         const encodedMessage = encodeURIComponent(message);
 
                         await Promise.all(tenantUsers.map(async (u) => {
                             if (u.telegram_chat_id) {
-                                const url = `https://api.telegram.org/bot${tgToken.trim()}/sendMessage?chat_id=${u.telegram_chat_id.trim()}&text=${encodedMessage}&parse_mode=Markdown`;
-                                await fetch(url).catch(e => console.error("Telegram error:", e));
+                                const url = `https://api.telegram.org/bot${tgToken.trim()}/sendMessage?chat_id=${u.telegram_chat_id.trim()}&text=${encodedMessage}&parse_mode=HTML`;
+                                const res = await fetch(url);
+                                if (!res.ok) {
+                                    const errText = await res.text();
+                                    console.error("Telegram API Error:", errText);
+                                }
                             }
                         }));
                     }
