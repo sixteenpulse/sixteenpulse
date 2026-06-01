@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
-const SYNC_INTERVAL_MS = 30 * 1000; // 30 seconds
+const SYNC_INTERVAL_MS = 10 * 1000; // 10 seconds
 
 /**
  * Background sync component:

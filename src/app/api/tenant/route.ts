@@ -19,7 +19,9 @@ export async function GET() {
             return NextResponse.json({ error: "Tenant not found" }, { status: 404 });
         }
 
-        return NextResponse.json({ tenant });
+        return NextResponse.json({ tenant }, {
+            headers: { "Cache-Control": "private, max-age=30" }
+        });
     } catch (err) {
         console.error("Error fetching tenant details:", err);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

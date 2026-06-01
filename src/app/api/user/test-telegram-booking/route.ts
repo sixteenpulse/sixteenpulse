@@ -47,7 +47,7 @@ export async function POST() {
         message += `🏷️ <b>Service:</b> ${eventName}\n`;
         message += `⏰ <b>Date:</b> ${eventDate}\n`;
         
-        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://app.sixteenpulse.com";
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://sixteen-pulse.vercel.app";
         message += `\n🔗 <a href="${appUrl}/bookings/${latestBooking.id}">View Booking Details</a>`;
 
         const res = await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {

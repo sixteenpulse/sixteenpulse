@@ -212,7 +212,7 @@ export async function POST(req: Request) {
         });
 
         if (tenantUsers.length > 0) {
-          const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://app.sixteenpulse.com";
+          const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://sixteen-pulse.vercel.app";
 
           for (const newBooking of newBookingDetails) {
             const eventDate = newBooking.startTime

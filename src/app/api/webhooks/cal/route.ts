@@ -214,7 +214,7 @@ export async function POST(req: Request) {
                         // We just created the booking, but we need its ID.
                         // We can fetch it or just link to the main bookings page if we don't have the ID handy.
                         // Actually, we just ran prisma.booking.create, so let's link to the bookings dashboard.
-                        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://app.sixteenpulse.com";
+                        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://sixteen-pulse.vercel.app";
                         message += `\n🔗 <a href="${appUrl}/bookings">View in Dashboard</a>`;
 
                         const encodedMessage = encodeURIComponent(message);
