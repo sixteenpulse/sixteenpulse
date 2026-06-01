@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Save, CheckCircle2, Key, RefreshCw, X, Plus, Loader2, Filter } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { CheckCircle2, RefreshCw, X, Plus, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import PwaSettings from "@/components/settings/PwaSettings";
 import SecuritySettings from "@/components/settings/SecuritySettings";
