@@ -190,7 +190,7 @@ export async function POST(req: Request) {
 
                         await Promise.all(tenantUsers.map(async (u) => {
                             if (u.telegram_chat_id) {
-                                const url = `https://api.telegram.org/bot${tgToken}/sendMessage?chat_id=${u.telegram_chat_id}&text=${encodedMessage}&parse_mode=Markdown`;
+                                const url = `https://api.telegram.org/bot${tgToken.trim()}/sendMessage?chat_id=${u.telegram_chat_id.trim()}&text=${encodedMessage}&parse_mode=Markdown`;
                                 await fetch(url).catch(e => console.error("Telegram error:", e));
                             }
                         }));
