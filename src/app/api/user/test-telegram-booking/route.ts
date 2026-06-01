@@ -41,18 +41,24 @@ export async function POST() {
         const attendeeName = latestBooking.attendee_name || "Unknown";
         const attendeeEmail = latestBooking.attendee_email || "";
 
-        let message = `📅 *TEST BOOKING RECEIVED!*\n\n`;
-        message += `👤 *Client:* ${attendeeName}\n`;
-        if (attendeeEmail) message += `✉️ *Email:* ${attendeeEmail}\n`;
-        message += `🏷️ *Service:* ${eventName}\n`;
-        message += `⏰ *Date:* ${eventDate}\n`;
+        let message = `📅 <b>TEST BOOKING RECEIVED!</b>\n\n`;
+        message += `👤 <b>Client:</b> ${attendeeName}\n`;
+        if (attendeeEmail) message += `✉️ <b>Email:</b> ${attendeeEmail}\n`;
+        message += `🏷️ <b>Service:</b> ${eventName}\n`;
+        message += `⏰ <b>Date:</b> ${eventDate}\n`;
         
         const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://app.sixteenpulse.com";
-        message += `\n🔗 [View Booking Details](${appUrl}/bookings/${latestBooking.id})`;
+        message += `\n🔗 <a href="${appUrl}/bookings/${latestBooking.id}">View Booking Details</a>`;
 
-        const url = `https://api.telegram.org/bot${tgToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-
-        const res = await fetch(url);
+        const res = await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+                parse_mode: "HTML"
+            })
+        });
         const data = await res.json();
 
         if (!data.ok) {

@@ -13,7 +13,8 @@ export async function POST(req: Request) {
     }
 
     const connection = await prisma.calConnection.findUnique({
-      where: { id: connectionId }
+      where: { id: connectionId },
+      include: { tenant: true }
     });
 
     if (!connection) {
@@ -39,6 +40,14 @@ export async function POST(req: Request) {
     // ─── Sync bookings (fast path) ──────────────────────────
     let totalSynced = 0;
     let hasChanges = false;
+
+    // Track new bookings for Telegram notifications
+    const newBookingDetails: Array<{
+      attendeeName: string;
+      attendeeEmail: string;
+      eventName: string;
+      startTime: string | null;
+    }> = [];
 
     // Fetch existing bookings to compare for changes
     const existingBookings = await prisma.booking.findMany({
@@ -76,6 +85,17 @@ export async function POST(req: Request) {
         const existing = existingMap.get(bookingId);
         if (!existing) {
             hasChanges = true; // New booking
+
+            // Only notify for future/current bookings (not old historical ones)
+            const bookingEnd = b.endTime ? new Date(b.endTime) : null;
+            if (!bookingEnd || bookingEnd > now) {
+              newBookingDetails.push({
+                attendeeName: b.responses?.name || b.attendees?.[0]?.name || "Attendee",
+                attendeeEmail: b.responses?.email || b.attendees?.[0]?.email || "",
+                eventName: b.eventType?.title || b.title || "Meeting",
+                startTime: b.startTime || null,
+              });
+            }
         } else {
             const newDate = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
             const oldDate = existing.updated_at.getTime();
@@ -178,6 +198,64 @@ export async function POST(req: Request) {
       where: { id: connection.id },
       data: { last_synced_at: new Date() }
     });
+
+    // ─── Send Telegram notifications for new bookings ───────
+    if (newBookingDetails.length > 0 && connection.tenant?.telegram_bot_token) {
+      try {
+        const tgToken = connection.tenant.telegram_bot_token.trim();
+        const tenantUsers = await prisma.user.findMany({
+          where: {
+            tenant_id: connection.tenant_id,
+            telegram_chat_id: { not: null }
+          },
+          select: { telegram_chat_id: true }
+        });
+
+        if (tenantUsers.length > 0) {
+          const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://app.sixteenpulse.com";
+
+          for (const newBooking of newBookingDetails) {
+            const eventDate = newBooking.startTime
+              ? new Date(newBooking.startTime).toLocaleString('en-US', {
+                  weekday: 'long', year: 'numeric', month: 'long',
+                  day: 'numeric', hour: 'numeric', minute: '2-digit'
+                })
+              : "TBD";
+
+            let message = `📅 <b>NEW BOOKING RECEIVED!</b>\n\n`;
+            message += `👤 <b>Client:</b> ${newBooking.attendeeName}\n`;
+            if (newBooking.attendeeEmail) message += `✉️ <b>Email:</b> ${newBooking.attendeeEmail}\n`;
+            message += `🏷️ <b>Service:</b> ${newBooking.eventName}\n`;
+            message += `⏰ <b>Date:</b> ${eventDate}\n`;
+            message += `\n🔗 <a href="${appUrl}/bookings">View in Dashboard</a>`;
+
+            for (const u of tenantUsers) {
+              if (u.telegram_chat_id) {
+                try {
+                  const res = await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      chat_id: u.telegram_chat_id.trim(),
+                      text: message,
+                      parse_mode: "HTML"
+                    })
+                  });
+                  if (!res.ok) {
+                    const errData = await res.text();
+                    console.error("Telegram send error:", errData);
+                  }
+                } catch (tgErr) {
+                  console.error("Telegram fetch error:", tgErr);
+                }
+              }
+            }
+          }
+        }
+      } catch (tgErr) {
+        console.error("Telegram notification error in sync:", tgErr);
+      }
+    }
 
     // ─── Fetch field labels in background (non-blocking) ─────
     // Only re-fetch labels if stale (>30 min) to avoid slowing every sync
