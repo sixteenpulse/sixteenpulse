@@ -38,8 +38,7 @@ model User {
   password_hash      String
   role               Role               @default(MEMBER)
   created_at         DateTime           @default(now())
-  callmebot_phone    String?
-  callmebot_apikey   String?
+  telegram_chat_id   String?
   tenant             Tenant             @relation(fields: [tenant_id], references: [id])
   pushSubscriptions  PushSubscription[]
 }

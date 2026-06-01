@@ -11,7 +11,7 @@ export async function GET() {
 
         const user = await prisma.user.findUnique({
             where: { id: session.user.id },
-            select: { name: true, email: true, role: true, callmebot_phone: true, callmebot_apikey: true }
+            select: { name: true, email: true, role: true, telegram_chat_id: true }
         });
 
         return NextResponse.json({ success: true, user });
@@ -33,11 +33,8 @@ export async function PUT(req: Request) {
         if (body.name && body.name.trim().length > 0) {
             dataToUpdate.name = body.name.trim();
         }
-        if (body.callmebot_phone !== undefined) {
-            dataToUpdate.callmebot_phone = body.callmebot_phone;
-        }
-        if (body.callmebot_apikey !== undefined) {
-            dataToUpdate.callmebot_apikey = body.callmebot_apikey;
+        if (body.telegram_chat_id !== undefined) {
+            dataToUpdate.telegram_chat_id = body.telegram_chat_id;
         }
 
         if (Object.keys(dataToUpdate).length > 0) {
