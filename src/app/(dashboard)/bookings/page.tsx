@@ -10,11 +10,8 @@ import { BookingRowActions } from "@/components/bookings/BookingRowActions";
 import { NewBookingButton } from "@/components/bookings/NewBookingModal";
 import { ExportButton } from "@/components/ui/ExportButton";
 import { getEventTypeFilter } from "@/lib/event-filter";
-import { SyncButton } from "@/components/bookings/SyncButton";
-import { AmountCell } from "@/components/bookings/AmountCell";
 import { extractPhone } from "@/lib/booking-utils";
 import { TableSkeleton } from "@/components/ui/TableSkeleton";
-import { TabsSkeleton, SyncButtonSkeleton } from "@/components/ui/TabsSkeleton";
 
 interface PageProps {
     searchParams: Promise<{ q?: string; page?: string; status?: string }>;
@@ -35,16 +32,11 @@ export default async function BookingsPage({ searchParams }: PageProps) {
                 <div className="flex items-center gap-2">
                     <SearchInput placeholder="Search..." className="w-40 sm:w-52" />
                     <ExportButton />
-                    <Suspense fallback={<SyncButtonSkeleton />}>
-                        <SyncButtonWrapper tenantId={session.user.tenant_id} />
-                    </Suspense>
                     <NewBookingButton />
                 </div>
             </div>
 
-            <Suspense fallback={<TabsSkeleton />}>
-                <BookingsTabs tenantId={session.user.tenant_id} q={q} statusFilter={statusFilter} />
-            </Suspense>
+            <BookingsTabs q={q} statusFilter={statusFilter} />
 
             <Suspense key={`${q}-${statusFilter}-${params.page || "1"}`} fallback={<TableSkeleton rows={10} columns={7} />}>
                 <BookingsTable searchParams={params} tenantId={session.user.tenant_id} q={q} statusFilter={statusFilter} />
@@ -53,52 +45,12 @@ export default async function BookingsPage({ searchParams }: PageProps) {
     );
 }
 
-async function SyncButtonWrapper({ tenantId }: { tenantId: string }) {
-    const connection = await prisma.calConnection.findFirst({
-        where: { tenant_id: tenantId, status: "CONNECTED" },
-        select: { id: true }
-    });
-    return connection ? <SyncButton connectionId={connection.id} /> : null;
-}
-
-async function BookingsTabs({ tenantId, q, statusFilter }: { tenantId: string, q: string, statusFilter: string }) {
-    const filter = await getEventTypeFilter(tenantId);
-    const ef = filter ? { event_type_name: { in: filter } } : {};
-    const baseWhere: any = { tenantId: tenantId, ...ef };
-
-    const now = new Date();
-
-    const [cancelledCount, countCompleted, countScheduled] = await Promise.all([
-        prisma.booking.count({
-            where: { tenant_id: tenantId, status: "CANCELLED", ...ef }
-        }),
-        prisma.booking.count({
-            where: {
-                tenant_id: tenantId,
-                ...ef,
-                OR: [
-                    { status: "COMPLETED" },
-                    { status: "SCHEDULED", end_time: { lt: now } }
-                ]
-            }
-        }),
-        prisma.booking.count({
-            where: {
-                tenant_id: tenantId,
-                status: "SCHEDULED",
-                end_time: { gte: now },
-                ...ef
-            }
-        })
-    ]);
-
-    const totalAll = countScheduled + countCompleted + cancelledCount;
-
+function BookingsTabs({ q, statusFilter }: { q: string, statusFilter: string }) {
     const tabs = [
-        { key: "", label: "All", count: totalAll },
-        { key: "SCHEDULED", label: "Upcoming", count: countScheduled },
-        { key: "COMPLETED", label: "Completed", count: countCompleted },
-        { key: "CANCELLED", label: "Cancelled", count: cancelledCount },
+        { key: "", label: "All" },
+        { key: "SCHEDULED", label: "Upcoming" },
+        { key: "COMPLETED", label: "Completed" },
+        { key: "CANCELLED", label: "Cancelled" },
     ];
 
     return (
@@ -114,7 +66,7 @@ async function BookingsTabs({ tenantId, q, statusFilter }: { tenantId: string, q
                             ? "bg-stone-900 text-white font-medium"
                             : "bg-white border border-[#e5e3d9] text-stone-600 hover:bg-[#fcfcfb] hover:text-stone-900 font-normal"
                             }`}>
-                        {tab.label} <span className={isActive ? "text-stone-300 ml-1" : "text-stone-400 ml-1"}>{tab.count}</span>
+                        {tab.label}
                     </Link>
                 );
             })}
