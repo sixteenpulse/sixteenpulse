@@ -34,14 +34,19 @@ export function RealtimeSync() {
                 connectionIdRef.current = conn.id;
             }
 
-            await fetch("/api/sync", {
+            const res = await fetch("/api/sync", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ connectionId: connectionIdRef.current }),
             });
+            const result = await res.json();
 
             lastSyncRef.current = Date.now();
-            router.refresh();
+            
+            // Only refresh the page if new data was actually synced
+            if (result.updated) {
+                router.refresh();
+            }
         } catch { }
         finally { isSyncingRef.current = false; }
     }, [router]);

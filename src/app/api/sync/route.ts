@@ -38,6 +38,14 @@ export async function POST(req: Request) {
 
     // ─── Sync bookings (fast path) ──────────────────────────
     let totalSynced = 0;
+    let hasChanges = false;
+
+    // Fetch existing bookings to compare for changes
+    const existingBookings = await prisma.booking.findMany({
+      where: { cal_connection_id: connection.id },
+      select: { cal_booking_id: true, status: true, updated_at: true }
+    });
+    const existingMap = new Map(existingBookings.map(b => [b.cal_booking_id, b]));
 
     const now = new Date();
     const BATCH_SIZE = 50;
@@ -63,6 +71,18 @@ export async function POST(req: Request) {
         const uid = b.uid || numericId;
         if (!numericId && !uid) continue;
         const bookingId = numericId || uid;
+
+        // Check for changes
+        const existing = existingMap.get(bookingId);
+        if (!existing) {
+            hasChanges = true; // New booking
+        } else {
+            const newDate = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+            const oldDate = existing.updated_at.getTime();
+            if (existing.status !== status || newDate > oldDate) {
+                hasChanges = true; // Status or updatedAt changed
+            }
+        }
 
         const etId = b.eventTypeId?.toString() || b.eventType?.id?.toString() || "";
         const bookingFieldLabels = fieldLabelsMap[etId] || {};
@@ -225,6 +245,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
+      updated: hasChanges,
       message: `Synced ${totalSynced} bookings`
     });
 
