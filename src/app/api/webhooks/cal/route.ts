@@ -198,7 +198,12 @@ export async function POST(req: Request) {
                         if (attendeeEmail) message += `✉️ *Email:* ${attendeeEmail}\n`;
                         message += `🏷️ *Service:* ${eventName}\n`;
                         message += `⏰ *Date:* ${eventDate}\n`;
-                        message += `\n🔗 *Log into your dashboard to view full details.*`;
+
+                        // We just created the booking, but we need its ID.
+                        // We can fetch it or just link to the main bookings page if we don't have the ID handy.
+                        // Actually, we just ran prisma.booking.create, so let's link to the bookings dashboard.
+                        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://app.sixteenpulse.com";
+                        message += `\n🔗 [View in Dashboard](${appUrl}/bookings)`;
 
                         const encodedMessage = encodeURIComponent(message);
 

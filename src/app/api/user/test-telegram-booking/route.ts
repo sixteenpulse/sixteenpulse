@@ -46,7 +46,9 @@ export async function POST() {
         if (attendeeEmail) message += `✉️ *Email:* ${attendeeEmail}\n`;
         message += `🏷️ *Service:* ${eventName}\n`;
         message += `⏰ *Date:* ${eventDate}\n`;
-        message += `\n🔗 *Log into your dashboard to view full details.*`;
+        
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://app.sixteenpulse.com";
+        message += `\n🔗 [View Booking Details](${appUrl}/bookings/${latestBooking.id})`;
 
         const url = `https://api.telegram.org/bot${tgToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
 
