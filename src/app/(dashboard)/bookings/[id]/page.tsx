@@ -58,89 +58,52 @@ export default async function BookingDetailPage({ params }: PageProps) {
             </div>
 
             <div className="bg-warm-white rounded-xl border border-warm overflow-hidden">
-                <div className="px-6 py-5 border-b border-[#e4ddd4]">
-                    <h2 className="text-base font-medium text-stone-900">{booking.event_type_name}</h2>
-                    <p className="text-stone-400 text-xs mt-0.5">ID: {booking.cal_booking_id}</p>
+                <div className="px-6 py-5 border-b border-[#e4ddd4] bg-[#faf9f8]">
+                    <h2 className="text-base font-medium text-stone-900">Booking Details</h2>
+                    <p className="text-stone-500 text-xs mt-0.5">ID: {booking.cal_booking_id}</p>
                 </div>
 
-                <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-6">
-                        <div>
-                            <label className="text-xs font-medium text-stone-400 mb-2.5 block">Date & Time</label>
-                            <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-lg bg-accent-light flex items-center justify-center shrink-0">
-                                    <Calendar className="w-4 h-4 text-accent" />
-                                </div>
-                                <div>
-                                    <p className="font-medium text-stone-900 text-sm">{format(new Date(booking.start_time), "EEEE, MMMM d, yyyy")}</p>
-                                    <p className="text-xs text-stone-400 mt-0.5">
-                                        {format(new Date(booking.start_time), "h:mm a")} – {format(new Date(booking.end_time), "h:mm a")}
-                                        <span className="ml-1.5">({duration} min)</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label className="text-xs font-medium text-stone-400 mb-2.5 block">Client</label>
-                            <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-lg bg-accent-light flex items-center justify-center shrink-0">
-                                    <User className="w-4 h-4 text-accent" />
-                                </div>
-                                <div>
-                                    <p className="font-medium text-stone-900 text-sm">{booking.attendee_name}</p>
-                                    <p className="text-xs text-stone-400 flex items-center gap-1 mt-0.5">
-                                        <Mail className="w-3 h-3" /> {booking.attendee_email}
-                                    </p>
-                                </div>
-                            </div>
+                <div className="divide-y divide-[#e4ddd4]">
+                    {/* Date & Time */}
+                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Date & Time</p>
+                        <div className="flex-1">
+                            <p className="text-[13px] font-medium text-stone-900">{format(new Date(booking.start_time), "EEEE, MMMM d, yyyy")}</p>
+                            <p className="text-[13px] text-stone-500 mt-0.5">{format(new Date(booking.start_time), "h:mm a")} – {format(new Date(booking.end_time), "h:mm a")} ({duration} min)</p>
                         </div>
                     </div>
 
-                    <div className="space-y-6">
-                        <div>
-                            <label className="text-xs font-medium text-stone-400 mb-2.5 block">Host</label>
-                            <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-lg bg-cream-dark flex items-center justify-center text-stone-600 font-semibold text-sm shrink-0">
-                                    {booking.host_name.charAt(0)}
-                                </div>
-                                <div>
-                                    <p className="font-medium text-stone-900 text-sm">{booking.host_name}</p>
-                                    <p className="text-xs text-stone-400 mt-0.5">{booking.host_email}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label className="text-xs font-medium text-stone-400 mb-2.5 block">Service</label>
-                            <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-lg bg-cream-dark flex items-center justify-center shrink-0">
-                                    <FileText className="w-4 h-4 text-stone-500" />
-                                </div>
-                                <div>
-                                    <p className="font-medium text-stone-900 text-sm">{booking.event_type_name}</p>
-                                    <p className="text-xs text-stone-400 flex items-center gap-1 mt-0.5">
-                                        <Clock className="w-3 h-3" /> {duration} minutes
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <label className="text-xs font-medium text-stone-400 mb-2.5 block">Custom Amount</label>
-                            <div className="flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
-                                    <DollarSign className="w-4 h-4 text-emerald-600" />
-                                </div>
-                                <div className="flex-1">
-                                    <AmountCell bookingId={booking.id} initialAmount={booking.amount} currency={booking.tenant?.currency || "USD"} />
-                                    <p className="text-[11px] text-stone-400 mt-0.5 leading-tight">Click to set offline pricing manually.</p>
-                                </div>
-                            </div>
+                    {/* Client */}
+                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Client</p>
+                        <div className="flex-1">
+                            <p className="text-[13px] font-medium text-stone-900">{booking.attendee_name}</p>
+                            <p className="text-[13px] text-stone-500 mt-0.5">{booking.attendee_email}</p>
                         </div>
                     </div>
-                </div>
 
-                <BookingLiveDetails bookingId={booking.id} />
+                    {/* Service */}
+                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Service</p>
+                        <p className="text-[13px] font-medium text-stone-900 flex-1 leading-relaxed">{booking.event_type_name}</p>
+                    </div>
+
+                    {/* Host */}
+                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Host</p>
+                        <p className="text-[13px] font-medium text-stone-900 flex-1 leading-relaxed">{booking.host_name}</p>
+                    </div>
+
+                    {/* Custom Amount */}
+                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Pricing</p>
+                        <div className="flex-1">
+                            <AmountCell bookingId={booking.id} initialAmount={booking.amount} currency={booking.tenant?.currency || "USD"} />
+                        </div>
+                    </div>
+
+                    <BookingLiveDetails bookingId={booking.id} />
+                </div>
 
                 {booking.status !== "CANCELLED" && booking.status !== "COMPLETED" && (
                     <div className="p-6 border-t border-[#e4ddd4] bg-cream-dark">

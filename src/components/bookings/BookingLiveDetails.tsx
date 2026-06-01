@@ -74,14 +74,6 @@ export function BookingLiveDetails({ bookingId }: BookingLiveDetailsProps) {
             .finally(() => setLoading(false));
     }, [bookingId]);
 
-    if (loading) {
-        return (
-            <div className="px-6 py-5 border-t border-[#e4ddd4] flex items-center gap-2 text-stone-400 text-sm">
-                <Loader2 className="w-4 h-4 animate-spin" /> Loading details...
-            </div>
-        );
-    }
-
     if (!calData) return null;
 
     const responses = calData.responses || {};
@@ -168,83 +160,64 @@ export function BookingLiveDetails({ bookingId }: BookingLiveDetailsProps) {
     if (!hasDetails) return null;
 
     return (
-        <div className="border-t border-[#e4ddd4]">
-            <div className="px-6 pt-5 pb-3 bg-[#faf9f8] border-b border-[#e4ddd4]">
-                <h3 className="text-sm font-semibold text-stone-800">
-                    Booking Details
-                </h3>
-            </div>
+        <>
+            {loading && (
+                <div className="px-6 py-4 flex items-center gap-2 text-stone-400 text-sm">
+                    <Loader2 className="w-4 h-4 animate-spin" /> Loading client responses...
+                </div>
+            )}
 
-            <div className="divide-y divide-[#e4ddd4]">
-                {displayFields.map((field) => (
-                    <div key={field.key} className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
-                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">{field.label}</p>
-                        <p className="text-[13px] font-medium text-stone-900 whitespace-pre-wrap break-words flex-1 leading-relaxed">{field.value}</p>
-                    </div>
-                ))}
+            {!loading && displayFields.map((field) => (
+                <div key={field.key} className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                    <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">{field.label}</p>
+                    <p className="text-[13px] font-medium text-stone-900 whitespace-pre-wrap break-words flex-1 leading-relaxed">{field.value}</p>
+                </div>
+            ))}
 
-                {guests.length > 0 && (
-                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
-                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">{fieldLabels["guests"] || "Additional Guests"}</p>
-                        <div className="space-y-1.5 flex-1">
-                            {guests.map((guest: string, i: number) => (
-                                <p key={i} className="text-[13px] font-medium text-stone-900 leading-relaxed">{guest}</p>
-                            ))}
-                        </div>
+            {!loading && guests.length > 0 && (
+                <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                    <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">{fieldLabels["guests"] || "Additional Guests"}</p>
+                    <div className="space-y-1.5 flex-1">
+                        {guests.map((guest: string, i: number) => (
+                            <p key={i} className="text-[13px] font-medium text-stone-900 leading-relaxed">{guest}</p>
+                        ))}
                     </div>
-                )}
+                </div>
+            )}
 
-                {description && !displayFields.some(f => f.value === description) && (
-                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
-                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Description</p>
-                        <p className="text-[13px] font-medium text-stone-900 whitespace-pre-wrap break-words flex-1 leading-relaxed">{description}</p>
-                    </div>
-                )}
+            {!loading && description && !displayFields.some(f => f.value === description) && (
+                <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                    <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Notes</p>
+                    <p className="text-[13px] font-medium text-stone-900 whitespace-pre-wrap break-words flex-1 leading-relaxed">{description}</p>
+                </div>
+            )}
 
-                {attendees.length > 0 && attendees.some((a: any) => a.timeZone || a.locale) && (
-                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
-                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Attendee Details</p>
-                        <div className="flex-1 space-y-1">
-                            {attendees.map((att: any, i: number) => (
-                                <div key={i} className="text-[13px] leading-relaxed">
-                                    {att.timeZone && <p className="text-stone-500">Timezone: <span className="font-medium text-stone-900">{att.timeZone}</span></p>}
-                                    {att.locale && <p className="text-stone-500">Language: <span className="font-medium text-stone-900">{att.locale}</span></p>}
-                                </div>
-                            ))}
-                        </div>
+            {!loading && attendees.length > 0 && attendees.some((a: any) => a.timeZone || a.locale) && (
+                <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                    <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Attendee Details</p>
+                    <div className="flex-1 space-y-1">
+                        {attendees.map((att: any, i: number) => (
+                            <div key={i} className="text-[13px] leading-relaxed">
+                                {att.timeZone && <p className="text-stone-500">Timezone: <span className="font-medium text-stone-900">{att.timeZone}</span></p>}
+                                {att.locale && <p className="text-stone-500">Language: <span className="font-medium text-stone-900">{att.locale}</span></p>}
+                            </div>
+                        ))}
                     </div>
-                )}
+                </div>
+            )}
 
-                {eventType && (
-                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
-                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Event Type</p>
-                        <div className="flex-1 flex flex-col gap-1.5 text-[13px]">
-                            {eventType.title && (
-                                <p className="text-stone-500">Name: <span className="font-medium text-stone-900">{eventType.title}</span></p>
-                            )}
-                            <p className="text-stone-500">Duration: <span className="font-medium text-stone-900">{eventType.length} min</span></p>
-                            {eventType.price > 0 && (
-                                <p className="text-stone-500">Price: <span className="font-medium text-stone-900">
-                                    {(eventType.price / 100).toFixed(2)} {eventType.currency?.toUpperCase()}
-                                </span></p>
-                            )}
-                        </div>
+            {!loading && paid !== undefined && (
+                <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
+                    <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Payment Status</p>
+                    <div className="flex-1">
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium uppercase tracking-wide ${
+                            paid ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-stone-100 text-stone-600 border border-stone-200"
+                        }`}>
+                            {paid ? "Paid" : "Unpaid"}
+                        </span>
                     </div>
-                )}
-
-                {paid !== undefined && (
-                    <div className="px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 hover:bg-[#fcfcfb] transition-colors">
-                        <p className="text-[13px] font-medium text-stone-500 w-full sm:w-48 shrink-0">Payment Status</p>
-                        <div className="flex-1">
-                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium uppercase tracking-wide ${
-                                paid ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-stone-100 text-stone-600 border border-stone-200"
-                            }`}>
-                                {paid ? "Paid" : "Unpaid"}
-                            </span>
-                        </div>
-                    </div>
-                )}
-            </div>
-        </div>
+                </div>
+            )}
+        </>
     );
 }
