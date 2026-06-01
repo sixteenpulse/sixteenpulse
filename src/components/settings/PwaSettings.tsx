@@ -1,12 +1,35 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Bell, BellRing, Loader2 } from "lucide-react";
+import { Bell, BellRing, Loader2, MessageCircle, Save, CheckCircle2 } from "lucide-react";
 
 export default function PwaSettings() {
     const [notifState, setNotifState] = useState<NotificationPermission | "default" | "loading" | "subscribed">("default");
+    
+    // WhatsApp States
+    const [waPhone, setWaPhone] = useState("");
+    const [waApiKey, setWaApiKey] = useState("");
+    const [isWaSaving, setIsWaSaving] = useState(false);
+    const [waSaved, setWaSaved] = useState(false);
 
     useEffect(() => {
+        // Fetch User's WhatsApp settings
+        const fetchUserSettings = async () => {
+            try {
+                const res = await fetch("/api/user");
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.user) {
+                        setWaPhone(data.user.callmebot_phone || "");
+                        setWaApiKey(data.user.callmebot_apikey || "");
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load user settings");
+            }
+        };
+        fetchUserSettings();
+
         // Check notification config
         if ("Notification" in window) {
             setNotifState(Notification.permission);
@@ -74,6 +97,25 @@ export default function PwaSettings() {
         return outputArray;
     }
 
+    const handleSaveWhatsApp = async () => {
+        setIsWaSaving(true);
+        try {
+            await fetch("/api/user", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    callmebot_phone: waPhone, 
+                    callmebot_apikey: waApiKey 
+                })
+            });
+            setWaSaved(true);
+            setTimeout(() => setWaSaved(false), 2000);
+        } catch {
+            alert("Failed to save WhatsApp settings.");
+        }
+        setIsWaSaving(false);
+    };
+
     return (
         <div className="space-y-8 max-w-2xl">
             <div>
@@ -111,6 +153,62 @@ export default function PwaSettings() {
                                     Enable Notifications
                                 </button>
                             )}
+                        </div>
+                    </div>
+
+                    {/* WhatsApp Notifications Block */}
+                    <div className="p-4 sm:p-6 bg-white border border-[#e5e3d9] rounded-xl space-y-5">
+                        <div className="flex items-start gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-green-50 text-green-600 flex items-center justify-center shrink-0">
+                                <MessageCircle className="w-5 h-5" />
+                            </div>
+                            <div>
+                                <h3 className="font-medium text-stone-900 text-sm">WhatsApp Notifications (CallMeBot)</h3>
+                                <p className="text-[13px] text-stone-500 mt-0.5">Receive an instant WhatsApp message when a new booking arrives.</p>
+                            </div>
+                        </div>
+                        
+                        <div className="bg-[#faf9f8] p-4 rounded-lg border border-[#e5e3d9] text-[13px] text-stone-600 space-y-2">
+                            <p><strong>Setup Instructions:</strong></p>
+                            <ol className="list-decimal pl-4 space-y-1">
+                                <li>Add the phone number <strong>+34 695 71 15 81</strong> to your phone contacts.</li>
+                                <li>Send the message <strong>"I allow callmebot to send me messages"</strong> to that contact on WhatsApp.</li>
+                                <li>The bot will reply with your API Key. Paste it below.</li>
+                            </ol>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-stone-700 mb-1.5">Your Phone Number</label>
+                                <input
+                                    type="text"
+                                    value={waPhone}
+                                    onChange={(e) => setWaPhone(e.target.value)}
+                                    placeholder="+1234567890"
+                                    className="w-full bg-white border border-[#e5e3d9] rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400 text-sm"
+                                />
+                                <p className="text-xs text-stone-400 mt-1">Include country code (e.g. +1)</p>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-stone-700 mb-1.5">API Key</label>
+                                <input
+                                    type="text"
+                                    value={waApiKey}
+                                    onChange={(e) => setWaApiKey(e.target.value)}
+                                    placeholder="1234567"
+                                    className="w-full bg-white border border-[#e5e3d9] rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-400 focus:border-stone-400 text-sm font-mono"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="pt-2 flex justify-end">
+                            <button 
+                                onClick={handleSaveWhatsApp}
+                                disabled={isWaSaving}
+                                className="px-4 py-2 rounded-lg bg-stone-900 text-white font-medium hover:bg-stone-800 text-sm transition-colors duration-150 shadow-sm flex items-center gap-2"
+                            >
+                                {isWaSaving ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving...</> : waSaved ? <><CheckCircle2 className="w-4 h-4" /> Saved</> : <><Save className="w-4 h-4" /> Save WhatsApp Settings</>}
+                            </button>
                         </div>
                     </div>
                 </div>

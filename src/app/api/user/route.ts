@@ -11,7 +11,7 @@ export async function GET() {
 
         const user = await prisma.user.findUnique({
             where: { id: session.user.id },
-            select: { name: true, email: true, role: true }
+            select: { name: true, email: true, role: true, callmebot_phone: true, callmebot_apikey: true }
         });
 
         return NextResponse.json({ success: true, user });
@@ -29,17 +29,22 @@ export async function PUT(req: Request) {
 
         const body = await req.json();
         
+        const dataToUpdate: any = {};
         if (body.name && body.name.trim().length > 0) {
+            dataToUpdate.name = body.name.trim();
+        }
+        if (body.callmebot_phone !== undefined) {
+            dataToUpdate.callmebot_phone = body.callmebot_phone;
+        }
+        if (body.callmebot_apikey !== undefined) {
+            dataToUpdate.callmebot_apikey = body.callmebot_apikey;
+        }
+
+        if (Object.keys(dataToUpdate).length > 0) {
             await prisma.user.update({
                 where: { id: session.user.id },
-                data: { name: body.name.trim() }
+                data: dataToUpdate
             });
-
-            // Update session if needed
-            if (session.user.name !== body.name.trim()) {
-                session.user.name = body.name.trim();
-                await session.save();
-            }
         }
 
         return NextResponse.json({ success: true });

@@ -161,6 +161,44 @@ export async function POST(req: Request) {
                 body: `${attendeeName} just booked ${payload.title || payload.eventType?.title || "a Meeting"}!`,
                 url: "/bookings",
             });
+
+            // --- WhatsApp Notifications via CallMeBot ---
+            try {
+                const tenantUsers = await prisma.user.findMany({
+                    where: { 
+                        tenant_id: connection.tenant_id, 
+                        callmebot_phone: { not: null }, 
+                        callmebot_apikey: { not: null } 
+                    },
+                    select: { callmebot_phone: true, callmebot_apikey: true }
+                });
+
+                if (tenantUsers.length > 0) {
+                    const eventDate = payload.startTime ? new Date(payload.startTime).toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : "TBD";
+                    const eventName = payload.title || payload.eventType?.title || "a Meeting";
+                    
+                    let message = `📅 *NEW BOOKING RECEIVED!*\n\n`;
+                    message += `👤 *Client:* ${attendeeName}\n`;
+                    if (attendeeEmail) message += `✉️ *Email:* ${attendeeEmail}\n`;
+                    message += `🏷️ *Service:* ${eventName}\n`;
+                    message += `⏰ *Date:* ${eventDate}\n`;
+                    message += `\n🔗 *Log into your dashboard to view full details.*`;
+
+                    const encodedMessage = encodeURIComponent(message);
+
+                    await Promise.all(tenantUsers.map(async (u) => {
+                        if (u.callmebot_phone && u.callmebot_apikey) {
+                            // CallMeBot requires the + to be stripped or properly encoded, but URL encoding + is %2B which encodeURIComponent handles.
+                            // If phone starts with '+', it's already properly formatted.
+                            const phone = u.callmebot_phone.replace('+', '%2B');
+                            const url = `https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${encodedMessage}&apikey=${u.callmebot_apikey}`;
+                            await fetch(url).catch(e => console.error("CallMeBot error:", e));
+                        }
+                    }));
+                }
+            } catch (waErr) {
+                console.error("WhatsApp notification error:", waErr);
+            }
         }
 
         return NextResponse.json({ received: true, processed: triggerEvent, bookingId: calBookingId });
