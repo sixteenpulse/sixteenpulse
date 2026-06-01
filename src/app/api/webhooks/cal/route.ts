@@ -27,10 +27,24 @@ export async function POST(req: Request) {
             return NextResponse.json({ received: true });
         }
 
-        const connection = await prisma.calConnection.findFirst({
-            where: { status: "CONNECTED" },
-            include: { tenant: true }
-        });
+        const calUserId = payload.userId?.toString();
+        
+        let connection = null;
+        
+        if (calUserId) {
+            connection = await prisma.calConnection.findFirst({
+                where: { cal_account_id: calUserId, status: "CONNECTED" },
+                include: { tenant: true }
+            });
+        }
+
+        if (!connection) {
+            connection = await prisma.calConnection.findFirst({
+                where: { status: "CONNECTED" },
+                orderBy: { created_at: "desc" },
+                include: { tenant: true }
+            });
+        }
 
         if (!connection) {
             console.warn("Webhook: no connected integration found");
