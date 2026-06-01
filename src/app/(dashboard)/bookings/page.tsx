@@ -10,6 +10,7 @@ import { BookingRowActions } from "@/components/bookings/BookingRowActions";
 import { NewBookingButton } from "@/components/bookings/NewBookingModal";
 import { ExportButton } from "@/components/ui/ExportButton";
 import { getEventTypeFilter } from "@/lib/event-filter";
+import { AmountCell } from "@/components/bookings/AmountCell";
 import { extractPhone } from "@/lib/booking-utils";
 import { TableSkeleton } from "@/components/ui/TableSkeleton";
 
