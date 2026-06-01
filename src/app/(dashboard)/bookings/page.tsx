@@ -105,6 +105,8 @@ async function BookingsTable({ searchParams, tenantId, q, statusFilter }: any) {
         ];
     } else if (statusFilter) {
         where.status = statusFilter;
+    } else {
+        where.status = { not: "CANCELLED" };
     }
 
     const [bookings, total, tenant] = await Promise.all([
